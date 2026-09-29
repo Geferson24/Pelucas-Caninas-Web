@@ -1,0 +1,242 @@
+<!doctype html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pelucas Caninas - Productos</title>
+    <link th:href="@{/img/perritos.png}" rel="icon" type="image/png" />
+    <link
+      crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link th:href="@{/css/style-general.css}" rel="stylesheet" />
+    <link th:href="@{/css/style-navbar.css}" rel="stylesheet" />
+    <link th:href="@{/css/style-footer.css}" rel="stylesheet" />
+    <link th:href="@{/css/style-productos.css}" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-pelucas">
+      <div class="container-fluid px-lg-4">
+        <a aria-label="Pelucas Caninas" class="navbar-brand logo" th:href="@{index.html}">
+          <img alt="Logo Pelucas Caninas" th:src="@{/img/Pelucas Caninas.png}" />
+          <span class="logo-text d-none d-xl-flex">
+            <span class="logo-title">Peluquería Canina</span>
+            <small>Belleza, cuidado y bienestar</small>
+          </span>
+        </a>
+        <button
+          aria-controls="navbarPelucas"
+          aria-expanded="false"
+          aria-label="Abrir menú"
+          class="navbar-toggler ms-auto"
+          data-bs-target="#navbarPelucas"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarPelucas">
+          <div class="navbar-nav menu mx-auto">
+            <a class="nav-link" th:href="@{index.html}">Inicio</a>
+            <a class="nav-link" th:href="@{servicios.html}">Servicios</a>
+            <a class="nav-link" th:href="@{productos.html}">Productos</a>
+            <a class="nav-link" th:href="@{index.html#contactanos}">Contáctanos</a>
+            <a class="nav-link" th:href="@{nosotros.html}">Nosotros</a>
+          </div>
+        </div>
+        <div class="nav-actions ms-lg-3">
+          <button
+            aria-label="Cambiar modo oscuro"
+            class="nav-icon-btn"
+            id="darkModeToggle"
+            type="button"
+          >
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button aria-label="Abrir carrito" class="nav-cart-btn" id="cartToggle" type="button">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cartCount">0</span>
+          </button>
+          <a
+            class="btn-reserva"
+            href="https://wa.me/51937317249?text=Hola,%20quiero%20reservar%20una%20cita%20para%20mi%20mascota."
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i class="fa-regular fa-calendar-days"></i> Reservar cita
+          </a>
+        </div>
+      </div>
+    </nav>
+    <main class="catalogo-page">
+      <header class="productos-encabezado">
+        <span class="productos-etiqueta"><i class="fa-solid fa-paw"></i> Precio y calidad</span>
+        <h2 class="titulo-seccion">Nuestros Productos</h2>
+        <p class="descripcion-seccion">
+          Productos seleccionados para el cuidado, higiene y bienestar de tu mascota.
+        </p>
+      </header>
+      <div class="catalogo-contenedor">
+        <aside aria-hidden="true" class="filtros-productos" id="panelFiltros">
+          <div class="filtro-header">
+            <h3>Filtrar</h3>
+            <button
+              aria-label="Cerrar filtros"
+              class="filtros-cerrar"
+              id="mobileFiltersClose"
+              type="button"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="filtro-grupo">
+            <button class="filtro-btn active" data-filter="all" type="button">Todos</button>
+            <button class="filtro-btn" data-filter="aseo" type="button">Aseo</button>
+            <button class="filtro-btn" data-filter="higiene" type="button">Higiene</button>
+            <button class="filtro-btn" data-filter="juguetes" type="button">Juguetes</button>
+            <button class="filtro-btn" data-filter="accesorios" type="button">Accesorios</button>
+          </div>
+          <div class="filtros-acciones-mobile">
+            <button class="btn-limpiar-filtros" id="clearMobileFilters" type="button">
+              Limpiar filtro
+            </button>
+          </div>
+        </aside>
+        <div aria-hidden="true" class="filtros-overlay" id="filtrosOverlay"></div>
+        <section class="productos" id="productos">
+          <div class="mobile-filtros-bar">
+            <button
+              aria-controls="panelFiltros"
+              aria-expanded="false"
+              class="mobile-filtros-btn"
+              id="mobileFiltersToggle"
+              type="button"
+            >
+              <i class="fa-solid fa-sliders"></i>
+              <span>Filtros</span>
+            </button>
+          </div>
+          <div class="buscador-productos">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="buscadorProductos" placeholder="Buscar producto..." type="text" />
+          </div>
+          <p class="sin-resultados" id="sinResultados">No se encontraron productos.</p>
+          <div class="productos-grid">
+            <article
+              th:each=" producto : ${productos}"
+              class="tarjeta"
+              th:data-categoria="${producto.tipo}"
+              th:data-img="${producto.imgurl}"
+              th:data-nombre="${producto.nombre}"
+              th:data-precio="${producto.precio}"
+            >
+              <a class="tarjeta-link" th:href="@{/detalle-producto(id=${producto.id})}">
+                <div class="tarjeta-imagen">
+                  <img
+                    th:alt="${producto.nombre}"
+                    decoding="async"
+                    loading="lazy"
+                    th:src="@{${producto.imgurl}}"
+                  />
+                </div>
+                <h3 th:text="${producto.nombre}"></h3>
+                <p th:text="${producto.descripcion}">
+                  Juguete interactivo para perros masticadores fuertes.
+                </p>
+              </a>
+              <p class="producto-precio" th:text="'S/.'+${producto.precio}">S/ 23.00</p>
+              <button class="btn-add-cart" type="button">
+                <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+              </button>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- footer -->
+    <footer class="footer-nuevo">
+      <div class="footer-contenedor">
+        <div class="footer-logo-box">
+          <img alt="Logo Pelucas Caninas" th:src="@{/img/Pelucas Caninas.png}" />
+        </div>
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <a th:href="@{index.html}">Inicio</a>
+          <a th:href="@{servicios.html}">Servicios</a>
+          <a th:href="@{productos.html}">Productos</a>
+          <a th:href="@{index.html#contactanos}">Contáctanos</a>
+          <a th:href="@{nosotros.html}">Nosotros</a>
+        </div>
+        <div class="footer-col">
+          <h4>Síguenos</h4>
+          <div class="footer-redes-nuevo">
+            <a
+              aria-label="TikTok"
+              href="https://www.tiktok.com/@pelucascaninasok?lang=es-419"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fab fa-tiktok"></i>
+            </a>
+            <a
+              aria-label="Facebook"
+              href="https://www.facebook.com/profile.php?id=100064917535819"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a
+              aria-label="Instagram"
+              href="https://www.instagram.com/pelucascaninas/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+          <h4 class="contactame-titulo">Contáctame</h4>
+          <p class="footer-correo">
+            <i class="fa-solid fa-envelope"></i>
+            manueltirado1978@gmail.com
+          </p>
+        </div>
+        <div class="footer-imagenes">
+          <a th:href="@{libro.html}">
+            <img
+              alt="Libro de Reclamaciones"
+              decoding="async"
+              loading="lazy"
+              th:src="@{/img/Libro de reclamaciones.jpg}"
+            />
+          </a>
+          <img alt="Medios de pago" decoding="async" loading="lazy" th:src="@{/img/pagos.png}" />
+        </div>
+        <div class="footer-col footer-legal">
+          <h4>Información legal</h4>
+          <a th:href="@{politica-privacidad.html}">Política de Privacidad</a
+          ><a th:href="@{terminos.html}">Términos y Condiciones</a>
+        </div>
+      </div>
+      <p class="footer-copy-nuevo">© 2026 Pelucas Caninas - Todos los derechos reservados</p>
+    </footer>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <script th:src="@{/js/app.js}"></script>
+  </body>
+</html>

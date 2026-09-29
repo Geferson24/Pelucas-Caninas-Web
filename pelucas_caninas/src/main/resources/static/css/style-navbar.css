@@ -1,0 +1,685 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  padding: 16px 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #1d1d1d;
+  z-index: 2;
+}
+
+.logo img {
+  height: 54px;
+  width: auto;
+  display: block;
+  border-radius: 14px;
+  background: #fff;
+  padding: 2px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.logo-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #1f1f1f;
+  font-family: "Georgia", "Times New Roman", serif;
+  text-transform: uppercase;
+}
+
+.logo-text small {
+  font-size: 0.72rem;
+  color: #2d2d2d;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-toggle,
+.hamburguesa {
+  display: none;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #1d1d1d;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.menu a.active,
+.menu a:hover {
+  color: #1d1d1d;
+}
+
+.menu a.active::after,
+.menu a:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 3px;
+  background: #1b8b73;
+  border-radius: 10px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: 8px;
+}
+
+.nav-icon-btn,
+.nav-cart-btn,
+.btn-reserva {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.nav-icon-btn,
+.nav-cart-btn {
+  font-size: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #1d1d1d;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.nav-cart-btn {
+  width: 52px;
+}
+
+#cartCount {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1f8f71;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.btn-reserva {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 22px;
+  height: 52px;
+  border-radius: 18px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, #08ae0d 0%, #098b1f 100%);
+  text-decoration: none;
+  box-shadow: 0 10px 18px rgba(14, 125, 103, 0.2);
+}
+
+.nav-icon-btn:hover,
+.nav-cart-btn:hover,
+.btn-reserva:hover {
+  transform: translateY(-1px);
+}
+
+body.dark-mode .navbar {
+  background: rgba(18, 26, 21, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: none;
+}
+
+body.dark-mode .logo-title,
+body.dark-mode .logo-text small,
+body.dark-mode .menu a {
+  color: #f4f4f4;
+}
+
+body.dark-mode .nav-icon-btn,
+body.dark-mode .nav-cart-btn {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f4f4f4;
+  box-shadow: none;
+}
+
+body.dark-mode .btn-reserva {
+  background: linear-gradient(135deg, #0e7d67 0%, #0a6b58 100%);
+}
+
+@media (max-width: 980px) {
+  .navbar {
+    padding: 12px 18px;
+    flex-wrap: wrap;
+  }
+
+  .logo img {
+    height: 46px;
+  }
+
+  .logo-title {
+    font-size: 1.05rem;
+  }
+
+  .logo-text small {
+    font-size: 0.62rem;
+  }
+
+  .hamburguesa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #1d1d1d;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .menu {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 14px;
+    padding: 12px 0 4px;
+    text-align: center;
+  }
+
+  .menu a {
+    font-size: 1rem;
+  }
+
+  .menu-toggle:checked ~ .menu {
+    display: flex;
+  }
+
+  .nav-actions {
+    margin-left: 0;
+  }
+
+  .nav-icon-btn,
+  .nav-cart-btn,
+  .btn-reserva {
+    height: 44px;
+  }
+
+  .btn-reserva {
+    padding: 0 18px;
+  }
+}
+
+@media (max-width: 720px) {
+  .navbar {
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .logo img {
+    height: 44px;
+  }
+
+  .hamburguesa {
+    order: 2;
+    margin-left: auto;
+    width: 42px;
+    height: 42px;
+  }
+
+  .nav-actions {
+    order: 3;
+    gap: 8px;
+  }
+
+  .nav-icon-btn,
+  .nav-cart-btn {
+    width: 44px;
+    min-width: 44px;
+  }
+
+  .btn-reserva {
+    width: 44px;
+    min-width: 44px;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .btn-reserva i {
+    font-size: 1.05rem;
+  }
+
+  .menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 16px 18px 20px;
+    background: rgba(255, 255, 255, 0.98);
+    border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+    box-shadow: 0 14px 24px rgba(17, 17, 17, 0.08);
+  }
+
+  body.dark-mode .menu {
+    background: rgba(18, 26, 21, 0.98);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar {
+    padding-inline: 10px;
+  }
+
+  .logo img {
+    height: 40px;
+  }
+
+  .nav-icon-btn,
+  .nav-cart-btn,
+  .btn-reserva,
+  .hamburguesa {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+  }
+}
+
+/* ==========================================================
+   NAVBAR BOOTSTRAP - integración visual Pelucas Caninas
+   ========================================================== */
+.navbar-pelucas {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid rgba(28, 28, 28, 0.08);
+  padding: 12px 0;
+  box-shadow: 0 4px 18px rgba(17, 17, 17, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-pelucas .container-fluid {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+
+.navbar-pelucas .navbar-brand {
+  margin-right: 0;
+  flex-shrink: 0;
+}
+
+.navbar-pelucas .navbar-toggler {
+  border: 0;
+  box-shadow: none !important;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #25201d;
+  background: #f8f6f2;
+}
+
+.navbar-pelucas .navbar-toggler:focus {
+  box-shadow: 0 0 0 3px rgba(28, 113, 86, 0.15) !important;
+}
+
+.navbar-pelucas .navbar-collapse {
+  flex-grow: 1;
+}
+
+.navbar-pelucas .navbar-nav {
+  flex-direction: row;
+}
+
+.navbar-pelucas .nav-link {
+  padding: 10px 4px !important;
+}
+
+body.dark-mode .navbar-pelucas {
+  background: rgba(18, 26, 21, 0.96) !important;
+}
+
+body.dark-mode .navbar-pelucas .navbar-toggler {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4f4f4;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-pelucas .navbar-toggler {
+    display: inline-flex;
+    order: 2;
+    margin-left: auto;
+  }
+
+  .navbar-pelucas .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    border-top: 1px solid rgba(17, 17, 17, 0.06);
+    border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+    box-shadow: 0 16px 28px rgba(17, 17, 17, 0.08);
+    padding: 14px 20px 18px;
+    z-index: 20;
+  }
+
+  .navbar-pelucas .navbar-nav {
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+
+  .navbar-pelucas .menu {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .navbar-pelucas .menu .nav-link {
+    padding: 12px 8px !important;
+    border-radius: 10px;
+  }
+
+  .navbar-pelucas .menu .nav-link:hover {
+    background: rgba(31, 143, 113, 0.08);
+  }
+
+  .navbar-pelucas .menu .nav-link::after {
+    display: none;
+  }
+
+  .navbar-pelucas .nav-actions {
+    order: 3;
+  }
+
+  body.dark-mode .navbar-pelucas .navbar-collapse {
+    background: rgba(18, 26, 21, 0.99);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navbar-pelucas {
+    padding: 8px 0;
+  }
+
+  .navbar-pelucas .container-fluid {
+    gap: 8px;
+    padding-inline: 12px !important;
+  }
+
+  .navbar-pelucas .logo img {
+    height: 42px;
+  }
+
+  .navbar-pelucas .navbar-toggler,
+  .navbar-pelucas .nav-icon-btn,
+  .navbar-pelucas .nav-cart-btn {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .navbar-pelucas .nav-actions {
+    gap: 7px;
+  }
+}
+
+/* Ajuste 1.4.2: contenido del navbar centrado en pantallas anchas */
+@media (min-width: 992px) {
+  .navbar-pelucas .container-fluid {
+    width: calc(100% - 64px);
+    max-width: 1460px;
+    margin-inline: auto;
+    padding-inline: 0 !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .navbar-pelucas .container-fluid {
+    width: calc(100% - 96px);
+  }
+}
+
+/* ==========================================================
+   AJUSTES 1.4.3 - NAVBAR RESPONSIVE Y MODO OSCURO
+   ========================================================== */
+body.dark-mode .navbar-pelucas,
+body.dark-mode .navbar {
+  background: #0d120b !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-pelucas .navbar-brand {
+    order: 1;
+  }
+  .navbar-pelucas .navbar-toggler {
+    order: 2;
+    margin-left: auto !important;
+    flex: 0 0 auto;
+  }
+  .navbar-pelucas .navbar-collapse {
+    order: 4;
+  }
+  .navbar-pelucas .nav-actions {
+    order: 3;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navbar-pelucas .container-fluid {
+    gap: 6px;
+  }
+  .navbar-pelucas .btn-reserva {
+    display: inline-flex !important;
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 14px;
+    font-size: 0;
+  }
+  .navbar-pelucas .btn-reserva i {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+/* ==========================================================
+   AJUSTES 1.4.4 - NAVBAR RESPONSIVE ESTABLE
+   ========================================================== */
+.navbar-pelucas {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.navbar-pelucas .container-fluid {
+  width: min(100% - 32px, 1460px);
+  max-width: 1460px;
+  min-width: 0;
+  margin-inline: auto;
+  padding-inline: 0 !important;
+}
+
+.navbar-pelucas .navbar-brand,
+.navbar-pelucas .navbar-collapse,
+.navbar-pelucas .nav-actions,
+.navbar-pelucas .navbar-toggler {
+  min-width: 0;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-pelucas .container-fluid {
+    width: calc(100% - 24px);
+    gap: 7px;
+  }
+
+  /* Orden móvil: logo | acciones | hamburguesa */
+  .navbar-pelucas .navbar-brand {
+    order: 1;
+    margin-right: 0 !important;
+    flex: 0 0 auto;
+  }
+
+  .navbar-pelucas .nav-actions {
+    order: 2;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    gap: 7px;
+    flex: 0 0 auto;
+  }
+
+  .navbar-pelucas .navbar-toggler {
+    order: 3;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    flex: 0 0 44px;
+  }
+
+  .navbar-pelucas .navbar-collapse {
+    order: 4;
+  }
+
+  /* En tablet/móvil reservamos espacio usando solo el icono */
+  .navbar-pelucas .btn-reserva {
+    display: inline-flex !important;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 14px;
+    font-size: 0;
+    flex: 0 0 44px;
+  }
+
+  .navbar-pelucas .btn-reserva i {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .navbar-pelucas .nav-icon-btn,
+  .navbar-pelucas .nav-cart-btn {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navbar-pelucas {
+    padding-block: 8px;
+  }
+
+  .navbar-pelucas .container-fluid {
+    width: calc(100% - 20px);
+    gap: 5px;
+  }
+
+  .navbar-pelucas .logo img {
+    height: 40px;
+    max-width: 78px;
+    object-fit: contain;
+  }
+
+  .navbar-pelucas .nav-actions {
+    gap: 5px;
+  }
+
+  .navbar-pelucas .navbar-toggler,
+  .navbar-pelucas .nav-icon-btn,
+  .navbar-pelucas .nav-cart-btn,
+  .navbar-pelucas .btn-reserva {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    border-radius: 13px;
+  }
+
+  #cartCount {
+    top: -5px;
+    right: -4px;
+  }
+}
+
+@media (max-width: 360px) {
+  .navbar-pelucas .container-fluid {
+    width: calc(100% - 12px);
+    gap: 4px;
+  }
+
+  .navbar-pelucas .logo img {
+    height: 36px;
+    max-width: 64px;
+  }
+
+  .navbar-pelucas .navbar-toggler,
+  .navbar-pelucas .nav-icon-btn,
+  .navbar-pelucas .nav-cart-btn,
+  .navbar-pelucas .btn-reserva {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+}
