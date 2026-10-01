@@ -877,3 +877,15 @@ body {
   display: block;
   margin-top: 1rem;
 }
+body.dark-mode .btn-reserva-modal {
+  background: linear-gradient(135deg, #08ae0d 0%, #098b1f 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 10px 18px rgba(8, 139, 31, 0.18);
+}
+
+body.dark-mode .btn-reserva-modal:hover {
+  background: linear-gradient(135deg, #08ae0d 0%, #098b1f 100%);
+  color: #ffffff;
+  box-shadow: 0 14px 22px rgba(8, 139, 31, 0.24);
+}
