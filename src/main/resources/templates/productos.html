@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Productos', '/css/style-productos.css')}"
+  >
+  </head>
+  <body>
+    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="catalogo-page">
+      <header class="productos-encabezado">
+        <span class="productos-etiqueta">
+          <i class="fa-solid fa-paw"> </i>
+          Precio y calidad
+        </span>
+        <h2 class="titulo-seccion">Nuestros Productos</h2>
+        <p class="descripcion-seccion">
+          Productos seleccionados para el cuidado, higiene y bienestar de tu
+          mascota.
+        </p>
+      </header>
+      <div class="catalogo-contenedor">
+        <aside aria-hidden="true" class="filtros-productos" id="panelFiltros">
+          <div class="filtro-header">
+            <h3>Filtrar</h3>
+            <button
+              aria-label="Cerrar filtros"
+              class="filtros-cerrar"
+              id="mobileFiltersClose"
+              type="button"
+            >
+              <i class="fa-solid fa-xmark"> </i>
+            </button>
+          </div>
+          <div class="filtro-grupo">
+            <button class="filtro-btn active" data-filter="all" type="button">
+              Todos
+            </button>
+            <button class="filtro-btn" data-filter="aseo" type="button">
+              Aseo
+            </button>
+            <button class="filtro-btn" data-filter="higiene" type="button">
+              Higiene
+            </button>
+            <button class="filtro-btn" data-filter="juguetes" type="button">
+              Juguetes
+            </button>
+            <button class="filtro-btn" data-filter="accesorios" type="button">
+              Accesorios
+            </button>
+          </div>
+          <div class="filtros-acciones-mobile">
+            <button
+              class="btn-limpiar-filtros"
+              id="clearMobileFilters"
+              type="button"
+            >
+              Limpiar filtro
+            </button>
+          </div>
+        </aside>
+        <div
+          aria-hidden="true"
+          class="filtros-overlay"
+          id="filtrosOverlay"
+        ></div>
+        <section class="productos" id="productos">
+          <div class="mobile-filtros-bar">
+            <button
+              aria-controls="panelFiltros"
+              aria-expanded="false"
+              class="mobile-filtros-btn"
+              id="mobileFiltersToggle"
+              type="button"
+            >
+              <i class="fa-solid fa-sliders"> </i>
+              <span> Filtros </span>
+            </button>
+          </div>
+          <div class="buscador-productos">
+            <i class="fa-solid fa-magnifying-glass"> </i>
+            <input
+              id="buscadorProductos"
+              placeholder="Buscar producto..."
+              type="text"
+            />
+          </div>
+          <p class="sin-resultados" id="sinResultados">
+            No se encontraron productos.
+          </p>
+          <div class="productos-grid">
+            <article
+              class="tarjeta"
+              th:attr="data-categoria=${producto.categoria},data-img=@{${producto.imagen}},data-nombre=${producto.nombre},data-precio=${producto.precio}"
+              th:each=" producto : ${productos}"
+            >
+              <a
+                class="tarjeta-link"
+                th:href="@{/productos/{id}(id=${producto.id})}"
+              >
+                <div class="tarjeta-imagen">
+                  <img
+                    decoding="async"
+                    loading="lazy"
+                    th:alt="${producto.nombre}"
+                    th:src="@{${producto.imagen}}"
+                  />
+                </div>
+                <h3 th:text="${producto.nombre}"></h3>
+                <p th:text="${producto.descripcion}">
+                  Juguete interactivo para perros masticadores fuertes.
+                </p>
+              </a>
+              <p class="producto-precio" th:text="|S/ ${producto.precio}|">
+                S/ 23.00
+              </p>
+              <button class="btn-add-cart" type="button">
+                <i class="fa-solid fa-cart-plus"> </i>
+                Agregar al carrito
+              </button>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

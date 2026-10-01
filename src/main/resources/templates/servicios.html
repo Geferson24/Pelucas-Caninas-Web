@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Servicios', '/css/style-servicios.css')}"
+  >
+  </head>
+  <body>
+    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <!-- SERVICIOS -->
+    <main class="servicios" id="servicios">
+      <div class="servicios-contenedor">
+        <header class="servicios-encabezado">
+          <span class="servicios-etiqueta">
+            <i class="fa-solid fa-paw"> </i>
+            Cuidado profesional
+          </span>
+          <h1 class="titulo-seccion">Nuestros Servicios</h1>
+          <p class="descripcion-seccion">
+            Servicio personalizado de grooming canino con amor, seguridad y
+            cuidado.
+          </p>
+        </header>
+        <div class="servicios-grid">
+          <article
+            class="servicio-card"
+            th:classappend="${plan.destacado} ? 'destacado' : ''"
+            th:each="plan : ${planes}"
+          >
+            <span class="servicio-badge" th:if="${plan.destacado}">
+              Más elegido
+            </span>
+            <div class="servicio-imagen">
+              <img
+                alt="Baño básico"
+                decoding="async"
+                loading="lazy"
+                th:alt="${plan.nombre}"
+                th:src="@{${plan.imagen}}"
+              />
+            </div>
+            <h3 th:text="${plan.nombre}">Texto de plan</h3>
+            <p class="precio" th:text="|S/ ${plan.precio}|">precio</p>
+            <ul>
+              <li
+                th:each="componente : ${plan.beneficios}"
+                th:text="${componente}"
+              >
+                descripcion
+              </li>
+            </ul>
+            <a
+              class="btn-servicio"
+              rel="noopener noreferrer"
+              target="_blank"
+              th:href="${plan.enlaceWhatsapp}"
+            >
+              Agendar
+            </a>
+          </article>
+        </div>
+        <div class="otros-servicios">
+          <h3>También te ofrecemos</h3>
+          <div class="otros-grid">
+            <article class="otro-card" th:each=" servicio : ${servicios}">
+              <div class="otro-imagen">
+                <img
+                  alt="Glándulas perianales"
+                  decoding="async"
+                  loading="lazy"
+                  th:alt="${servicio.nombre}"
+                  th:src="@{${servicio.imagen}}"
+                />
+              </div>
+              <h4 th:text="${servicio.nombre}">
+                Limpieza de glándulas perianales
+              </h4>
+              <a
+                class="btn-servicio"
+                rel="noopener noreferrer"
+                target="_blank"
+                th:href="${servicio.enlaceWhatsapp}"
+              >
+                Agendar
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

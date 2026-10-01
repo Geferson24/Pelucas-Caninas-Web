@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <nav
+      class="navbar navbar-expand-lg fixed-top navbar-pelucas"
+      th:fragment="navbar"
+    >
+      <div class="container-fluid px-lg-4">
+        <a
+          aria-label="Pelucas Caninas"
+          class="navbar-brand logo"
+          th:href="@{/}"
+        >
+          <img
+            alt="Logo Pelucas Caninas"
+            th:src="@{/img/Pelucas Caninas.png}"
+          />
+          <span class="logo-text d-none d-xl-flex">
+            <span class="logo-title">Peluquería Canina</span>
+            <small>Belleza, cuidado y bienestar</small>
+          </span>
+        </a>
+        <button
+          aria-controls="navbarPelucas"
+          aria-expanded="false"
+          aria-label="Abrir menú"
+          class="navbar-toggler ms-auto"
+          data-bs-target="#navbarPelucas"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarPelucas">
+          <div class="navbar-nav menu mx-auto">
+            <a
+              class="nav-link"
+              th:attr="aria-current=${paginaActiva == 'inicio' ? 'page' : null}"
+              th:classappend="${paginaActiva == 'inicio'} ? 'active' : ''"
+              th:href="@{/}"
+              >Inicio</a
+            >
+            <a
+              class="nav-link"
+              th:attr="aria-current=${paginaActiva == 'servicios' ? 'page' : null}"
+              th:classappend="${paginaActiva == 'servicios'} ? 'active' : ''"
+              th:href="@{/servicios}"
+              >Servicios</a
+            >
+            <a
+              class="nav-link"
+              th:attr="aria-current=${paginaActiva == 'productos' ? 'page' : null}"
+              th:classappend="${paginaActiva == 'productos'} ? 'active' : ''"
+              th:href="@{/productos}"
+              >Productos</a
+            >
+            <a
+              class="nav-link"
+              th:attr="aria-current=${paginaActiva == 'contacto' ? 'page' : null}"
+              th:classappend="${paginaActiva == 'contacto'} ? 'active' : ''"
+              th:href="@{/contacto}"
+              >Contáctanos</a
+            >
+            <a
+              class="nav-link"
+              th:attr="aria-current=${paginaActiva == 'nosotros' ? 'page' : null}"
+              th:classappend="${paginaActiva == 'nosotros'} ? 'active' : ''"
+              th:href="@{/nosotros}"
+              >Nosotros</a
+            >
+          </div>
+        </div>
+        <div class="nav-actions ms-lg-3">
+          <button
+            aria-label="Cambiar modo oscuro"
+            class="nav-icon-btn"
+            id="darkModeToggle"
+            type="button"
+          >
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button
+            aria-label="Abrir carrito"
+            class="nav-cart-btn"
+            id="cartToggle"
+            type="button"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cartCount">0</span>
+          </button>
+          <button
+            class="btn-reserva"
+            data-bs-target="#modalReserva"
+            data-bs-toggle="modal"
+            type="button"
+          >
+            <i class="fa-regular fa-calendar-days"></i>
+            Reservar cita
+          </button>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

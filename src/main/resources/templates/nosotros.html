@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Nosotros', '/css/style-nosotros.css')}"
+  >
+  </head>
+  <body>
+    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <!-- SECCIÓN NOSOTROS -->
+    <main class="nosotros" id="nosotros">
+      <header class="nosotros-encabezado">
+        <span class="nosotros-etiqueta">
+          <i class="fa-solid fa-paw"> </i>
+          Sobre nosotros
+        </span>
+        <h1>Conoce Pelucas Caninas</h1>
+        <p>
+          Más de 20 años cuidando la higiene, belleza y bienestar de cada
+          mascota con paciencia, experiencia y mucho cariño.
+        </p>
+      </header>
+      <section aria-label="Misión y visión" class="mision-vision">
+        <article class="info-card">
+          <div aria-hidden="true" class="info-icono">
+            <i class="fa-solid fa-heart"> </i>
+          </div>
+          <h2>Misión</h2>
+          <p>
+            Brindar un servicio de grooming canino profesional, seguro y
+            personalizado, cuidando la higiene, belleza y bienestar de cada
+            mascota con paciencia, cariño y productos de calidad.
+          </p>
+        </article>
+        <article class="info-card">
+          <div aria-hidden="true" class="info-icono">
+            <i class="fa-solid fa-dog"> </i>
+          </div>
+          <h2>Visión</h2>
+          <p>
+            Ser una peluquería canina reconocida por la confianza, experiencia y
+            trato humano hacia las mascotas, ofreciendo servicios cada vez más
+            completos para las familias de San Juan de Lurigancho.
+          </p>
+        </article>
+      </section>
+      <section aria-labelledby="titulo-valores" class="valores-seccion">
+        <div class="valores-encabezado">
+          <span> Nuestra esencia </span>
+          <h2 id="titulo-valores">Valores que guían nuestro trabajo</h2>
+        </div>
+        <div class="valores-grid">
+          <article class="valor-card">
+            <i aria-hidden="true" class="fa-solid fa-paw"> </i>
+            <h3>Amor</h3>
+            <p>Tratamos a cada mascota con paciencia, respeto y cariño.</p>
+          </article>
+          <article class="valor-card">
+            <i aria-hidden="true" class="fa-solid fa-shield"> </i>
+            <h3>Responsabilidad</h3>
+            <p>Cuidamos su seguridad y bienestar durante todo el servicio.</p>
+          </article>
+          <article class="valor-card">
+            <i aria-hidden="true" class="fa-solid fa-handshake"> </i>
+            <h3>Confianza</h3>
+            <p>
+              Construimos relaciones cercanas y transparentes con cada familia.
+            </p>
+          </article>
+          <article class="valor-card">
+            <i aria-hidden="true" class="fa-solid fa-award"> </i>
+            <h3>Calidad</h3>
+            <p>Trabajamos con dedicación, experiencia y productos adecuados.</p>
+          </article>
+        </div>
+      </section>
+      <aside class="nosotros-compromiso">
+        <i aria-hidden="true" class="fa-solid fa-heart"> </i>
+        <div>
+          <h2>Nuestro compromiso</h2>
+          <p>
+            Que cada mascota se sienta cómoda y regrese a casa limpia, feliz y
+            luciendo increíble.
+          </p>
+        </div>
+      </aside>
+    </main>
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

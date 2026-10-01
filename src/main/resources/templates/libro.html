@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Libro de reclamaciones', '/css/style-libro.css')}"
+  >
+  </head>
+  <body>
+    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <!-- Contenido del libro de reclamaciones -->
+    <main class="contenedor">
+      <h1>Libro de reclamaciones</h1>
+      <div class="datos-empresa">
+        <p>
+          <strong> PELUCAS CANINAS S.A.C </strong>
+        </p>
+        <p>
+          <strong> RUC: </strong>
+          20610289321
+        </p>
+        <p>
+          <strong> Dirección: </strong>
+          Mz S3 Lote 7, Jose Carlos Mariategui, SJL, Lima
+        </p>
+      </div>
+      <form class="formulario-libro" novalidate="">
+        <p class="nota-formulario">
+          Demostración académica: este formulario valida campos; no registra ni
+          envía un reclamo.
+        </p>
+        <h2>Datos de la persona que presenta el reclamo</h2>
+        <label> Elegir una fecha * </label>
+        <input required="" type="date" />
+        <label> Número de documento de identidad * </label>
+        <input required="" type="text" />
+        <div class="fila">
+          <div>
+            <label> Nombre * </label>
+            <input required="" type="text" />
+          </div>
+          <div>
+            <label> Apellido * </label>
+            <input required="" type="text" />
+          </div>
+        </div>
+        <div class="fila">
+          <div>
+            <label> Email </label>
+            <input type="email" />
+          </div>
+          <div>
+            <label> Teléfono * </label>
+            <input placeholder="937 317 249" required="" type="tel" />
+          </div>
+        </div>
+        <label> Dirección </label>
+        <textarea rows="4"></textarea>
+        <h3>Información general</h3>
+        <p>Identificación del bien contratado</p>
+        <label class="opcion">
+          <input name="bien" type="radio" />
+          Producto
+        </label>
+        <label class="opcion">
+          <input name="bien" type="radio" />
+          Servicio
+        </label>
+        <label> Monto reclamado * </label>
+        <input class="monto" required="" type="number" />
+        <label> Descripción * </label>
+        <textarea required="" rows="5"></textarea>
+        <p>Selecciona una opción *</p>
+        <label class="opcion">
+          <input name="tipo" required="" type="radio" />
+          Queja
+        </label>
+        <label class="opcion">
+          <input name="tipo" type="radio" />
+          Reclamo
+        </label>
+        <label> Detalle del reclamo/queja * </label>
+        <textarea required="" rows="5"></textarea>
+        <label class="check">
+          <input required="" type="checkbox" />
+          Declaro que la información que he proporcionado es correcta, completa
+          y verdadera. *
+        </label>
+        <label class="check">
+          <input required="" type="checkbox" />
+          Al enviar este formulario acepto el flujo transfronterizo de mis datos
+          personales, según la ley de Protección de Datos Personales. *
+        </label>
+        <button type="submit">Validar formulario de ejemplo</button>
+      </form>
+    </main>
+    <!-- footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

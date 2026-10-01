@@ -1,0 +1,27 @@
+.error-page {
+  padding: 150px 20px 70px;
+  text-align: center;
+  min-height: 75vh;
+}
+.error-page img {
+  width: 160px;
+  max-width: 50%;
+}
+.error-code {
+  font-size: 5rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #27745d;
+  margin: 1rem;
+}
+.error-page .btn {
+  margin: 0.5rem;
+}
+@media (max-width: 576px) {
+  .error-page {
+    padding-top: 120px;
+  }
+  .error-code {
+    font-size: 4rem;
+  }
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Contacto', '/css/style-form-contacto.css')}"
+  >
+  </head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="contact-page">
+      <div class="contact-shell">
+        <h1 class="contact-title">
+          Rellena el siguiente formulario con tus dudas
+        </h1>
+        <form class="contact-form">
+          <div class="form-row">
+            <div class="field">
+              <label for="nombre">
+                Nombre
+                <span class="required"> * </span>
+              </label>
+              <input id="nombre" name="nombre" required="" type="text" />
+            </div>
+            <div class="field">
+              <label for="apellido"> Apellido </label>
+              <input id="apellido" name="apellido" type="text" />
+            </div>
+          </div>
+          <div class="field full-width">
+            <label for="telefono">
+              Teléfono
+              <span class="required"> * </span>
+            </label>
+            <input id="telefono" name="telefono" required="" type="tel" />
+          </div>
+          <div class="field full-width">
+            <label for="correo">
+              Correo
+              <span class="required"> * </span>
+            </label>
+            <input id="correo" name="correo" required="" type="email" />
+          </div>
+          <div class="field full-width">
+            <label for="mensaje">
+              ¿Cómo te podemos ayudar?
+              <span class="required"> * </span>
+            </label>
+            <textarea id="mensaje" name="mensaje" required=""></textarea>
+          </div>
+          <label class="terms">
+            <input
+              aria-required="true"
+              id="aceptoTerminos"
+              name="terms"
+              required="required"
+              type="checkbox"
+            />
+            <span>
+              He leído y acepto la
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                th:href="@{/politica-privacidad}"
+              >
+                Política de Privacidad
+              </a>
+              y los
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                th:href="@{/terminos}"
+              >
+                Términos y Condiciones
+              </a>
+              .
+            </span>
+          </label>
+          <div class="submit-wrap">
+            <button class="submit-btn" type="submit">
+              Continuar por WhatsApp
+            </button>
+          </div>
+          <p class="nota-formulario">
+            Se abrirá WhatsApp con tu consulta. Revisa el mensaje y envíalo
+            allí.
+          </p>
+        </form>
+        <hr class="contact-divider" />
+        <div class="contact-aux">
+          <p>
+            También puedes contactar por teléfono o e-mail de lunes a sabado de
+            10am - 18pm.
+          </p>
+          <div class="contact-info-row">
+            <i class="fa-solid fa-phone"> </i>
+            <a href="tel:+51937317249"> 937 317 249 </a>
+          </div>
+          <div class="contact-mail">
+            <i class="fa-solid fa-envelope"> </i>
+            <a href="mailto:manueltirado1978@gmail.com">
+              manueltirado1978@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>
