@@ -78,22 +78,11 @@ section {
   }
 }
 
-@keyframes aparecerPagina {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 768px) {
-  .titulo-seccion {
+
+.titulo-seccion {
     font-size: 26px;
-  }
+}
 }
 
 /* MODO OSCURO */
@@ -123,23 +112,14 @@ body.dark-mode label {
 
 body.dark-mode .productos,
 body.dark-mode .servicios,
-body.dark-mode .galeria,
-body.dark-mode .recomendaciones,
-body.dark-mode .seccion-contacto,
 body.dark-mode .nosotros,
-body.dark-mode .contenedor,
 body.dark-mode main {
   background-color: #121a15;
 }
 
 body.dark-mode .tarjeta,
 body.dark-mode .servicio-card,
-body.dark-mode .otro-card,
-body.dark-mode .card-reco,
-body.dark-mode .contacto-card,
-body.dark-mode .producto-grande,
 body.dark-mode .formulario-libro,
-body.dark-mode .card-producto,
 body.dark-mode .cart-panel {
   background-color: #1f2b24;
   color: #f5f0e8;
@@ -148,8 +128,6 @@ body.dark-mode .cart-panel {
 
 body.dark-mode .tarjeta p,
 body.dark-mode .servicio-card li,
-body.dark-mode .card-reco p,
-body.dark-mode .contacto-card p,
 body.dark-mode .descripcion,
 body.dark-mode .categoria {
   color: rgba(245, 240, 232, 0.82);
@@ -384,34 +362,6 @@ body.dark-mode .modal-reserva-content .form-select {
   font-weight: 800;
 }
 
-/* WHATSAPP FLOTANTE */
-.whatsapp-flotante {
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  z-index: 1200;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #25d366;
-  color: #ffffff;
-  padding: 13px 18px;
-  border-radius: 40px;
-  text-decoration: none;
-  font-weight: 800;
-  box-shadow: 0 12px 25px rgba(37, 211, 102, 0.35);
-  transition: 0.3s;
-}
-
-.whatsapp-flotante:hover {
-  transform: translateY(-4px);
-  background: #1ebe5d;
-}
-
-.whatsapp-flotante i {
-  font-size: 22px;
-}
-
 /* TOAST Y VALIDACIÓN */
 .pelucas-toast {
   position: fixed;
@@ -441,17 +391,18 @@ body.dark-mode .modal-reserva-content .form-select {
 }
 
 @media (max-width: 576px) {
-  .pelucas-toast {
+
+.pelucas-toast {
     top: 50%;
     left: 50%;
     transform: translate(-50%, calc(-50% - 12px));
     width: calc(100vw - 32px);
     text-align: center;
-  }
+}
 
-  .pelucas-toast.activo {
+.pelucas-toast.activo {
     transform: translate(-50%, -50%);
-  }
+}
 }
 
 .campo-error input,
@@ -469,134 +420,16 @@ textarea.campo-error {
   margin: 6px 0 10px;
 }
 
-@media (max-width: 600px) {
-  .whatsapp-flotante span {
-    display: none;
-  }
-
-  .whatsapp-flotante {
-    width: 54px;
-    height: 54px;
-    padding: 0;
-    justify-content: center;
-    border-radius: 50%;
-  }
-}
-
-/* ===== MEJORAS JS / DOM ===== */
-/* Modal de galería */
-.galeria-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.78);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease;
-  z-index: 2500;
-  padding: 24px;
-}
-
-.galeria-modal.activo {
-  opacity: 1;
-  visibility: visible;
-}
-
-.galeria-modal img {
-  max-width: 92vw;
-  max-height: 86vh;
-  object-fit: contain;
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-}
-
-.galeria-modal-cerrar {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: none;
-  background: #ffffff;
-  color: #222;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-/* WhatsApp flotante solo icono + pulsación */
-.whatsapp-flotante {
-  width: 64px;
-  height: 64px;
-  padding: 0;
-  justify-content: center;
-  border-radius: 50%;
-  animation: pulsoWhatsapp 1.8s infinite;
-}
-
-.whatsapp-flotante i {
-  font-size: 32px;
-}
-
-.whatsapp-flotante::before {
-  content: "";
-  position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  background: rgba(37, 211, 102, 0.18);
-  z-index: -1;
-}
-
-@keyframes pulsoWhatsapp {
-  0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
-  }
-  70% {
-    box-shadow: 0 0 0 18px rgba(37, 211, 102, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-  }
-}
-
 /* Modo oscuro completo */
 body.dark-mode .footer-nuevo {
   background: #0d120b !important;
   color: #f5f0e8;
 }
 
-body.dark-mode .footer-col h4,
-body.dark-mode .footer-col a,
-body.dark-mode .footer-correo,
-body.dark-mode .footer-copy-nuevo {
-  color: #f5f0e8 !important;
-}
-
-body.dark-mode .footer-imagenes img,
-body.dark-mode .footer-logo-box img {
-  background: #ffffff;
-}
-
-body.dark-mode .valores-lista li,
-body.dark-mode .otro-card h4,
-body.dark-mode .otros-servicios h3,
 body.dark-mode .servicio-card h3,
 body.dark-mode .precio,
-body.dark-mode .producto-info h1,
-body.dark-mode .producto-info h2,
-body.dark-mode .card-producto h3,
 body.dark-mode .tarjeta h3 {
   color: #f5f0e8 !important;
-}
-
-body.dark-mode .linea-titulo {
-  background-color: #f5f0e8;
-}
-
-body.dark-mode .producto-img {
-  background: #18221d;
 }
 
 body.dark-mode .cart-header h3,
@@ -614,246 +447,39 @@ body.dark-mode #cartClose {
   color: #ffffff;
 }
 
-body.dark-mode .buscador-productos {
-  background: #1f2b24;
-  border-color: rgba(255, 255, 255, 0.22);
-}
-
-body.dark-mode .buscador-productos input::placeholder {
-  color: rgba(255, 255, 255, 0.68);
-}
-
-/* Corrección específica: redes sociales del footer en modo oscuro */
-body.dark-mode .footer-nuevo .footer-redes-nuevo a,
-body.dark-mode .footer-nuevo .footer-redes-nuevo a i {
-  color: #2d7a5f !important;
-  opacity: 1 !important;
-}
-
-body.dark-mode .footer-nuevo .footer-redes-nuevo a {
-  background: #ffffff !important;
-}
-/* Precio de productos en modo oscuro */
-body.dark-mode .producto-precio {
-  color: #ffffff !important;
-}
-/* ===== MEJORAS FINALES DE EXPERIENCIA ===== */
-
-/* Animaciones al entrar y salir de la pantalla */
+/* Apariciones progresivas: solo se ocultan bloques cuando JavaScript las activa. */
 .reveal {
+  --reveal-x: 0px;
+  --reveal-y: 30px;
   opacity: 0;
-  transform: translateY(42px);
+  translate: var(--reveal-x) var(--reveal-y);
   transition:
-    opacity 0.72s ease var(--reveal-delay, 0ms),
-    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+    opacity 650ms ease var(--reveal-delay, 0ms),
+    translate 750ms cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms),
+    transform 200ms ease, box-shadow 200ms ease;
 }
-
-.reveal.visible {
+.reveal[data-reveal-edge="above"] { --reveal-y: -30px; }
+.reveal[data-reveal="left"] { --reveal-x: -32px; --reveal-y: 0px; }
+.reveal[data-reveal="right"] { --reveal-x: 32px; --reveal-y: 0px; }
+.reveal.visible, .reveal:focus-within {
   opacity: 1;
-  transform: translateY(0);
+  translate: 0 0;
 }
-
-/* Ventana ampliada de galería */
-body.modal-abierto {
-  overflow: hidden;
+@media (max-width: 680px) {
+  .reveal[data-reveal] { --reveal-x: 0px; --reveal-y: 24px; }
+  .reveal[data-reveal-edge="above"] { --reveal-y: -24px; }
 }
-
-.galeria-modal-contenido {
-  margin: 0;
-  text-align: center;
-}
-
-.galeria-modal-contenido figcaption {
-  color: #ffffff;
-  margin-top: 12px;
-  font-size: 17px;
-  font-weight: 700;
-}
-
-.galeria-modal-flecha {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 54px;
-  height: 54px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.94);
-  color: #1f2b24;
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 2;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
-}
-
-.galeria-modal-flecha:hover {
-  transform: translateY(-50%) scale(1.08);
-  background: #ffffff;
-}
-
-.galeria-modal-flecha.anterior {
-  left: 28px;
-}
-
-.galeria-modal-flecha.siguiente {
-  right: 28px;
-}
-
-/* Mensaje de ayuda del botón de WhatsApp */
-.whatsapp-flotante::after {
-  content: "¿Necesitas ayuda?";
-  position: absolute;
-  right: calc(100% + 14px);
-  top: 50%;
-  transform: translate(10px, -50%);
-  white-space: nowrap;
-  background: #ffffff;
-  color: #1f2b24;
-  padding: 10px 15px;
-  border-radius: 22px;
-  font-size: 14px;
-  font-weight: 800;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: 0.25s ease;
-}
-
-.whatsapp-flotante:hover::after,
-.whatsapp-flotante:focus-visible::after {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(0, -50%);
-}
-
-/* Botón volver arriba */
-.volver-arriba {
-  position: fixed;
-  right: 29px;
-  bottom: 102px;
-  width: 50px;
-  height: 50px;
-  border: none;
-  border-radius: 50%;
-  background: #2d7a5f;
-  color: #ffffff;
-  font-size: 19px;
-  cursor: pointer;
-  z-index: 1190;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(18px);
-  transition: 0.3s ease;
-}
-
-.volver-arriba.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.volver-arriba:hover {
-  background: #235f4b;
-  transform: translateY(-4px);
-}
-
-/* Loader inicial */
-.page-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-  background: #f5f0e8;
-  transition:
-    opacity 0.5s ease,
-    visibility 0.5s ease;
-}
-
-.page-loader.oculto {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.page-loader-contenido {
-  text-align: center;
-}
-
-.page-loader img {
-  width: min(180px, 42vw);
-  height: auto;
-  animation: correrLoader 0.75s ease-in-out infinite alternate;
-  transform-origin: center bottom;
-}
-
-.page-loader p {
-  margin-top: 12px;
-  color: #2d7a5f;
-  font-size: 17px;
-  font-weight: 800;
-}
-
-@keyframes correrLoader {
-  0% {
-    transform: translateX(-12px) translateY(0) rotate(-2deg);
-  }
-  50% {
-    transform: translateX(0) translateY(-9px) rotate(1deg);
-  }
-  100% {
-    transform: translateX(12px) translateY(0) rotate(2deg);
-  }
-}
-
-body.dark-mode .page-loader {
-  background: #121a15;
-}
-
-body.dark-mode .page-loader p {
-  color: #ffffff;
-}
-
-@media (max-width: 700px) {
-  .galeria-modal-flecha {
-    width: 44px;
-    height: 44px;
-    font-size: 18px;
-  }
-
-  .galeria-modal-flecha.anterior {
-    left: 10px;
-  }
-  .galeria-modal-flecha.siguiente {
-    right: 10px;
-  }
-
-  .volver-arriba {
-    right: 24px;
-    bottom: 90px;
-    width: 46px;
-    height: 46px;
-  }
-
-  .whatsapp-flotante::after {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal.visible,
-  .page-loader img {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal.visible {
     opacity: 1;
-    transform: none;
-    animation: none;
+    translate: none;
     transition: none;
+    animation: none;
   }
+}
+@media print {
+  .reveal { opacity: 1; translate: none; }
 }
 
 /* 1.4.4: protección global contra overflow horizontal accidental */
@@ -864,19 +490,6 @@ body {
   overflow-x: hidden;
 }
 
-.nota-formulario {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin: 1rem 0;
-  color: #666;
-}
-.dark-mode .nota-formulario {
-  color: #ccc;
-}
-.volver-catalogo {
-  display: block;
-  margin-top: 1rem;
-}
 body.dark-mode .btn-reserva-modal {
   background: linear-gradient(135deg, #08ae0d 0%, #098b1f 100%);
   color: #ffffff;

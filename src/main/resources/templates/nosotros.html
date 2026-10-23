@@ -1,91 +1,170 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head
-    th:replace="~{fragments/head :: head('Pelucas Caninas - Nosotros', '/css/style-nosotros.css')}"
-  >
-  </head>
-  <body>
-    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Nosotros', null)}"
+  ></head>
+  <body class="page">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <!-- SECCIÓN NOSOTROS -->
-    <main class="nosotros" id="nosotros">
-      <header class="nosotros-encabezado">
-        <span class="nosotros-etiqueta">
-          <i class="fa-solid fa-paw"> </i>
-          Sobre nosotros
-        </span>
-        <h1>Conoce Pelucas Caninas</h1>
-        <p>
-          Más de 20 años cuidando la higiene, belleza y bienestar de cada
-          mascota con paciencia, experiencia y mucho cariño.
-        </p>
-      </header>
-      <section aria-label="Misión y visión" class="mision-vision">
-        <article class="info-card">
-          <div aria-hidden="true" class="info-icono">
-            <i class="fa-solid fa-heart"> </i>
-          </div>
-          <h2>Misión</h2>
-          <p>
-            Brindar un servicio de grooming canino profesional, seguro y
-            personalizado, cuidando la higiene, belleza y bienestar de cada
-            mascota con paciencia, cariño y productos de calidad.
-          </p>
-        </article>
-        <article class="info-card">
-          <div aria-hidden="true" class="info-icono">
-            <i class="fa-solid fa-dog"> </i>
-          </div>
-          <h2>Visión</h2>
-          <p>
-            Ser una peluquería canina reconocida por la confianza, experiencia y
-            trato humano hacia las mascotas, ofreciendo servicios cada vez más
-            completos para las familias de San Juan de Lurigancho.
-          </p>
-        </article>
-      </section>
-      <section aria-labelledby="titulo-valores" class="valores-seccion">
-        <div class="valores-encabezado">
-          <span> Nuestra esencia </span>
-          <h2 id="titulo-valores">Valores que guían nuestro trabajo</h2>
-        </div>
-        <div class="valores-grid">
-          <article class="valor-card">
-            <i aria-hidden="true" class="fa-solid fa-paw"> </i>
-            <h3>Amor</h3>
-            <p>Tratamos a cada mascota con paciencia, respeto y cariño.</p>
-          </article>
-          <article class="valor-card">
-            <i aria-hidden="true" class="fa-solid fa-shield"> </i>
-            <h3>Responsabilidad</h3>
-            <p>Cuidamos su seguridad y bienestar durante todo el servicio.</p>
-          </article>
-          <article class="valor-card">
-            <i aria-hidden="true" class="fa-solid fa-handshake"> </i>
-            <h3>Confianza</h3>
+    <main>
+      <section
+        class="about about--compact"
+        id="nosotros"
+        aria-label="Sobre Pelucas Caninas"
+      >
+        <article class="about-duo">
+          <div class="about-duo__copy">
+            <div class="eyebrow about-duo__eyebrow">
+              <span>
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+                  <ellipse
+                    cx="11"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-28 11 20)"></ellipse>
+                  <ellipse
+                    cx="21"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-8 21 11)"></ellipse>
+                  <ellipse
+                    cx="37"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(28 37 20)"></ellipse>
+                  <ellipse
+                    cx="31"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(8 31 11)"></ellipse>
+                </svg>
+              </span>
+              Nuestra misión
+            </div>
+            <h2>
+              Cuidarlos como
+              <em>parte de la familia.</em>
+            </h2>
             <p>
-              Construimos relaciones cercanas y transparentes con cada familia.
+              Queremos que cada perro se sienta tranquilo, seguro y querido.
+              Combinamos manos expertas, productos de calidad y mucha paciencia
+              para que el cuidado sea una experiencia feliz.
             </p>
-          </article>
-          <article class="valor-card">
-            <i aria-hidden="true" class="fa-solid fa-award"> </i>
-            <h3>Calidad</h3>
-            <p>Trabajamos con dedicación, experiencia y productos adecuados.</p>
-          </article>
-        </div>
+          </div>
+
+          <div class="about-duo__media about-duo__media--mission">
+            <div class="about-duo__shape"></div>
+            <img
+              th:src="@{/img/figma/mission-dog.jpg}"
+              alt="Dos perros descansando juntos sobre el césped"
+            />
+            <div class="about-duo__note">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2.5c.6 5.4 3.1 7.9 8.5 8.5-5.4.6-7.9 3.1-8.5 8.5-.6-5.4-3.1-7.9-8.5-8.5C8.9 10.4 11.4 7.9 12 2.5Z"
+                  fill="currentColor"></path>
+              </svg>
+              Bienestar primero
+            </div>
+          </div>
+        </article>
+
+        <article class="about-duo about-duo--reverse">
+          <div class="about-duo__media about-duo__media--story">
+            <div class="about-duo__shape"></div>
+            <img
+              th:src="@{/img/figma/about-dog.jpg}"
+              alt="Perro blanco tranquilo sentado sobre una silla"
+            />
+            <div class="about-duo__year">
+              <strong>20+</strong>
+              <span>años juntos</span>
+            </div>
+          </div>
+
+          <div class="about-duo__copy">
+            <div class="eyebrow about-duo__eyebrow">
+              <span>
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+                  <ellipse
+                    cx="11"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-28 11 20)"></ellipse>
+                  <ellipse
+                    cx="21"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-8 21 11)"></ellipse>
+                  <ellipse
+                    cx="37"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(28 37 20)"></ellipse>
+                  <ellipse
+                    cx="31"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(8 31 11)"></ellipse>
+              </svg>
+            </span>
+              Nuestra historia
+            </div>
+            <h2>
+              Una historia entre
+              <em>espuma y colitas.</em>
+            </h2>
+            <p>
+              Empezamos en 2004 con una idea sencilla: ofrecer en San Juan de
+              Lurigancho un lugar donde la estética canina y el trato cercano
+              fueran siempre de la mano.
+            </p>
+            <div class="about-duo__signature">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+                <ellipse
+                  cx="11"
+                  cy="20"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(-28 11 20)"></ellipse>
+                <ellipse
+                  cx="21"
+                  cy="11"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(-8 21 11)"></ellipse>
+                <ellipse
+                  cx="37"
+                  cy="20"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(28 37 20)"></ellipse>
+                <ellipse
+                  cx="31"
+                  cy="11"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(8 31 11)"></ellipse>
+              </svg>
+              <span>
+                Desde 2004
+                <strong>Pelucas Caninas</strong>
+              </span>
+            </div>
+          </div>
+        </article>
       </section>
-      <aside class="nosotros-compromiso">
-        <i aria-hidden="true" class="fa-solid fa-heart"> </i>
-        <div>
-          <h2>Nuestro compromiso</h2>
-          <p>
-            Que cada mascota se sienta cómoda y regrese a casa limpia, feliz y
-            luciendo increíble.
-          </p>
-        </div>
-      </aside>
     </main>
-    <!-- Footer -->
     <div th:replace="~{fragments/footer :: footer}"></div>
   </body>
 </html>

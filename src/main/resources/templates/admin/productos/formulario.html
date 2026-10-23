@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}"
+  ></head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="admin-page">
+      <div th:replace="~{admin/fragments :: navegacion}"></div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Productos</p>
+          <h1 th:text="${tituloFormulario}"></h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <p class="admin-message" th:if="${#lists.isEmpty(categorias)}">
+        Primero
+        <a th:href="@{/admin/categorias/nueva}">crea una categoría</a> para
+        poder guardar productos.
+      </p>
+      <form
+        class="admin-form"
+        th:action="@{${accion}}"
+        th:object="${producto}"
+        method="post"
+      >
+        <div
+          class="admin-message admin-error"
+          role="alert"
+          th:if="${#fields.hasAnyErrors()}"
+        >
+          Revisa los campos indicados antes de guardar.
+          <p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+        </div>
+        <div class="admin-field">
+          <label for="nombre">Nombre *</label><input
+            th:field="*{nombre}"
+            required
+            maxlength="120"
+            th:errorclass="admin-invalid"
+            aria-describedby="nombre-error"
+          /><span
+            id="nombre-error"
+            class="admin-field-error"
+            th:errors="*{nombre}"
+          ></span>
+        </div>
+        <div class="admin-field">
+          <label for="idCategoria">Categoría *</label><select
+            th:field="*{idCategoria}"
+            required
+            th:errorclass="admin-invalid"
+            aria-describedby="categoria-error"
+          >
+            <option value="">Selecciona una categoría</option>
+            <option
+              th:each="categoria : ${categorias}"
+              th:value="${categoria.id}"
+              th:text="${categoria.nombre}"
+            ></option></select><span
+            id="categoria-error"
+            class="admin-field-error"
+            th:errors="*{idCategoria}"
+          ></span>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-field">
+            <label for="precio">Precio (S/) *</label><input
+              th:field="*{precio}"
+              type="number"
+              min="0"
+              max="99999999.99"
+              step="0.01"
+              required
+              th:errorclass="admin-invalid"
+              aria-describedby="precio-error"
+            /><span
+              id="precio-error"
+              class="admin-field-error"
+              th:errors="*{precio}"
+            ></span>
+          </div>
+          <div class="admin-field">
+            <label for="stock">Stock *</label><input
+              th:field="*{stock}"
+              type="number"
+              min="0"
+              max="2147483647"
+              step="1"
+              required
+              th:errorclass="admin-invalid"
+              aria-describedby="stock-error"
+            /><span
+              id="stock-error"
+              class="admin-field-error"
+              th:errors="*{stock}"
+            ></span>
+          </div>
+        </div>
+        <div class="admin-field">
+          <label for="descripcion">Descripción</label><textarea
+            th:field="*{descripcion}"
+            rows="4"
+            maxlength="5000"
+            th:errorclass="admin-invalid"
+            aria-describedby="descripcion-error"
+          ></textarea><span
+            id="descripcion-error"
+            class="admin-field-error"
+            th:errors="*{descripcion}"
+          ></span>
+        </div>
+        <div class="admin-field">
+          <label for="imagen">Ruta de imagen</label><input
+            th:field="*{imagen}"
+            maxlength="255"
+            placeholder="/img/bexter.jpg"
+            th:errorclass="admin-invalid"
+            aria-describedby="imagen-ayuda imagen-error"
+          /><small id="imagen-ayuda"
+            >Usa una imagen disponible en la carpeta img. Si lo dejas vacío, se
+            mostrará la imagen predeterminada.</small><span
+            id="imagen-error"
+            class="admin-field-error"
+            th:errors="*{imagen}"
+          ></span>
+        </div>
+        <div class="admin-field">
+          <label for="estado">Estado *</label><select
+            th:field="*{estado}"
+            required
+            th:errorclass="admin-invalid"
+            aria-describedby="estado-ayuda estado-error"
+          >
+            <option value="ACTIVO">Activo</option>
+            <option value="INACTIVO">Inactivo</option></select><small id="estado-ayuda"
+            >Los productos inactivos no aparecen en el catálogo público.</small><span
+            id="estado-error"
+            class="admin-field-error"
+            th:errors="*{estado}"
+          ></span>
+        </div>
+        <div class="admin-actions">
+          <button
+            class="admin-button"
+            type="submit"
+            th:disabled="${#lists.isEmpty(categorias)}"
+          >
+            Guardar producto</button><a class="admin-button admin-secondary" th:href="@{/admin/productos}"
+            >Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

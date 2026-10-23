@@ -3,6 +3,7 @@
   <head th:fragment="head(titulo, cssPagina)">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script th:src="@{/js/theme.js}"></script>
     <meta
       name="description"
       content="Pelucas Caninas: peluquería, cuidados y productos para tu mascota."
@@ -21,11 +22,18 @@
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap"
     />
     <link rel="stylesheet" th:href="@{/css/style-general.css}" />
-    <link rel="stylesheet" th:href="@{/css/style-navbar.css}" />
-    <link rel="stylesheet" th:href="@{/css/style-footer.css}" />
-    <link rel="stylesheet" th:href="@{${cssPagina}}" />
+    <link rel="stylesheet" th:href="@{/css/style-figma.css}" />
+    <link
+      rel="stylesheet"
+      th:if="${cssPagina != null}"
+      th:href="@{${cssPagina}(v='20261022-legal-2')}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/style-adaptaciones.css(v='20261022-legal-2')}"
+    />
   </head>
 </html>

@@ -4,67 +4,116 @@
     th:replace="~{fragments/head :: head('Pelucas Caninas - Términos y condiciones', '/css/style-legal.css')}"
   >
   </head>
-  <body>
+  <body class="page">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <main class="terminos-container">
-      <h1>Términos y Condiciones de Servicio</h1>
-      <p>
-        Bienvenido a
-        <strong> Pelucas Caninas </strong>
-        . Al acceder a nuestro sitio web, realizar reservas de citas o adquirir
-        nuestros productos y servicios de estética canina, usted acepta cumplir
-        y estar sujeto a los siguientes términos y condiciones.
-      </p>
-      <h2>1. Reservas y Citas</h2>
-      <p>
-        Las reservas de servicios de baño, corte y grooming pueden realizarse a
-        través de nuestro sitio web o canal de WhatsApp oficial. Se solicita
-        llegar con 10 minutos de anticipación a la hora pactada. Pasados 15
-        minutos de tolerancia, la cita podrá ser reprogramada sujeto a
-        disponibilidad.
-      </p>
-      <h2>2. Salud y Bienestar de la Mascota</h2>
-      <p>
-        Para la seguridad de todos los animales atendidos en nuestro
-        establecimiento:
-      </p>
-      <ul>
-        <li>
-          El dueño debe informar previamente sobre cualquier condición médica,
-          alergia, comportamiento agresivo o presencia de parásitos en la
-          mascota.
-        </li>
-        <li>
-          Nos reservamos el derecho de suspender o rechazar el servicio si la
-          mascota presenta síntomas graves de enfermedad o conducta agresiva que
-          ponga en riesgo al personal o a otros animales.
-        </li>
-      </ul>
-      <h2>3. Precios y Pagos</h2>
-      <p>
-        Los precios de los servicios y productos se encuentran detallados en el
-        sitio web y están sujetos a variaciones según la raza, el tamaño de la
-        mascota y el estado del manto/pelaje. Los pagos se realizan a través de
-        los medios autorizados en nuestra plataforma.
-      </p>
-      <h2>4. Cancelaciones y Reprogramaciones</h2>
-      <p>
-        Si requiere cancelar o reprogramar una cita, le solicitamos hacerlo con
-        un mínimo de 12 horas de anticipación para permitir el agendamiento de
-        otros usuarios.
-      </p>
-      <h2>5. Propiedad Intelectual</h2>
-      <p>
-        Todo el contenido de este sitio web, incluyendo logotipos, textos,
-        marcas, imágenes y diseño gráfico, es propiedad exclusiva de Pelucas
-        Caninas y está protegido por las leyes de propiedad intelectual.
-      </p>
-      <h2>6. Modificaciones de los Términos</h2>
-      <p>
-        Nos reservamos el derecho de modificar estos Términos y Condiciones en
-        cualquier momento. Cualquier cambio será publicado en esta misma sección
-        para conocimiento de los usuarios.
-      </p>
+    <main class="legal-page terminos-container">
+      <header class="legal-page__header">
+        <h1>Términos y condiciones</h1>
+        <strong>Pelucas Caninas S.A.C.</strong>
+      </header>
+      <article class="legal-document" aria-label="Términos y condiciones">
+        <ol class="legal-sections">
+          <li class="legal-section">
+            <div class="legal-section__content">
+              <h2>Reservas y citas</h2>
+              <p>
+                Las reservas de servicios de baño, corte y grooming pueden
+                realizarse a través de nuestro sitio web o canal de WhatsApp
+                oficial. Se solicita llegar con 10 minutos de anticipación a la
+                hora pactada. Pasados 15 minutos de tolerancia, la cita podrá
+                ser reprogramada sujeto a disponibilidad.
+              </p>
+            </div>
+          </li>
+          <li class="legal-section">
+            <div class="legal-section__content">
+              <h2>Salud y bienestar de la mascota</h2>
+              <p>
+                Para la seguridad de todos los animales atendidos en nuestro
+                establecimiento:
+              </p>
+              <ul>
+                <li>
+                  El dueño debe informar previamente sobre cualquier condición
+                  médica, alergia, comportamiento agresivo o presencia de
+                  parásitos en la mascota.
+                </li>
+                <li>
+                  Nos reservamos el derecho de suspender o rechazar el servicio
+                  si la mascota presenta síntomas graves de enfermedad o
+                  conducta agresiva que ponga en riesgo al personal o a otros
+                  animales.
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="legal-section">
+            <div class="legal-section__content">
+              <h2>Precios y pagos</h2>
+              <p>
+                Los precios de los servicios y productos se encuentran
+                detallados en el sitio web y están sujetos a variaciones según
+                la raza, el tamaño de la mascota y el estado del manto/pelaje.
+                Los pagos se realizan a través de los medios autorizados en
+                nuestra plataforma.
+              </p>
+            </div>
+          </li>
+          <li class="legal-section">
+            <div class="legal-section__content">
+              <h2>Cancelaciones y reprogramaciones</h2>
+              <p>
+                Si requiere cancelar o reprogramar una cita, le solicitamos
+                hacerlo con un mínimo de 12 horas de anticipación para permitir
+                el agendamiento de otros usuarios.
+              </p>
+            </div>
+          </li>
+          <li class="legal-section">
+            <div class="legal-section__content">
+              <h2>Propiedad intelectual</h2>
+              <p>
+                Todo el contenido de este sitio web, incluyendo logotipos,
+                textos, marcas, imágenes y diseño gráfico, es propiedad
+                exclusiva de Pelucas Caninas y está protegido por las leyes de
+                propiedad intelectual.
+              </p>
+            </div>
+          </li>
+          <li class="legal-section">
+            <div class="legal-section__content">
+              <h2>Modificaciones de los términos</h2>
+              <p>
+                Nos reservamos el derecho de modificar estos Términos y
+                Condiciones en cualquier momento. Cualquier cambio será
+                publicado en esta misma sección para conocimiento de los
+                usuarios.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </article>
+      <a class="legal-contact" href="mailto:manueltirado1978@gmail.com">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect
+            x="3"
+            y="5"
+            width="18"
+            height="14"
+            rx="3"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"></rect>
+          <path
+            d="m4 7 8 6 8-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+        <span><small>¿Tienes alguna pregunta?</small><strong>manueltirado1978@gmail.com</strong></span>
+      </a>
     </main>
     <div th:replace="~{fragments/footer :: footer}"></div>
   </body>

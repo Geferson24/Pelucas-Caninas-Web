@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-PelucasCaninasApplication<pelucas-caninas>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.veterinaria.pelucascaninas.PelucasCaninasApplication",
+      "projectName": "pelucas-caninas",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

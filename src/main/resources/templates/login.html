@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Iniciar sesión', null)}"
+  ></head>
+  <body class="page">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main>
+      <section class="login" id="login" aria-labelledby="login-title">
+        <div class="login__visual">
+          <img
+            th:src="@{/img/img-login.webp}"
+            alt="Dos perros Yorkshire al aire libre"
+          />
+          <div class="login__visual-overlay"></div>
+          <div class="login__brand">
+            <span>
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+                <ellipse
+                  cx="11"
+                  cy="20"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(-28 11 20)"></ellipse>
+                <ellipse
+                  cx="21"
+                  cy="11"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(-8 21 11)"></ellipse>
+                <ellipse
+                  cx="37"
+                  cy="20"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(28 37 20)"></ellipse>
+                <ellipse
+                  cx="31"
+                  cy="11"
+                  rx="5"
+                  ry="7"
+                  transform="rotate(8 31 11)"></ellipse>
+              </svg>
+            </span><strong>Pelucas Caninas</strong>
+          </div>
+          <blockquote>
+            “El mismo cariño de siempre, ahora también cuando vuelves.”
+          </blockquote>
+          <div class="login__trust">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2.5c.6 5.4 3.1 7.9 8.5 8.5-5.4.6-7.9 3.1-8.5 8.5-.6-5.4-3.1-7.9-8.5-8.5C8.9 10.4 11.4 7.9 12 2.5Z"
+                fill="currentColor"></path>
+            </svg>
+            Un espacio pensado para nuestras familias
+          </div>
+        </div>
+        <div class="login__content">
+          <div class="eyebrow login__eyebrow">
+            <span>
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <circle
+                  cx="10"
+                  cy="7"
+                  r="3"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"></circle>
+                <path
+                  d="M4.5 17c.5-3.1 2.3-4.7 5.5-4.7s5 1.6 5.5 4.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="1.6"></path>
+            </svg>
+          </span>Usuarios
+          </div>
+          <h2 id="login-title">Qué bueno<em>verte de nuevo.</em></h2>
+          <p
+            class="login-demo"
+            id="login-notice"
+            role="status"
+            th:if="${mensajeLogin}"
+            th:text="${mensajeLogin}"
+          ></p>
+          <form
+            class="login-form"
+            th:action="@{/login}"
+            method="post"
+            aria-describedby="login-notice"
+          >
+            <label class="login-field" for="username">
+              <span>Correo electrónico</span>
+              <input
+                id="username"
+                name="username"
+                type="email"
+                autocomplete="username"
+                placeholder="tu@correo.com"
+                maxlength="120"
+                required
+              />
+            </label>
+            <div class="login-field">
+              <label for="password">Contraseña</label>
+              <div class="login-password">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Ingresa tu contraseña"
+                  required
+                />
+                <button
+                  class="login-password-toggle"
+                  id="togglePassword"
+                  type="button"
+                  hidden
+                  aria-controls="password"
+                  aria-label="Mostrar contraseña"
+                  aria-pressed="false"
+                >
+                  <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <button class="login-submit" type="submit">
+              Iniciar sesión
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M4 10h11M11 6l4 4-4 4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"></path>
+              </svg>
+            </button>
+          </form>
+          <p class="login__register">
+            <a th:href="@{/admin}">Ir al panel de administración</a>
+          </p>
+          <p class="login__register"><a th:href="@{/}">Volver al inicio</a></p>
+        </div>
+      </section>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/login.js}"></script>
+  </body>
+</html>

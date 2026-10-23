@@ -1,474 +1,616 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head
-    th:replace="~{fragments/head :: head('Pelucas Caninas - Inicio', '/css/style-index.css')}"
-  >
-  </head>
-  <body>
-    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Inicio', null)}"
+  ></head>
+  <body class="page">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <!-- SECCIÓN INICIO - HERO REDISEÑADO -->
-    <section class="hero-inicio" id="inicio">
-      <div class="container hero-container">
-        <div class="row align-items-center g-5">
-          <div class="col-lg-6 hero-texto">
-            <p class="hero-kicker">
-              Grooming profesional con más de 20 años de experiencia
-            </p>
-            <h1>Cuidamos la belleza y salud de tu mascota</h1>
-            <p class="hero-descripcion">
-              Baños, cortes de raza y estética canina personalizada para que tu
-              engreído luzca limpio, feliz y bien cuidado.
-            </p>
-            <div class="hero-botones">
-              <a class="hero-btn-servicios" th:href="@{/servicios}">
-                <i class="fa-solid fa-scissors"> </i>
-                Ver servicios
-              </a>
-            </div>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2.5c.6 5.4 3.1 7.9 8.5 8.5-5.4.6-7.9 3.1-8.5 8.5-.6-5.4-3.1-7.9-8.5-8.5C8.9 10.4 11.4 7.9 12 2.5Z"
+                  fill="currentColor"></path>
+              </svg>
+            </span>
+            Más de 20 años cuidando de ellos
           </div>
-          <div class="col-lg-6">
-            <div class="hero-media">
-              <video
-                autoplay=""
-                loop=""
-                muted=""
-                playsinline=""
-                preload="metadata"
-                th:poster="@{/img/perritos.png}"
-              >
-                <source th:src="@{/img/Dogs_playing.mp4}" type="video/mp4" />
-              </video>
+          <h1 id="hero-title">
+            Su mejor look.
+            <em>Su día más feliz.</em>
+          </h1>
+          <p class="hero-copy__text">
+            Peluquería canina con calma, cariño y manos expertas. Cuidamos cada
+            detalle para que salga guapo, limpio y moviendo la cola.
+          </p>
+          <div class="hero-actions">
+            <a class="button btn-reserva" href="#reserva">
+              Reservar su cita
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M4 10h11M11 6l4 4-4 4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"></path>
+              </svg>
+            </a>
+            <a class="button" th:href="@{/servicios}">
+              Descubrir servicios
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div class="trust-note">
+            <div class="trust-note__faces" aria-hidden="true">
+              <span>🐶</span>
+              <span>🐕</span>
+              <span>🐩</span>
             </div>
+            <p>
+              <strong>Sin prisas y sin estrés.</strong>
+              <br />
+              Como si estuviera en casa.
+            </p>
           </div>
         </div>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <strong class="contador" data-suffix="+" data-target="20"> 0 </strong>
-          <span> Años de experiencia </span>
-        </div>
-        <div>
-          <strong class="contador" data-suffix="+" data-target="500">
-            0
-          </strong>
-          <span> Mascotas felices </span>
-        </div>
-        <div>
-          <strong class="contador" data-suffix="+" data-target="300">
-            0
-          </strong>
-          <span> Clientes satisfechos </span>
-        </div>
-        <div>
-          <strong class="contador" data-target="8"> 0 </strong>
-          <span> Servicios disponibles </span>
-        </div>
-      </div>
-    </section>
-    <!-- Galería - Carousel Bootstrap -->
-    <section class="galeria">
-      <div class="container">
-        <h2 class="titulo-seccion">Nuestros engreídos</h2>
-        <p class="descripcion-seccion">
-          Algunos clientes atendidos con cariño, paciencia y cuidado
-          profesional.
-        </p>
+
         <div
-          class="carousel slide carousel-engreidos"
-          data-bs-interval="3500"
-          data-bs-ride="carousel"
-          id="engreidosCarousel"
+          class="hero-visual"
+          aria-label="Un perro recién arreglado en un entorno natural"
         >
-          <div class="carousel-indicators">
+          <div class="hero-visual__halo"></div>
+          <div class="hero-photo">
+            <img
+              th:src="@{/img/figma/hero-dog.jpg}"
+              alt="Perro pequeño de pelo blanco disfrutando al aire libre"
+            />
+            <div class="photo-caption">
+              <span class="photo-caption__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5c.6 5.4 3.1 7.9 8.5 8.5-5.4.6-7.9 3.1-8.5 8.5-.6-5.4-3.1-7.9-8.5-8.5C8.9 10.4 11.4 7.9 12 2.5Z"
+                    fill="currentColor"></path>
+              </svg>
+            </span>
+              <span>
+                <small>Resultado impecable</small>
+                <strong>Listo para presumir</strong>
+              </span>
+            </div>
+          </div>
+          <div class="rating-card">
+            <div class="rating-card__stars" aria-label="5 de 5 estrellas">
+              ★★★★★
+            </div>
+            <strong>4,9</strong>
+            <span>+300 reseñas felices</span>
+          </div>
+          <div class="service-tag service-tag--top">Baño &amp; spa</div>
+          <div class="service-tag service-tag--bottom">Corte a medida</div>
+          <svg
+            class="hero-visual__scribble"
+            viewBox="0 0 100 60"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 52C30 15 54 4 91 9M82 2l10 7-8 9"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"></path>
+          </svg>
+        </div>
+
+        <div class="stats" aria-label="Datos destacados">
+          <div class="stat">
+            <strong>20+</strong><span>años mimándolos</span>
+          </div>
+          <div class="stat">
+            <strong>500+</strong><span>peludos felices</span>
+          </div>
+          <div class="stat">
+            <strong>8</strong><span>servicios expertos</span>
+          </div>
+          <div class="stats__note">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+              <ellipse
+                cx="11"
+                cy="20"
+                rx="5"
+                ry="7"
+                transform="rotate(-28 11 20)"></ellipse>
+              <ellipse
+                cx="21"
+                cy="11"
+                rx="5"
+                ry="7"
+                transform="rotate(-8 21 11)"></ellipse>
+              <ellipse
+                cx="37"
+                cy="20"
+                rx="5"
+                ry="7"
+                transform="rotate(28 37 20)"></ellipse>
+              <ellipse
+                cx="31"
+                cy="11"
+                rx="5"
+                ry="7"
+                transform="rotate(8 31 11)"></ellipse>
+            </svg>
+            <span>
+              Bienestar primero,
+              <br />
+              <strong>siempre.</strong>
+            </span>
+          </div>
+        </div>
+      </section>
+      <section class="happy-pets" aria-labelledby="happy-pets-title">
+        <div class="happy-pets__header">
+          <div>
+            <div class="eyebrow happy-pets__eyebrow">
+              <span>
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+                  <ellipse
+                    cx="11"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-28 11 20)"></ellipse>
+                  <ellipse
+                    cx="21"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-8 21 11)"></ellipse>
+                  <ellipse
+                    cx="37"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(28 37 20)"></ellipse>
+                  <ellipse
+                    cx="31"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(8 31 11)"></ellipse>
+          </svg>
+        </span>Clientes felices
+            </div>
+            <h2 id="happy-pets-title">Nuestros <em>engreídos.</em></h2>
+          </div>
+          <div class="happy-pets__intro">
+            <p>
+              Algunos de los peludos que confiaron en nuestras manos y salieron
+              listos para presumir.
+            </p>
+            <div class="happy-pets__arrows">
+              <button
+                type="button"
+                data-pet-step="-1"
+                aria-label="Mascota anterior"
+              >
+                <span style="transform: rotate(180deg)"
+                  ><svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      d="M4 10h11M11 6l4 4-4 4"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"></path>
+                      </svg>
+                      </span></button><button
+                type="button"
+                data-pet-step="1"
+                aria-label="Siguiente mascota"
+              >
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path
+                    d="M4 10h11M11 6l4 4-4 4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <template id="pet-data"
+          ><img
+            th:each="mascota : ${mascotas}"
+            th:src="@{${mascota.imagen}}"
+            th:alt="${mascota.nombre}"
+        /></template>
+        <div class="pet-carousel" aria-live="polite">
+          <button
+            class="pet-slide pet-slide--side pet-slide--previous"
+            type="button"
+            data-pet-step="-1"
+            aria-label="Mascota anterior"
+          >
+            <img
+              th:src="@{${mascotas[#lists.size(mascotas)-1].imagen}}"
+              th:alt="${mascotas[#lists.size(mascotas)-1].nombre}"
+              loading="lazy"
+            /><span
+              th:text="${mascotas[#lists.size(mascotas)-1].nombre}"
+            ></span>
+          </button>
+          <article class="pet-slide pet-slide--active">
+            <img
+              th:src="@{${mascotas[0].imagen}}"
+              th:alt="${mascotas[0].nombre}"
+              loading="lazy"
+            />
+            <div class="pet-slide__caption">
+              <span>
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+                  <ellipse
+                    cx="11"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-28 11 20)"></ellipse>
+                  <ellipse
+                    cx="21"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-8 21 11)"></ellipse>
+                  <ellipse
+                    cx="37"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(28 37 20)"></ellipse>
+                  <ellipse
+                    cx="31"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(8 31 11)"></ellipse>
+                </svg>
+              </span>
+              <div>
+                <small>Belleza y bienestar</small><strong th:text="${mascotas[0].nombre}"></strong>
+              </div>
+              <p>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5c.6 5.4 3.1 7.9 8.5 8.5-5.4.6-7.9 3.1-8.5 8.5-.6-5.4-3.1-7.9-8.5-8.5C8.9 10.4 11.4 7.9 12 2.5Z"
+                    fill="currentColor"></path></svg>Resultado feliz
+              </p>
+            </div>
+          </article>
+          <button
+            class="pet-slide pet-slide--side pet-slide--next"
+            type="button"
+            data-pet-step="1"
+            aria-label="Siguiente mascota"
+          >
+            <img
+              th:src="@{${mascotas[1].imagen}}"
+              th:alt="${mascotas[1].nombre}"
+              loading="lazy"
+            /><span th:text="${mascotas[1].nombre}"></span>
+          </button>
+        </div>
+        <div class="pet-carousel__footer">
+          <span id="pet-position">01 / 12</span>
+          <div class="pet-carousel__dots" aria-label="Seleccionar mascota">
             <button
-              data-bs-target="#engreidosCarousel"
-              th:attr="data-bs-slide-to=${estado.index},aria-label=|Grupo ${estado.count}|,aria-current=${estado.first ? 'true' : null}"
-              th:classappend="${estado.first} ? 'active' : ''"
-              th:each="grupo, estado : ${gruposMascotas}"
+              th:each="mascota, estado : ${mascotas}"
               type="button"
+              th:attr="data-pet-index=${estado.index},aria-label=|Ver a ${mascota.nombre}|,aria-current=${estado.first ? 'true' : null}"
+              th:classappend="${estado.first} ? 'is-active' : ''"
             ></button>
           </div>
-          <!--Galería dinámica-->
-          <div class="carousel-inner">
-            <div
-              class="carousel-item"
-              th:classappend="${estado.first} ? 'active' : ''"
-              th:each="grupo, estado : ${gruposMascotas}"
-            >
-              <div class="row g-3 g-lg-4 justify-content-center">
-                <div
-                  class="col-10 col-md-6 col-lg-3"
-                  th:classappend="${!posicion.first} ? 'd-none d-md-block' : ''"
-                  th:each="mascota, posicion : ${grupo}"
-                >
-                  <img
-                    class="d-block w-100"
-                    decoding="async"
-                    loading="lazy"
-                    th:alt="${mascota.nombre}"
-                    th:src="@{${mascota.imagen}}"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
           <button
-            class="carousel-control-prev"
-            data-bs-slide="prev"
-            data-bs-target="#engreidosCarousel"
+            class="pet-autoplay"
+            id="petAutoToggle"
             type="button"
+            aria-pressed="false"
           >
-            <span aria-hidden="true" class="carousel-control-prev-icon"> </span>
-            <span class="visually-hidden"> Anterior </span>
-          </button>
-          <button
-            class="carousel-control-next"
-            data-bs-slide="next"
-            data-bs-target="#engreidosCarousel"
-            type="button"
-          >
-            <span aria-hidden="true" class="carousel-control-next-icon"> </span>
-            <span class="visually-hidden"> Siguiente </span>
+            Pausar
           </button>
         </div>
-      </div>
-    </section>
-    <!-- Recomendaciones - Cards Bootstrap -->
-    <section class="recomendaciones" id="recomendaciones">
-      <div class="container">
-        <h2 class="titulo-seccion">Recomendaciones para tu mascota</h2>
-        <p class="descripcion-seccion">
-          Cuidados básicos para mantener a tu engreído limpio, sano y feliz.
-        </p>
-        <div class="row g-4 mt-3">
-          <div class="col-12 col-md-6 col-xl-3">
-            <article class="card card-reco h-100">
-              <div class="card-body">
-                <i class="fa-solid fa-shower"> </i>
-                <h3 class="card-title">Baño adecuado</h3>
-                <p class="card-text">
-                  Usa productos especiales para perros y evita shampoo de
-                  personas, ya que puede irritar su piel.
-                </p>
-              </div>
-            </article>
+      </section>
+      <section class="visit" id="reserva" aria-labelledby="visit-title">
+        <div class="visit__intro">
+          <div class="eyebrow visit__eyebrow">
+            <span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M20 10c0 5.5-8 11-8 11S4 15.5 4 10a8 8 0 1 1 16 0Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linejoin="round"
+                  stroke-width="1.7"></path>
+                <circle
+                  cx="12"
+                  cy="10"
+                  r="2.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"></circle>
+                </svg>
+              </span>
+            Ven a conocernos
           </div>
-          <div class="col-12 col-md-6 col-xl-3">
-            <article class="card card-reco h-100">
-              <div class="card-body">
-                <i class="fa-solid fa-paw"> </i>
-                <h3 class="card-title">Cuidado de uñas</h3>
-                <p class="card-text">
-                  Revisa sus uñas con frecuencia para evitar molestias al
-                  caminar o correr.
-                </p>
-              </div>
-            </article>
-          </div>
-          <div class="col-12 col-md-6 col-xl-3">
-            <article class="card card-reco h-100">
-              <div class="card-body">
-                <i class="fa-solid fa-brush"> </i>
-                <h3 class="card-title">Cepillado frecuente</h3>
-                <p class="card-text">
-                  Cepilla su pelaje para evitar nudos, retirar pelo muerto y
-                  mantenerlo limpio por más tiempo.
-                </p>
-              </div>
-            </article>
-          </div>
-          <div class="col-12 col-md-6 col-xl-3">
-            <article class="card card-reco h-100">
-              <div class="card-body">
-                <i class="fa-solid fa-heart-pulse"> </i>
-                <h3 class="card-title">Visitas periódicas</h3>
-                <p class="card-text">
-                  Agenda baños, cortes y revisiones de limpieza para prevenir
-                  suciedad y mantener su bienestar.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Preguntas frecuentes - Accordion Bootstrap -->
-    <section class="preguntas-frecuentes" id="preguntas-frecuentes">
-      <div class="container faq-container">
-        <h2 class="titulo-seccion">Preguntas frecuentes</h2>
-        <p class="descripcion-seccion">
-          Resolvemos las dudas más comunes antes de tu visita.
-        </p>
-        <div class="accordion accordion-flush faq-accordion" id="faqAccordion">
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button
-                aria-controls="faq1"
-                aria-expanded="true"
-                class="accordion-button"
-                data-bs-target="#faq1"
-                data-bs-toggle="collapse"
-                type="button"
-              >
-                ¿Necesito reservar una cita?
-              </button>
-            </h3>
-            <div
-              class="accordion-collapse collapse show"
-              data-bs-parent="#faqAccordion"
-              id="faq1"
-            >
-              <div class="accordion-body">
-                Sí. Recomendamos reservar para asegurar un horario y brindarle a
-                cada mascota el tiempo que necesita.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button
-                aria-controls="faq2"
-                aria-expanded="false"
-                class="accordion-button collapsed"
-                data-bs-target="#faq2"
-                data-bs-toggle="collapse"
-                type="button"
-              >
-                ¿Cuánto demora un servicio de grooming?
-              </button>
-            </h3>
-            <div
-              class="accordion-collapse collapse"
-              data-bs-parent="#faqAccordion"
-              id="faq2"
-            >
-              <div class="accordion-body">
-                Depende del tamaño, tipo de pelaje y servicio elegido. Al
-                recibir a tu mascota podemos darte un tiempo aproximado.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button
-                aria-controls="faq3"
-                aria-expanded="false"
-                class="accordion-button collapsed"
-                data-bs-target="#faq3"
-                data-bs-toggle="collapse"
-                type="button"
-              >
-                ¿Atienden perros de todos los tamaños?
-              </button>
-            </h3>
-            <div
-              class="accordion-collapse collapse"
-              data-bs-parent="#faqAccordion"
-              id="faq3"
-            >
-              <div class="accordion-body">
-                Sí. Adaptamos el cuidado y las técnicas de grooming al tamaño,
-                edad y características de cada mascota.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button
-                aria-controls="faq4"
-                aria-expanded="false"
-                class="accordion-button collapsed"
-                data-bs-target="#faq4"
-                data-bs-toggle="collapse"
-                type="button"
-              >
-                ¿Qué debo indicar antes del servicio?
-              </button>
-            </h3>
-            <div
-              class="accordion-collapse collapse"
-              data-bs-parent="#faqAccordion"
-              id="faq4"
-            >
-              <div class="accordion-body">
-                Cuéntanos si tu mascota tiene sensibilidad en la piel, alergias,
-                comportamiento especial o alguna indicación importante.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Sección contactanos -->
-    <section class="seccion-contacto" id="contactanos">
-      <div class="contacto-contenido">
-        <div class="contacto-info">
-          <h2>Contáctanos</h2>
-          <p class="contacto-subtitulo">
-            ¿Tienes una consulta? Estamos para ayudarte.
+          <h2 id="visit-title">
+            Estamos cerca
+            <em>de ti.</em>
+          </h2>
+          <p>
+            Agenda una visita o escríbenos. Estaremos encantados de recibirte y
+            cuidar a tu mejor amigo.
           </p>
-          <div class="contacto-card">
-            <i class="fa-solid fa-calendar-days"> </i>
-            <div>
-              <h3>Agenda tu cita</h3>
-              <p>Reserva el baño o corte de tu mascota.</p>
-              <button
-                class="btn-contacto border-0"
-                data-bs-target="#modalReserva"
-                data-bs-toggle="modal"
-                type="button"
-              >
-                Agendar Cita
-              </button>
-            </div>
+
+          <div class="visit-actions">
+            <article class="visit-action visit-action--primary">
+              <span class="visit-action__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect
+                    x="3"
+                    y="5"
+                    width="18"
+                    height="16"
+                    rx="4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"></rect>
+                  <path
+                    d="M7.5 3v4M16.5 3v4M3.5 10h17"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.7"></path>
+                </svg>
+              </span>
+              <div>
+                <h3>Agenda tu cita</h3>
+                <p>Reserva el baño o corte de tu mascota.</p>
+                <a class="btn-reserva" href="#reserva" rel="noreferrer">
+                  Agendar cita
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      d="M4 10h11M11 6l4 4-4 4"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="visit-action">
+              <span class="visit-action__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect
+                    x="3"
+                    y="5"
+                    width="18"
+                    height="14"
+                    rx="3"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"></rect>
+                  <path
+                    d="m4.5 7 7.5 6 7.5-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"></path>
+                  </svg>
+                </span>
+              <div>
+                <h3>Escríbenos</h3>
+                <p>Resuelve tus dudas directamente con nosotros.</p>
+                <a th:href="@{/contacto}">
+                  Ir al formulario
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      d="M4 10h11M11 6l4 4-4 4"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
           </div>
-          <div class="contacto-card">
-            <i class="fa-regular fa-file-lines"> </i>
+
+          <div class="visit-details">
             <div>
-              <h3>Escríbenos</h3>
-              <p>¿Necesitas ayuda? Resuelve tus dudas con nosotros.</p>
-              <a class="btn-contacto" th:href="@{/contacto}">
-                Ir al formulario
-              </a>
-            </div>
-          </div>
-          <div class="contacto-card">
-            <i class="fa-solid fa-location-dot"> </i>
-            <div>
-              <h3>Ubicación</h3>
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M20 10c0 5.5-8 11-8 11S4 15.5 4 10a8 8 0 1 1 16 0Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"></path>
+                  <circle
+                    cx="12"
+                    cy="10"
+                    r="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"></circle>
+                  </svg>
+                </span>
               <p>
+                <small>Ubicación</small>
                 Mz S3 Lote 7 José Carlos Mariátegui, San Juan de Lurigancho
                 15449, Perú
               </p>
+            </div>
+            <div>
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"></circle>
+                  <path
+                    d="M12 7v5l3.5 2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"></path>
+                </svg>
+              </span>
               <p>
-                <br />
-                Atencion: Lunes a Sábado de 9:00 a.m. a 6:00 p.m.
+                <small>Horario de atención</small>
+                Lunes a sábado · 9:00 a.m. a 6:00 p.m.
               </p>
             </div>
           </div>
         </div>
-        <div class="contacto-mapa">
+
+        <div class="visit-map">
           <iframe
-            allowfullscreen=""
+            title="Ubicación de Pelucas Caninas"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.5775850362816!2d-76.99019042118103!3d-11.934457835306008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105db5e62725871%3A0x1715d2ecc03bbdcf!2sPelucas%20Caninas!5e0!3m2!1ses-419!2spe!4v1779052191958!5m2!1ses-419!2spe"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.5775850362816!2d-76.99019042118103!3d-11.934457835306008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105db5e62725871%3A0x1715d2ecc03bbdcf!2sPelucas%20Caninas!5e0!3m2!1ses-419!2spe!4v1779052191958!5m2!1ses-419!2spe"
+          ></iframe>
+        </div>
+      </section>
+      <!-- Preguntas frecuentes - Accordion Bootstrap -->
+      <section class="preguntas-frecuentes" id="preguntas-frecuentes">
+        <div class="container faq-container">
+          <h2 class="titulo-seccion">Preguntas frecuentes</h2>
+          <p class="descripcion-seccion">
+            Resolvemos las dudas más comunes antes de tu visita.
+          </p>
+          <div
+            class="accordion accordion-flush faq-accordion"
+            id="faqAccordion"
           >
-          </iframe>
-        </div>
-      </div>
-    </section>
-    <!-- Modal Bootstrap: Reserva de cita -->
-    <div
-      aria-hidden="true"
-      aria-labelledby="modalReservaLabel"
-      class="modal fade"
-      id="modalReserva"
-      tabindex="-1"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content modal-reserva-content">
-          <div class="modal-header">
-            <div>
-              <span class="modal-kicker"> Pelucas Caninas </span>
-              <h2 class="modal-title fs-4" id="modalReservaLabel">
-                Reserva una cita
-              </h2>
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button
+                  aria-controls="faq1"
+                  aria-expanded="true"
+                  class="accordion-button"
+                  data-bs-target="#faq1"
+                  data-bs-toggle="collapse"
+                  type="button"
+                >
+                  ¿Necesito reservar una cita?
+                </button>
+              </h3>
+              <div
+                class="accordion-collapse collapse show"
+                data-bs-parent="#faqAccordion"
+                id="faq1"
+              >
+                <div class="accordion-body">
+                  Sí. Recomendamos reservar para asegurar un horario y brindarle
+                  a cada mascota el tiempo que necesita.
+                </div>
+              </div>
             </div>
-            <button
-              aria-label="Cerrar"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              type="button"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="formReserva">
-              <div class="mb-3">
-                <label class="form-label" for="reservaNombre">
-                  Tu nombre
-                </label>
-                <input
-                  class="form-control"
-                  id="reservaNombre"
-                  required=""
-                  type="text"
-                />
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="reservaMascota">
-                  Nombre de tu mascota
-                </label>
-                <input
-                  class="form-control"
-                  id="reservaMascota"
-                  required=""
-                  type="text"
-                />
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="reservaServicio">
-                  Servicio
-                </label>
-                <select class="form-select" id="reservaServicio" required="">
-                  <option disabled="" selected="" value="">
-                    Selecciona un servicio
-                  </option>
-                  <option>Baño básico</option>
-                  <option>Baño premium</option>
-                  <option>Baño y corte</option>
-                  <option>Corte de raza</option>
-                </select>
-              </div>
-              <div class="row g-3">
-                <div class="col-sm-6">
-                  <label class="form-label" for="reservaFecha">
-                    Fecha preferida
-                  </label>
-                  <input
-                    class="form-control"
-                    id="reservaFecha"
-                    required=""
-                    type="date"
-                  />
-                </div>
-                <div class="col-sm-6">
-                  <label class="form-label" for="reservaTelefono">
-                    Teléfono
-                  </label>
-                  <input
-                    class="form-control"
-                    id="reservaTelefono"
-                    placeholder="999 999 999"
-                    required=""
-                    type="tel"
-                  />
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button
+                  aria-controls="faq2"
+                  aria-expanded="false"
+                  class="accordion-button collapsed"
+                  data-bs-target="#faq2"
+                  data-bs-toggle="collapse"
+                  type="button"
+                >
+                  ¿Cuánto demora un servicio de grooming?
+                </button>
+              </h3>
+              <div
+                class="accordion-collapse collapse"
+                data-bs-parent="#faqAccordion"
+                id="faq2"
+              >
+                <div class="accordion-body">
+                  Depende del tamaño, tipo de pelaje y servicio elegido. Al
+                  recibir a tu mascota podemos darte un tiempo aproximado.
                 </div>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-outline-secondary"
-              data-bs-dismiss="modal"
-              type="button"
-            >
-              Cancelar
-            </button>
-            <button
-              class="btn btn-reserva-modal"
-              form="formReserva"
-              type="submit"
-            >
-              <i class="fab fa-whatsapp"> </i>
-              Continuar por WhatsApp
-            </button>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button
+                  aria-controls="faq3"
+                  aria-expanded="false"
+                  class="accordion-button collapsed"
+                  data-bs-target="#faq3"
+                  data-bs-toggle="collapse"
+                  type="button"
+                >
+                  ¿Atienden perros de todos los tamaños?
+                </button>
+              </h3>
+              <div
+                class="accordion-collapse collapse"
+                data-bs-parent="#faqAccordion"
+                id="faq3"
+              >
+                <div class="accordion-body">
+                  Sí. Adaptamos el cuidado y las técnicas de grooming al tamaño,
+                  edad y características de cada mascota.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button
+                  aria-controls="faq4"
+                  aria-expanded="false"
+                  class="accordion-button collapsed"
+                  data-bs-target="#faq4"
+                  data-bs-toggle="collapse"
+                  type="button"
+                >
+                  ¿Qué debo indicar antes del servicio?
+                </button>
+              </h3>
+              <div
+                class="accordion-collapse collapse"
+                data-bs-parent="#faqAccordion"
+                id="faq4"
+              >
+                <div class="accordion-body">
+                  Cuéntanos si tu mascota tiene sensibilidad en la piel,
+                  alergias, comportamiento especial o alguna indicación
+                  importante.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- Footer -->
+      </section>
+    </main>
     <div th:replace="~{fragments/footer :: footer}"></div>
   </body>
 </html>

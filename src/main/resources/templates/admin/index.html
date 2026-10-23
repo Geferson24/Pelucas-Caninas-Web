@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Administración', '/css/style-admin.css')}"
+  ></head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="admin-page">
+      <div th:replace="~{admin/fragments :: navegacion}"></div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Pelucas Caninas</p>
+          <h1>Administración</h1>
+          <p>
+            Gestiona las categorías, los productos y los servicios de tu
+            negocio.
+          </p>
+        </div>
+      </header>
+      <div class="admin-dashboard">
+        <a class="admin-card" th:href="@{/admin/categorias}"
+          ><i class="fa-solid fa-tags" aria-hidden="true"></i><span class="admin-count" th:text="${totalCategorias}">0</span>
+          <h2>Categorías</h2>
+          <p>Organiza los productos por tipo.</p>
+          <span>Gestionar categorías →</span></a>
+        <a class="admin-card" th:href="@{/admin/productos}"
+          ><i class="fa-solid fa-box" aria-hidden="true"></i><span class="admin-count" th:text="${totalProductos}">0</span>
+          <h2>Productos</h2>
+          <p>Actualiza precios, stock y disponibilidad.</p>
+          <span>Gestionar productos →</span></a>
+        <a class="admin-card" th:href="@{/admin/servicios}"
+          ><i class="fa-solid fa-scissors" aria-hidden="true"></i><span class="admin-count" th:text="${totalServicios}">0</span>
+          <h2>Servicios</h2>
+          <p>Administra los planes de baño y los servicios adicionales.</p>
+          <span>Gestionar servicios →</span></a>
+      </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

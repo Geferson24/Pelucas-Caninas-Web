@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Administración - Servicios', '/css/style-admin.css')}"
+  ></head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="admin-page">
+      <div th:replace="~{admin/fragments :: navegacion}"></div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Atención y cuidado</p>
+          <h1>Servicios</h1>
+          <p>Administra planes de baño, precios y servicios adicionales.</p>
+        </div>
+        <a class="admin-button" th:href="@{/admin/servicios/nuevo}"
+          >+ Nuevo servicio</a>
+      </header>
+      <div th:replace="~{admin/fragments :: mensajes}"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <caption class="visually-hidden">
+            Lista de servicios
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Servicio</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Duración</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${#lists.isEmpty(servicios)}">
+              <td colspan="7" class="admin-empty">
+                Todavía no hay servicios. Registra el primero para mostrarlo en
+                el sitio.
+              </td>
+            </tr>
+            <tr th:each="servicio : ${servicios}">
+              <td th:text="${servicio.id}"></td>
+              <td>
+                <strong th:text="${servicio.nombre}"></strong><span class="admin-badge" th:if="${servicio.destacado}"
+                  >Destacado</span><small
+                  class="admin-description"
+                  th:text="${servicio.descripcion}"
+                ></small>
+              </td>
+              <td
+                th:text="${servicio.tipo == 'PLAN' ? 'Plan' : 'Adicional'}"
+              ></td>
+              <td
+                class="admin-price"
+                th:text="${servicio.precio != null ? 'S/ ' + servicio.precio : 'Por definir'}"
+              ></td>
+              <td
+                th:text="${servicio.duracionMinutos != null ? servicio.duracionMinutos + ' min' : 'Por definir'}"
+              ></td>
+              <td>
+                <span
+                  class="admin-badge"
+                  th:classappend="${servicio.estado == 'INACTIVO'} ? 'admin-badge-muted'"
+                  th:text="${servicio.estado == 'ACTIVO' ? 'Activo' : 'Inactivo'}"
+                ></span>
+              </td>
+              <td>
+                <div class="admin-actions">
+                  <a
+                    class="admin-button admin-secondary"
+                    th:href="@{/admin/servicios/{id}/editar(id=${servicio.id})}"
+                    th:attr="aria-label=|Editar ${servicio.nombre}|"
+                    >Editar</a>
+                  <form
+                    method="post"
+                    th:action="@{/admin/servicios/{id}/eliminar(id=${servicio.id})}"
+                    data-confirm="¿Eliminar este servicio? Esta acción no se puede deshacer."
+                  >
+                    <button
+                      class="admin-button admin-danger"
+                      type="submit"
+                      th:attr="aria-label=|Eliminar ${servicio.nombre}|"
+                    >
+                      Eliminar
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/admin.js}"></script>
+  </body>
+</html>

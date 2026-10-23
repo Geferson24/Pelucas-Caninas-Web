@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Administración - Productos', '/css/style-admin.css')}"
+  ></head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="admin-page">
+      <div th:replace="~{admin/fragments :: navegacion}"></div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Catálogo</p>
+          <h1>Productos</h1>
+          <p>Administra precios, existencias y visibilidad en el sitio.</p>
+        </div>
+        <a class="admin-button" th:href="@{/admin/productos/nuevo}"
+          >+ Nuevo producto</a>
+      </header>
+      <div th:replace="~{admin/fragments :: mensajes}"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <caption class="visually-hidden">
+            Lista de productos
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Producto</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${#lists.isEmpty(productos)}">
+              <td colspan="7" class="admin-empty">
+                Todavía no hay productos. Registra el primero para mostrarlo en
+                el catálogo.
+              </td>
+            </tr>
+            <tr th:each="producto : ${productos}">
+              <td th:text="${producto.id}"></td>
+              <td>
+                <strong th:text="${producto.nombre}"></strong><small
+                  class="admin-description"
+                  th:text="${producto.descripcion}"
+                ></small>
+              </td>
+              <td th:text="${producto.categoria.nombre}"></td>
+              <td class="admin-price" th:text="|S/ ${producto.precio}|"></td>
+              <td th:text="${producto.stock}"></td>
+              <td>
+                <span
+                  class="admin-badge"
+                  th:classappend="${producto.estado == 'INACTIVO'} ? 'admin-badge-muted'"
+                  th:text="${producto.estado == 'ACTIVO' ? 'Activo' : 'Inactivo'}"
+                ></span>
+              </td>
+              <td>
+                <div class="admin-actions">
+                  <a
+                    class="admin-button admin-secondary"
+                    th:href="@{/admin/productos/{id}/editar(id=${producto.id})}"
+                    th:attr="aria-label=|Editar ${producto.nombre}|"
+                    >Editar</a>
+                  <form
+                    method="post"
+                    th:action="@{/admin/productos/{id}/eliminar(id=${producto.id})}"
+                    data-confirm="¿Eliminar este producto? Esta acción no se puede deshacer."
+                  >
+                    <button
+                      class="admin-button admin-danger"
+                      type="submit"
+                      th:attr="aria-label=|Eliminar ${producto.nombre}|"
+                    >
+                      Eliminar
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/admin.js}"></script>
+  </body>
+</html>

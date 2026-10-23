@@ -1,25 +1,26 @@
 package com.veterinaria.pelucascaninas.controller;
 
 import com.veterinaria.pelucascaninas.service.CatalogoService;
-import org.springframework.http.HttpStatus;
+import com.veterinaria.pelucascaninas.service.CategoriaProductoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class PaginaController {
     private final CatalogoService catalogo;
+    private final CategoriaProductoService categorias;
 
-    public PaginaController(CatalogoService catalogo) {
+    public PaginaController(CatalogoService catalogo, CategoriaProductoService categorias) {
         this.catalogo = catalogo;
+        this.categorias = categorias;
     }
 
     @GetMapping("/")
     public String inicio(Model model) {
         model.addAttribute("paginaActiva", "inicio");
         model.addAttribute("gruposMascotas", catalogo.gruposMascotas());
+        model.addAttribute("mascotas", catalogo.gruposMascotas().stream().flatMap(java.util.List::stream).toList());
         return "index";
     }
 
@@ -27,17 +28,8 @@ public class PaginaController {
     public String productos(Model model) {
         model.addAttribute("paginaActiva", "productos");
         model.addAttribute("productos", catalogo.listarProductos());
+        model.addAttribute("categorias", categorias.listar());
         return "productos";
-    }
-
-    @GetMapping("/productos/{id:[0-9]+}")
-    public String detalle(@PathVariable int id, Model model) {
-        var producto = catalogo.buscarProducto(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        model.addAttribute("paginaActiva", "productos");
-        model.addAttribute("producto", producto);
-        model.addAttribute("relacionados", catalogo.productosRelacionados(id));
-        return "detalle-producto";
     }
 
     @GetMapping("/servicios")

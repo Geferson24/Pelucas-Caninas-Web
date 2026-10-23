@@ -16,6 +16,7 @@ public class Plan {
     private final BigDecimal precio;
     private final String imagen;
     private final boolean destacado;
+    private final Integer duracionMinutos;
 
     public String getEnlaceWhatsapp() {
         return "https://wa.me/51937317249?text=" + URLEncoder.encode(

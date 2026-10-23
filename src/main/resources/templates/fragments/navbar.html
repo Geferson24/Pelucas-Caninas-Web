@@ -1,104 +1,143 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <body>
-    <nav
-      class="navbar navbar-expand-lg fixed-top navbar-pelucas"
-      th:fragment="navbar"
-    >
-      <div class="container-fluid px-lg-4">
-        <a
-          aria-label="Pelucas Caninas"
-          class="navbar-brand logo"
-          th:href="@{/}"
-        >
+    <th:block th:fragment="navbar">
+      <script>
+        window.PelucasTheme.apply();
+      </script>
+      <header class="site-header">
+        <a class="brand" th:href="@{/}" aria-label="Pelucas Caninas, inicio">
           <img
-            alt="Logo Pelucas Caninas"
+            class="brand__logo"
             th:src="@{/img/Pelucas Caninas.png}"
+            alt="Logo Pelucas Caninas"
+            width="104"
+            height="78"
           />
-          <span class="logo-text d-none d-xl-flex">
-            <span class="logo-title">Peluquería Canina</span>
-            <small>Belleza, cuidado y bienestar</small>
+          <span class="brand__copy">
+            <strong>Pelucas Caninas</strong>
+            <small>Estética canina</small>
           </span>
         </a>
-        <button
-          aria-controls="navbarPelucas"
-          aria-expanded="false"
-          aria-label="Abrir menú"
-          class="navbar-toggler ms-auto"
-          data-bs-target="#navbarPelucas"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <i class="fa-solid fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarPelucas">
-          <div class="navbar-nav menu mx-auto">
-            <a
-              class="nav-link"
-              th:attr="aria-current=${paginaActiva == 'inicio' ? 'page' : null}"
-              th:classappend="${paginaActiva == 'inicio'} ? 'active' : ''"
-              th:href="@{/}"
-              >Inicio</a
-            >
-            <a
-              class="nav-link"
-              th:attr="aria-current=${paginaActiva == 'servicios' ? 'page' : null}"
-              th:classappend="${paginaActiva == 'servicios'} ? 'active' : ''"
-              th:href="@{/servicios}"
-              >Servicios</a
-            >
-            <a
-              class="nav-link"
-              th:attr="aria-current=${paginaActiva == 'productos' ? 'page' : null}"
-              th:classappend="${paginaActiva == 'productos'} ? 'active' : ''"
-              th:href="@{/productos}"
-              >Productos</a
-            >
-            <a
-              class="nav-link"
-              th:attr="aria-current=${paginaActiva == 'contacto' ? 'page' : null}"
-              th:classappend="${paginaActiva == 'contacto'} ? 'active' : ''"
-              th:href="@{/contacto}"
-              >Contáctanos</a
-            >
-            <a
-              class="nav-link"
-              th:attr="aria-current=${paginaActiva == 'nosotros' ? 'page' : null}"
-              th:classappend="${paginaActiva == 'nosotros'} ? 'active' : ''"
-              th:href="@{/nosotros}"
-              >Nosotros</a
-            >
-          </div>
-        </div>
-        <div class="nav-actions ms-lg-3">
+        <nav class="nav" id="navbarPelucas" aria-label="Navegación principal">
+          <a
+            class="nav__link"
+            th:classappend="${paginaActiva == 'inicio'} ? 'nav__link--active' : ''"
+            th:attr="aria-current=${paginaActiva == 'inicio' ? 'page' : null}"
+            th:href="@{/}"
+            >Inicio</a><a
+            class="nav__link"
+            th:classappend="${paginaActiva == 'servicios'} ? 'nav__link--active' : ''"
+            th:attr="aria-current=${paginaActiva == 'servicios' ? 'page' : null}"
+            th:href="@{/servicios}"
+            >Servicios</a><a
+            class="nav__link"
+            th:classappend="${paginaActiva == 'productos'} ? 'nav__link--active' : ''"
+            th:attr="aria-current=${paginaActiva == 'productos' ? 'page' : null}"
+            th:href="@{/productos}"
+            >Productos</a><a
+            class="nav__link"
+            th:classappend="${paginaActiva == 'nosotros'} ? 'nav__link--active' : ''"
+            th:attr="aria-current=${paginaActiva == 'nosotros' ? 'page' : null}"
+            th:href="@{/nosotros}"
+            >Nosotros</a><a
+            class="nav__link"
+            th:classappend="${paginaActiva == 'contacto'} ? 'nav__link--active' : ''"
+            th:attr="aria-current=${paginaActiva == 'contacto' ? 'page' : null}"
+            th:href="@{/contacto}"
+            >Contacto</a>
+        </nav>
+        <div class="header-actions">
           <button
-            aria-label="Cambiar modo oscuro"
-            class="nav-icon-btn"
+            class="theme-toggle"
             id="darkModeToggle"
             type="button"
+            role="switch"
+            aria-label="Cambiar modo oscuro"
+            aria-checked="false"
           >
-            <i class="fa-solid fa-moon"></i>
+            <span class="theme-toggle__icon"
+              ><svg viewBox="0 0 20 20" aria-hidden="true">
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="3.2"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"></circle>
+                <path
+                  d="M10 2v2M10 16v2M2 10h2M16 10h2M4.35 4.35l1.4 1.4M14.25 14.25l1.4 1.4M15.65 4.35l-1.4 1.4M5.75 14.25l-1.4 1.4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="1.5"></path>
+                  </svg>
+                  </span><span class="theme-toggle__icon"
+              ><svg viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M16.5 12.3A6.8 6.8 0 0 1 7.7 3.5 6.8 6.8 0 1 0 16.5 12.3Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"></path>
+                  </svg>
+                  </span><span class="theme-toggle__thumb" aria-hidden="true"></span>
           </button>
           <button
-            aria-label="Abrir carrito"
-            class="nav-cart-btn"
+            class="cart-button"
             id="cartToggle"
             type="button"
+            aria-label="Abrir carrito"
           >
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span id="cartCount">0</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M3.5 5h2l1.8 9.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.5l1.2-5.8H6.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.7"></path>
+              <circle cx="9.5" cy="19" r="1.25" fill="currentColor"></circle>
+              <circle cx="17.3" cy="19" r="1.25" fill="currentColor"></circle></svg><span class="cart-button__count" id="cartCount">0</span>
           </button>
-          <button
-            class="btn-reserva"
-            data-bs-target="#modalReserva"
-            data-bs-toggle="modal"
-            type="button"
-          >
-            <i class="fa-regular fa-calendar-days"></i>
-            Reservar cita
-          </button>
+          <a class="button button--compact login-button" th:href="@{/login}"
+            ><svg viewBox="0 0 20 20" aria-hidden="true">
+              <circle
+                cx="10"
+                cy="7"
+                r="3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"></circle>
+              <path
+                d="M4.5 17c.5-3.1 2.3-4.7 5.5-4.7s5 1.6 5.5 4.7"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.6"></path></svg><span>Iniciar sesión</span></a>
         </div>
-      </div>
-    </nav>
+        <button
+          class="menu-button"
+          id="siteMenuToggle"
+          type="button"
+          aria-label="Abrir menú"
+          aria-controls="navbarPelucas"
+          aria-expanded="false"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M5 8h14M5 16h14"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="1.8"></path>
+          </svg>
+        </button>
+      </header>
+      <script>
+        window.PelucasTheme.apply();
+      </script>
+    </th:block>
   </body>
 </html>

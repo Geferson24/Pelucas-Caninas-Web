@@ -1,99 +1,268 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head
-    th:replace="~{fragments/head :: head('Pelucas Caninas - Libro de reclamaciones', '/css/style-libro.css')}"
-  >
-  </head>
-  <body>
-    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Libro de reclamaciones', null)}"
+  ></head>
+  <body class="page">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <!-- Contenido del libro de reclamaciones -->
-    <main class="contenedor">
-      <h1>Libro de reclamaciones</h1>
-      <div class="datos-empresa">
-        <p>
-          <strong> PELUCAS CANINAS S.A.C </strong>
-        </p>
-        <p>
-          <strong> RUC: </strong>
-          20610289321
-        </p>
-        <p>
-          <strong> Dirección: </strong>
-          Mz S3 Lote 7, Jose Carlos Mariategui, SJL, Lima
-        </p>
-      </div>
-      <form class="formulario-libro" novalidate="">
-        <p class="nota-formulario">
-          Demostración académica: este formulario valida campos; no registra ni
-          envía un reclamo.
-        </p>
-        <h2>Datos de la persona que presenta el reclamo</h2>
-        <label> Elegir una fecha * </label>
-        <input required="" type="date" />
-        <label> Número de documento de identidad * </label>
-        <input required="" type="text" />
-        <div class="fila">
+    <main>
+      <section
+        class="claims"
+        id="libro-reclamaciones"
+        aria-labelledby="claims-title"
+      >
+        <div class="claims__intro">
           <div>
-            <label> Nombre * </label>
-            <input required="" type="text" />
+            <div class="eyebrow claims__eyebrow">
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M3.5 5.5c3.4-.7 6.2.1 8.5 2.2v11c-2.3-2.1-5.1-2.9-8.5-2.2v-11ZM20.5 5.5c-3.4-.7-6.2.1-8.5 2.2v11c2.3-2.1 5.1-2.9 8.5-2.2v-11Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.6"></path>
+                </svg>
+              </span>
+              Atención al cliente
+            </div>
+            <h2 id="claims-title">
+              Libro de
+              <em>Reclamaciones.</em>
+            </h2>
+            <p>
+              Estamos para escucharte. Completa la información solicitada para
+              validar tu reclamo o queja.
+            </p>
           </div>
-          <div>
-            <label> Apellido * </label>
-            <input required="" type="text" />
+
+          <div class="claims-company">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+              <ellipse
+                cx="11"
+                cy="20"
+                rx="5"
+                ry="7"
+                transform="rotate(-28 11 20)"></ellipse>
+              <ellipse
+                cx="21"
+                cy="11"
+                rx="5"
+                ry="7"
+                transform="rotate(-8 21 11)"></ellipse>
+              <ellipse
+                cx="37"
+                cy="20"
+                rx="5"
+                ry="7"
+                transform="rotate(28 37 20)"></ellipse>
+              <ellipse
+                cx="31"
+                cy="11"
+                rx="5"
+                ry="7"
+                transform="rotate(8 31 11)"></ellipse>
+            </svg>
+            <div>
+              <strong>Pelucas Caninas S.A.C.</strong>
+              <span>RUC: 20610289321</span>
+              <span>Mz S3 Lote 7, José Carlos Mariátegui, SJL, Lima</span>
+            </div>
           </div>
         </div>
-        <div class="fila">
-          <div>
-            <label> Email </label>
-            <input type="email" />
-          </div>
-          <div>
-            <label> Teléfono * </label>
-            <input placeholder="937 317 249" required="" type="tel" />
-          </div>
-        </div>
-        <label> Dirección </label>
-        <textarea rows="4"></textarea>
-        <h3>Información general</h3>
-        <p>Identificación del bien contratado</p>
-        <label class="opcion">
-          <input name="bien" type="radio" />
-          Producto
-        </label>
-        <label class="opcion">
-          <input name="bien" type="radio" />
-          Servicio
-        </label>
-        <label> Monto reclamado * </label>
-        <input class="monto" required="" type="number" />
-        <label> Descripción * </label>
-        <textarea required="" rows="5"></textarea>
-        <p>Selecciona una opción *</p>
-        <label class="opcion">
-          <input name="tipo" required="" type="radio" />
-          Queja
-        </label>
-        <label class="opcion">
-          <input name="tipo" type="radio" />
-          Reclamo
-        </label>
-        <label> Detalle del reclamo/queja * </label>
-        <textarea required="" rows="5"></textarea>
-        <label class="check">
-          <input required="" type="checkbox" />
-          Declaro que la información que he proporcionado es correcta, completa
-          y verdadera. *
-        </label>
-        <label class="check">
-          <input required="" type="checkbox" />
-          Al enviar este formulario acepto el flujo transfronterizo de mis datos
-          personales, según la ley de Protección de Datos Personales. *
-        </label>
-        <button type="submit">Validar formulario de ejemplo</button>
-      </form>
+
+        <form class="claims-form formulario-libro" novalidate>
+          <fieldset class="claims-step">
+            <legend>
+              <span>01</span>
+              <strong>Datos de la persona</strong>
+              <small>Información de quien presenta el reclamo</small>
+            </legend>
+
+            <div class="claims-grid">
+              <label class="claim-field claim-field--full">
+                <span> Elegir una fecha <b>*</b> </span>
+                <input type="date" name="fecha" required />
+              </label>
+              <label class="claim-field claim-field--full">
+                <span> Número de documento de identidad <b>*</b> </span>
+                <input
+                  type="text"
+                  name="documento"
+                  inputmode="numeric"
+                  placeholder="Ingresa tu DNI o documento"
+                  required
+                />
+              </label>
+              <label class="claim-field">
+                <span> Nombre <b>*</b> </span>
+                <input
+                  type="text"
+                  name="nombreReclamo"
+                  autocomplete="given-name"
+                  required
+                />
+              </label>
+              <label class="claim-field">
+                <span> Apellido <b>*</b> </span>
+                <input
+                  type="text"
+                  name="apellidoReclamo"
+                  autocomplete="family-name"
+                  required
+                />
+              </label>
+              <label class="claim-field">
+                <span>Email</span>
+                <input type="email" name="emailReclamo" autocomplete="email" />
+              </label>
+              <label class="claim-field">
+                <span> Teléfono <b>*</b> </span>
+                <input
+                  type="tel"
+                  name="telefonoReclamo"
+                  autocomplete="tel"
+                  placeholder="937 317 249"
+                  required
+                />
+              </label>
+              <label class="claim-field claim-field--full">
+                <span>Dirección</span>
+                <input
+                  type="text"
+                  name="direccion"
+                  autocomplete="street-address"
+                />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="claims-step">
+            <legend>
+              <span>02</span>
+              <strong>Información general</strong>
+              <small>Datos del producto o servicio contratado</small>
+            </legend>
+
+            <div class="claim-field claim-field--full">
+              <span> Identificación del bien contratado <b>*</b> </span>
+              <div class="claim-options">
+                <label>
+                  <input type="radio" name="bien" value="Producto" required />
+                  <span>
+                    <strong>Producto</strong>
+                    Artículo adquirido
+                  </span>
+                </label>
+                <label>
+                  <input type="radio" name="bien" value="Servicio" required />
+                  <span>
+                    <strong>Servicio</strong>
+                    Atención realizada
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="claims-grid claims-grid--amount">
+              <label class="claim-field">
+                <span> Monto reclamado <b>*</b> </span>
+                <div class="claim-money">
+                  <span>S/</span>
+                  <input
+                    type="number"
+                    name="monto"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                    required
+                  />
+                </div>
+              </label>
+              <label class="claim-field claim-field--full">
+                <span> Descripción <b>*</b> </span>
+                <textarea
+                  name="descripcion"
+                  rows="4"
+                  placeholder="Describe el producto o servicio contratado..."
+                  required
+                ></textarea>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="claims-step">
+            <legend>
+              <span>03</span>
+              <strong>Detalle de la solicitud</strong>
+              <small>Cuéntanos qué ocurrió y qué solución esperas</small>
+            </legend>
+
+            <div class="claim-field claim-field--full">
+              <span> Selecciona una opción <b>*</b> </span>
+              <div class="claim-options">
+                <label>
+                  <input type="radio" name="tipo" value="Queja" required />
+                  <span>
+                    <strong>Queja</strong>
+                    Atención recibida
+                  </span>
+                </label>
+                <label>
+                  <input type="radio" name="tipo" value="Reclamo" required />
+                  <span>
+                    <strong>Reclamo</strong>
+                    Producto o servicio
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <label class="claim-field claim-field--full claim-detail">
+              <span> Detalle del reclamo/queja <b>*</b> </span>
+              <textarea
+                name="detalle"
+                rows="4"
+                placeholder="Explícanos el motivo y la solución que solicitas..."
+                required
+              ></textarea>
+            </label>
+
+            <div class="claims-consents">
+              <label>
+                <input type="checkbox" name="declaracion" required />
+                <span>
+                  Declaro que la información que he proporcionado es correcta,
+                  completa y verdadera. <b>*</b>
+                </span>
+              </label>
+              <label>
+                <input type="checkbox" name="flujoDatos" required />
+                <span>
+                  Al enviar este formulario acepto el flujo transfronterizo de
+                  mis datos personales, según la Ley de Protección de Datos
+                  Personales. <b>*</b>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button class="claims-submit" type="submit">
+            Validar formulario de ejemplo
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path
+                d="M4 10h11M11 6l4 4-4 4"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"></path>
+            </svg>
+          </button>
+        </form>
+      </section>
     </main>
-    <!-- footer -->
     <div th:replace="~{fragments/footer :: footer}"></div>
   </body>
 </html>

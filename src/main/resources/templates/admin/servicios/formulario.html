@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}"
+  ></head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="admin-page">
+      <div th:replace="~{admin/fragments :: navegacion}"></div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Servicios</p>
+          <h1 th:text="${tituloFormulario}"></h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <form
+        class="admin-form"
+        th:action="@{${accion}}"
+        th:object="${servicio}"
+        method="post"
+      >
+        <div
+          class="admin-message admin-error"
+          role="alert"
+          th:if="${#fields.hasAnyErrors()}"
+        >
+          Revisa los campos indicados antes de guardar.
+          <p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+        </div>
+        <div class="admin-field">
+          <label for="nombre">Nombre *</label><input
+            th:field="*{nombre}"
+            required
+            maxlength="120"
+            th:errorclass="admin-invalid"
+            aria-describedby="nombre-error"
+          /><span
+            id="nombre-error"
+            class="admin-field-error"
+            th:errors="*{nombre}"
+          ></span>
+        </div>
+        <div class="admin-field">
+          <label for="tipo">Tipo *</label><select
+            th:field="*{tipo}"
+            required
+            th:errorclass="admin-invalid"
+            aria-describedby="tipo-ayuda tipo-error"
+          >
+            <option value="PLAN">Plan de baño y cuidado</option>
+            <option value="ADICIONAL">Servicio adicional</option></select><small id="tipo-ayuda"
+            >Los planes aparecen en las tarjetas principales; los adicionales,
+            en «También te ofrecemos».</small><span
+            id="tipo-error"
+            class="admin-field-error"
+            th:errors="*{tipo}"
+          ></span>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-field">
+            <label for="precio">Precio (S/)</label><input
+              th:field="*{precio}"
+              type="number"
+              min="0"
+              max="99999999.99"
+              step="0.01"
+              th:errorclass="admin-invalid"
+              aria-describedby="precio-ayuda precio-error"
+            /><small id="precio-ayuda"
+              >Déjalo vacío si se cotiza según la mascota.</small><span
+              id="precio-error"
+              class="admin-field-error"
+              th:errors="*{precio}"
+            ></span>
+          </div>
+          <div class="admin-field">
+            <label for="duracionMinutos">Duración (minutos)</label><input
+              th:field="*{duracionMinutos}"
+              type="number"
+              min="1"
+              max="2147483647"
+              step="1"
+              th:errorclass="admin-invalid"
+              aria-describedby="duracion-ayuda duracion-error"
+            /><small id="duracion-ayuda"
+              >Déjala vacía si todavía no está definida.</small><span
+              id="duracion-error"
+              class="admin-field-error"
+              th:errors="*{duracionMinutos}"
+            ></span>
+          </div>
+        </div>
+        <div class="admin-field">
+          <label for="descripcion">Descripción y beneficios</label><textarea
+            th:field="*{descripcion}"
+            rows="6"
+            maxlength="5000"
+            th:errorclass="admin-invalid"
+            aria-describedby="descripcion-ayuda descripcion-error"
+          ></textarea><small id="descripcion-ayuda"
+            >Para los planes, escribe un beneficio por línea o sepáralos con
+            punto y coma.</small><span
+            id="descripcion-error"
+            class="admin-field-error"
+            th:errors="*{descripcion}"
+          ></span>
+        </div>
+        <div class="admin-field">
+          <label for="imagen">Ruta de imagen</label><input
+            th:field="*{imagen}"
+            maxlength="255"
+            placeholder="/img/basico.jpg"
+            th:errorclass="admin-invalid"
+            aria-describedby="imagen-ayuda imagen-error"
+          /><small id="imagen-ayuda"
+            >Usa una imagen disponible en la carpeta img. Si lo dejas vacío, se
+            mostrará la imagen predeterminada.</small><span
+            id="imagen-error"
+            class="admin-field-error"
+            th:errors="*{imagen}"
+          ></span>
+        </div>
+        <div class="admin-field">
+          <label for="estado">Estado *</label><select
+            th:field="*{estado}"
+            required
+            th:errorclass="admin-invalid"
+            aria-describedby="estado-ayuda estado-error"
+          >
+            <option value="ACTIVO">Activo</option>
+            <option value="INACTIVO">Inactivo</option></select><small id="estado-ayuda"
+            >Los servicios inactivos no aparecen en la página pública ni en el
+            formulario de reserva.</small><span
+            id="estado-error"
+            class="admin-field-error"
+            th:errors="*{estado}"
+          ></span>
+        </div>
+        <div>
+          <label class="admin-check"
+            ><input
+              th:field="*{destacado}"
+              type="checkbox"
+              aria-describedby="destacado-error"
+            />
+            Destacar este servicio</label><span
+            id="destacado-error"
+            class="admin-field-error"
+            th:errors="*{destacado}"
+          ></span>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Guardar servicio</button><a class="admin-button admin-secondary" th:href="@{/admin/servicios}"
+            >Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
+</html>

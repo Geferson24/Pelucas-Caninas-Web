@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <nav class="admin-nav" aria-label="Administración" th:fragment="navegacion">
+      <a
+        th:href="@{/admin}"
+        th:attr="aria-current=${seccionAdmin == 'panel' ? 'page' : null}"
+        ><i class="fa-solid fa-table-columns" aria-hidden="true"></i> Panel</a>
+      <a
+        th:href="@{/admin/categorias}"
+        th:attr="aria-current=${seccionAdmin == 'categorias' ? 'page' : null}"
+        >Categorías</a>
+      <a
+        th:href="@{/admin/productos}"
+        th:attr="aria-current=${seccionAdmin == 'productos' ? 'page' : null}"
+        >Productos</a>
+      <a
+        th:href="@{/admin/servicios}"
+        th:attr="aria-current=${seccionAdmin == 'servicios' ? 'page' : null}"
+        >Servicios</a>
+      <a th:href="@{/productos}"
+        >Ver catálogo
+        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+    </nav>
+    <th:block th:fragment="mensajes">
+      <p
+        class="admin-message admin-success"
+        role="status"
+        th:if="${exito}"
+        th:text="${exito}"
+      ></p>
+      <p
+        class="admin-message admin-error"
+        role="alert"
+        th:if="${error}"
+        th:text="${error}"
+      ></p>
+    </th:block>
+  </body>
+</html>

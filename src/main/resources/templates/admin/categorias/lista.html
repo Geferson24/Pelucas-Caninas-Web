@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head
+    th:replace="~{fragments/head :: head('Administración - Categorías', '/css/style-admin.css')}"
+  ></head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="admin-page">
+      <div th:replace="~{admin/fragments :: navegacion}"></div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Catálogo</p>
+          <h1>Categorías</h1>
+          <p>Crea y organiza los tipos de productos.</p>
+        </div>
+        <a class="admin-button" th:href="@{/admin/categorias/nueva}"
+          >+ Nueva categoría</a>
+      </header>
+      <div th:replace="~{admin/fragments :: mensajes}"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <caption class="visually-hidden">
+            Lista de categorías de productos
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Código</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${#lists.isEmpty(categorias)}">
+              <td colspan="5" class="admin-empty">
+                Todavía no hay categorías. Crea la primera para registrar
+                productos.
+              </td>
+            </tr>
+            <tr th:each="categoria : ${categorias}">
+              <td th:text="${categoria.id}"></td>
+              <td><strong th:text="${categoria.nombre}"></strong></td>
+              <td th:text="${categoria.codigo}"></td>
+              <td th:text="${categoria.descripcion}"></td>
+              <td>
+                <div class="admin-actions">
+                  <a
+                    class="admin-button admin-secondary"
+                    th:href="@{/admin/categorias/{id}/editar(id=${categoria.id})}"
+                    th:attr="aria-label=|Editar ${categoria.nombre}|"
+                    >Editar</a>
+                  <form
+                    method="post"
+                    th:action="@{/admin/categorias/{id}/eliminar(id=${categoria.id})}"
+                    data-confirm="¿Eliminar esta categoría? Esta acción no se puede deshacer."
+                  >
+                    <button
+                      class="admin-button admin-danger"
+                      type="submit"
+                      th:attr="aria-label=|Eliminar ${categoria.nombre}|"
+                    >
+                      Eliminar
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/admin.js}"></script>
+  </body>
+</html>

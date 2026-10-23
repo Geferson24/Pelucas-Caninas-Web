@@ -1,94 +1,168 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head
-    th:replace="~{fragments/head :: head('Pelucas Caninas - Servicios', '/css/style-servicios.css')}"
-  >
-  </head>
-  <body>
-    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Servicios', null)}"
+  ></head>
+  <body class="page">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <!-- SERVICIOS -->
-    <main class="servicios" id="servicios">
-      <div class="servicios-contenedor">
-        <header class="servicios-encabezado">
-          <span class="servicios-etiqueta">
-            <i class="fa-solid fa-paw"> </i>
-            Cuidado profesional
-          </span>
-          <h1 class="titulo-seccion">Nuestros Servicios</h1>
-          <p class="descripcion-seccion">
-            Servicio personalizado de grooming canino con amor, seguridad y
-            cuidado.
-          </p>
-        </header>
-        <div class="servicios-grid">
-          <article
-            class="servicio-card"
-            th:classappend="${plan.destacado} ? 'destacado' : ''"
-            th:each="plan : ${planes}"
-          >
-            <span class="servicio-badge" th:if="${plan.destacado}">
-              Más elegido
-            </span>
-            <div class="servicio-imagen">
-              <img
-                alt="Baño básico"
-                decoding="async"
-                loading="lazy"
-                th:alt="${plan.nombre}"
-                th:src="@{${plan.imagen}}"
-              />
+    <main>
+      <section class="services" id="servicios" aria-labelledby="services-title">
+        <h1 class="visually-hidden">Nuestros servicios</h1>
+        <div class="services__header">
+          <div>
+            <div class="eyebrow services__eyebrow">
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5c.6 5.4 3.1 7.9 8.5 8.5-5.4.6-7.9 3.1-8.5 8.5-.6-5.4-3.1-7.9-8.5-8.5C8.9 10.4 11.4 7.9 12 2.5Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </span>
+              Cuidado a su medida
             </div>
-            <h3 th:text="${plan.nombre}">Texto de plan</h3>
-            <p class="precio" th:text="|S/ ${plan.precio}|">precio</p>
-            <ul>
-              <li
-                th:each="componente : ${plan.beneficios}"
-                th:text="${componente}"
+            <h2 id="services-title">El ritual que <em>se merece.</em></h2>
+          </div>
+          <p>
+            Grooming profesional con paciencia, seguridad y productos elegidos
+            para cuidar su piel y pelaje.
+          </p>
+        </div>
+        <p
+          class="services-empty"
+          role="status"
+          th:if="${#lists.isEmpty(planes) and #lists.isEmpty(servicios)}"
+        >
+          Pronto tendremos servicios disponibles. Contáctanos para más
+          información.
+        </p>
+        <div class="service-plans" th:unless="${#lists.isEmpty(planes)}">
+          <article
+            class="service-plan servicio-card"
+            th:each="plan : ${planes}"
+            th:classappend="${plan.destacado} ? 'is-featured' : ''"
+          >
+            <div class="service-plan__media">
+              <img
+                loading="lazy"
+                decoding="async"
+                th:src="@{${plan.imagen}}"
+                th:alt="${plan.nombre}"
+              />
+              <span th:if="${plan.destacado}">El más elegido</span>
+            </div>
+            <div class="service-plan__heading">
+              <div>
+                <span>Plan de cuidado</span>
+                <h3 th:text="${plan.nombre}">Baño básico</h3>
+              </div>
+              <strong
+                th:text="${plan.precio != null ? 'S/ ' + plan.precio : 'Consultar precio'}"
+                >S/ 22.00</strong
               >
-                descripcion
+            </div>
+            <p
+              class="service-duration"
+              th:if="${plan.duracionMinutos != null}"
+              th:text="|Duración estimada: ${plan.duracionMinutos} min|"
+            ></p>
+            <ul>
+              <li th:each="componente : ${plan.beneficios}">
+                <span>
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      d="m5 10.5 3.1 3L15 6.8"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    ></path>
+                  </svg>
+                </span>
+                <th:block th:text="${componente}"
+                  >Cuidado de su pelaje</th:block
+                >
               </li>
             </ul>
             <a
               class="btn-servicio"
-              rel="noopener noreferrer"
-              target="_blank"
               th:href="${plan.enlaceWhatsapp}"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Agendar
+              Agendar servicio
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M4 10h11M11 6l4 4-4 4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                ></path>
+              </svg>
             </a>
           </article>
         </div>
-        <div class="otros-servicios">
-          <h3>También te ofrecemos</h3>
-          <div class="otros-grid">
-            <article class="otro-card" th:each=" servicio : ${servicios}">
-              <div class="otro-imagen">
+        <div class="extra-services" th:unless="${#lists.isEmpty(servicios)}">
+          <div class="extra-services__heading">
+            <p>Cuidados complementarios</p>
+            <h3>También te ofrecemos</h3>
+          </div>
+          <div class="extra-services__grid">
+            <article class="extra-service" th:each="servicio : ${servicios}">
+              <div class="extra-service__media">
                 <img
-                  alt="Glándulas perianales"
-                  decoding="async"
                   loading="lazy"
-                  th:alt="${servicio.nombre}"
+                  decoding="async"
                   th:src="@{${servicio.imagen}}"
+                  th:alt="${servicio.nombre}"
                 />
               </div>
-              <h4 th:text="${servicio.nombre}">
-                Limpieza de glándulas perianales
-              </h4>
-              <a
-                class="btn-servicio"
-                rel="noopener noreferrer"
-                target="_blank"
-                th:href="${servicio.enlaceWhatsapp}"
-              >
-                Agendar
-              </a>
+              <div class="extra-service__content">
+                <h4 th:text="${servicio.nombre}">Cepillado de dientes</h4>
+                <span class="extra-service__badge" th:if="${servicio.destacado}"
+                  >Destacado</span
+                >
+                <strong
+                  th:text="${servicio.precio != null ? 'S/ ' + servicio.precio : 'Consultar precio'}"
+                  >Consultar precio</strong
+                >
+                <p
+                  class="service-duration"
+                  th:if="${servicio.duracionMinutos != null}"
+                  th:text="|Duración estimada: ${servicio.duracionMinutos} min|"
+                ></p>
+                <p
+                  th:if="${servicio.descripcion != null and !#strings.isEmpty(servicio.descripcion)}"
+                  th:text="${servicio.descripcion}"
+                ></p>
+                <a
+                  class="btn-servicio"
+                  th:href="${servicio.enlaceWhatsapp}"
+                  th:attr="aria-label=|Agendar ${servicio.nombre}|"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Agendar
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      d="M4 10h11M11 6l4 4-4 4"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
             </article>
           </div>
         </div>
-      </div>
+      </section>
     </main>
-    <!-- footer -->
     <div th:replace="~{fragments/footer :: footer}"></div>
   </body>
 </html>

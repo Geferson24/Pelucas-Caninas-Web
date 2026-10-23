@@ -1,129 +1,202 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head
-    th:replace="~{fragments/head :: head('Pelucas Caninas - Productos', '/css/style-productos.css')}"
-  >
-  </head>
-  <body>
-    <!-- BARRA DE NAVEGACIÓN - BOOTSTRAP -->
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Productos', null)}"
+  ></head>
+  <body class="page">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <main class="catalogo-page">
-      <header class="productos-encabezado">
-        <span class="productos-etiqueta">
-          <i class="fa-solid fa-paw"> </i>
-          Precio y calidad
-        </span>
-        <h2 class="titulo-seccion">Nuestros Productos</h2>
-        <p class="descripcion-seccion">
-          Productos seleccionados para el cuidado, higiene y bienestar de tu
-          mascota.
-        </p>
-      </header>
-      <div class="catalogo-contenedor">
-        <aside aria-hidden="true" class="filtros-productos" id="panelFiltros">
-          <div class="filtro-header">
-            <h3>Filtrar</h3>
-            <button
-              aria-label="Cerrar filtros"
-              class="filtros-cerrar"
-              id="mobileFiltersClose"
-              type="button"
-            >
-              <i class="fa-solid fa-xmark"> </i>
-            </button>
+    <main>
+      <section class="products" id="productos" aria-labelledby="products-title">
+        <h1 class="visually-hidden">Nuestros productos</h1>
+        <div class="products__header">
+          <div>
+            <div class="eyebrow products__eyebrow">
+              <span>
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+                  <ellipse
+                    cx="11"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-28 11 20)"
+                  ></ellipse>
+                  <ellipse
+                    cx="21"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(-8 21 11)"
+                  ></ellipse>
+                  <ellipse
+                    cx="37"
+                    cy="20"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(28 37 20)"
+                  ></ellipse>
+                  <ellipse
+                    cx="31"
+                    cy="11"
+                    rx="5"
+                    ry="7"
+                    transform="rotate(8 31 11)"
+                  ></ellipse>
+                </svg>
+              </span>
+              Selección Pelucas Caninas
+            </div>
+            <h2 id="products-title">
+              Para cuidarlos <em>también en casa.</em>
+            </h2>
           </div>
-          <div class="filtro-grupo">
-            <button class="filtro-btn active" data-filter="all" type="button">
-              Todos
-            </button>
-            <button class="filtro-btn" data-filter="aseo" type="button">
-              Aseo
-            </button>
-            <button class="filtro-btn" data-filter="higiene" type="button">
-              Higiene
-            </button>
-            <button class="filtro-btn" data-filter="juguetes" type="button">
-              Juguetes
-            </button>
-            <button class="filtro-btn" data-filter="accesorios" type="button">
-              Accesorios
-            </button>
-          </div>
-          <div class="filtros-acciones-mobile">
-            <button
-              class="btn-limpiar-filtros"
-              id="clearMobileFilters"
-              type="button"
-            >
-              Limpiar filtro
-            </button>
-          </div>
-        </aside>
-        <div
-          aria-hidden="true"
-          class="filtros-overlay"
-          id="filtrosOverlay"
-        ></div>
-        <section class="productos" id="productos">
-          <div class="mobile-filtros-bar">
-            <button
-              aria-controls="panelFiltros"
-              aria-expanded="false"
-              class="mobile-filtros-btn"
-              id="mobileFiltersToggle"
-              type="button"
-            >
-              <i class="fa-solid fa-sliders"> </i>
-              <span> Filtros </span>
-            </button>
-          </div>
-          <div class="buscador-productos">
-            <i class="fa-solid fa-magnifying-glass"> </i>
+          <p>
+            Esenciales elegidos por nuestro equipo para su higiene, comodidad y
+            diversión.
+          </p>
+        </div>
+        <div class="product-toolbar">
+          <label class="product-search" for="buscadorProductos">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle
+                cx="10.5"
+                cy="10.5"
+                r="6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              ></circle>
+              <path
+                d="m15 15 5 5"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.8"
+              ></path>
+            </svg>
             <input
               id="buscadorProductos"
-              placeholder="Buscar producto..."
-              type="text"
+              type="search"
+              placeholder="Buscar productos"
+              aria-label="Buscar productos"
             />
-          </div>
-          <p class="sin-resultados" id="sinResultados">
-            No se encontraron productos.
-          </p>
-          <div class="productos-grid">
-            <article
-              class="tarjeta"
-              th:attr="data-categoria=${producto.categoria},data-img=@{${producto.imagen}},data-nombre=${producto.nombre},data-precio=${producto.precio}"
-              th:each=" producto : ${productos}"
+          </label>
+          <div class="product-filters" aria-label="Filtrar por categoría">
+            <button
+              class="product-filter filtro-btn active is-active"
+              data-filter="all"
+              type="button"
+              aria-pressed="true"
             >
-              <a
-                class="tarjeta-link"
-                th:href="@{/productos/{id}(id=${producto.id})}"
-              >
-                <div class="tarjeta-imagen">
-                  <img
-                    decoding="async"
-                    loading="lazy"
-                    th:alt="${producto.nombre}"
-                    th:src="@{${producto.imagen}}"
-                  />
-                </div>
-                <h3 th:text="${producto.nombre}"></h3>
-                <p th:text="${producto.descripcion}">
-                  Juguete interactivo para perros masticadores fuertes.
-                </p>
-              </a>
-              <p class="producto-precio" th:text="|S/ ${producto.precio}|">
-                S/ 23.00
-              </p>
-              <button class="btn-add-cart" type="button">
-                <i class="fa-solid fa-cart-plus"> </i>
-                Agregar al carrito
-              </button>
-            </article>
+              Todos
+            </button>
+            <button
+              class="product-filter filtro-btn"
+              th:each="categoria : ${categorias}"
+              th:attr="data-filter=${categoria.codigo}"
+              type="button"
+              aria-pressed="false"
+              th:text="${categoria.nombre}"
+            >
+              Categoría
+            </button>
           </div>
-        </section>
-      </div>
+        </div>
+        <div class="products__meta">
+          <span
+            id="productResultCount"
+            aria-live="polite"
+            th:text="|${#lists.size(productos)} productos|"
+            >10 productos</span
+          ><span>Elegidos con criterio profesional</span>
+        </div>
+        <div class="product-grid productos-grid">
+          <article
+            class="product-card tarjeta"
+            th:each="producto : ${productos}"
+            th:attr="data-categoria=${producto.categoria},data-img=@{${producto.imagen}},data-nombre=${producto.nombre},data-precio=${producto.precio}"
+          >
+            <div class="product-card__media">
+              <img
+                loading="lazy"
+                decoding="async"
+                th:src="@{${producto.imagen}}"
+                th:alt="${producto.nombre}"
+              />
+              <th:block th:each="categoria : ${categorias}"
+                ><span
+                  th:if="${categoria.codigo == producto.categoria}"
+                  th:text="${categoria.nombre}"
+                  >Cuidado</span
+                ></th:block
+              >
+            </div>
+            <div class="product-card__content">
+              <h3 th:text="${producto.nombre}">Producto</h3>
+              <p th:text="${producto.descripcion}">Cuidado para tu mascota.</p>
+              <div class="product-card__footer">
+                <strong th:text="|S/ ${producto.precio}|">S/ 23.00</strong>
+                <button
+                  class="btn-add-cart"
+                  type="button"
+                  th:attr="aria-label=|Agregar ${producto.nombre} al carrito|"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      d="M10 4v12M4 10h12"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-width="1.8"
+                    ></path></svg
+                  ><span>Agregar</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div
+          id="sinResultados"
+          class="products-empty sin-resultados"
+          th:classappend="${#lists.isEmpty(productos)} ? 'activo' : ''"
+          role="status"
+        >
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="24" cy="29" rx="11" ry="9"></ellipse>
+            <ellipse
+              cx="11"
+              cy="20"
+              rx="5"
+              ry="7"
+              transform="rotate(-28 11 20)"
+            ></ellipse>
+            <ellipse
+              cx="21"
+              cy="11"
+              rx="5"
+              ry="7"
+              transform="rotate(-8 21 11)"
+            ></ellipse>
+            <ellipse
+              cx="37"
+              cy="20"
+              rx="5"
+              ry="7"
+              transform="rotate(28 37 20)"
+            ></ellipse>
+            <ellipse
+              cx="31"
+              cy="11"
+              rx="5"
+              ry="7"
+              transform="rotate(8 31 11)"
+            ></ellipse>
+          </svg>
+          <strong>No encontramos ese producto.</strong
+          ><span>Prueba con otra búsqueda o categoría.</span>
+        </div>
+      </section>
     </main>
-    <!-- footer -->
     <div th:replace="~{fragments/footer :: footer}"></div>
   </body>
 </html>

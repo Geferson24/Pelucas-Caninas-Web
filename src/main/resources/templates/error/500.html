@@ -2,19 +2,26 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head
     th:replace="~{fragments/head :: head('500 - Pelucas Caninas', '/css/style-error.css')}"
-  >
-  </head>
-  <body>
+  ></head>
+  <body class="page">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <main class="error-page">
-      <img alt="Perritos" th:src="@{/img/perritos.png}" />
-      <p class="error-code">500</p>
-      <h1>No pudimos abrir esta página</h1>
-      <p>Intenta nuevamente en unos momentos.</p>
-      <a class="btn btn-primary" th:href="@{/}"> Volver al inicio </a>
-      <a class="btn btn-outline-primary" th:href="@{/productos}">
-        Ver productos
-      </a>
+    <main class="error-page" aria-labelledby="error-title">
+      <div class="error-page__visual" aria-hidden="true">
+        <span class="error-code">500</span>
+        <img th:src="@{/img/perritos.png}" alt="" width="220" height="220" />
+      </div>
+      <div class="error-page__copy">
+        <p class="error-page__eyebrow">Un pequeño desvío</p>
+        <h1 id="error-title">No pudimos abrir esta página</h1>
+        <p class="error-page__description">
+          Intenta nuevamente en unos momentos.
+        </p>
+        <div class="error-page__actions">
+          <a class="button" th:href="@{/}">Volver al inicio</a>
+          <a class="button button--outline" th:href="@{/productos}"
+            >Ver productos</a>
+        </div>
+      </div>
     </main>
     <div th:replace="~{fragments/footer :: footer}"></div>
   </body>

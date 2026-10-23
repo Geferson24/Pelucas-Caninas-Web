@@ -1,27 +1,93 @@
 .error-page {
-  padding: 150px 20px 70px;
+  width: min(100% - 3rem, 1000px);
+  min-height: calc(100svh - var(--site-header-height));
+  margin: 0 auto;
+  padding: clamp(3rem, 5vw, 4rem) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
   text-align: center;
-  min-height: 75vh;
 }
-.error-page img {
-  width: 160px;
-  max-width: 50%;
+.error-page__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: min(100%, 380px);
+  padding: 1.5rem;
+  border-radius: 2rem;
+  background: var(--color-sage-light);
+  border: 1px solid var(--color-line);
 }
 .error-code {
-  font-size: 5rem;
+  font-family: var(--font-display);
+  font-size: clamp(5.5rem, 12vw, 7.5rem);
   line-height: 1;
-  font-weight: 800;
-  color: #27745d;
-  margin: 1rem;
+  color: var(--color-forest);
+  letter-spacing: -0.06em;
 }
-.error-page .btn {
-  margin: 0.5rem;
+.error-page__visual img {
+  width: 120px;
+  height: 130px;
+  object-fit: contain;
 }
-@media (max-width: 576px) {
+.error-page__copy {
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+}
+body.page .error-page__eyebrow {
+  color: var(--color-terracotta);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+.error-page h1 {
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 4.3rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.error-page__description {
+  max-width: 620px;
+  margin: 1.5rem auto 0;
+  line-height: 1.8;
+}
+.error-page__actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+body.page .error-page .button--outline {
+  background: transparent;
+  color: var(--color-forest);
+  border: 1px solid var(--color-forest);
+}
+body.page .error-page .button--outline:hover {
+  background: var(--color-sage-light);
+}
+@media (max-width: 520px) {
   .error-page {
-    padding-top: 120px;
+    width: calc(100% - 2rem);
   }
-  .error-code {
-    font-size: 4rem;
+  .error-page__visual {
+    width: min(100%, 300px);
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .error-page__visual img {
+    width: 90px;
+    height: 100px;
   }
 }

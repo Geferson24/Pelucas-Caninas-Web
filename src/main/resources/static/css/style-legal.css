@@ -1,43 +1,145 @@
-.terminos-container,
-.politica-container {
-  width: min(920px, calc(100% - 36px));
-  margin: 0 auto;
-  padding: 132px 0 72px;
-  font-family: "Nunito", Arial, sans-serif;
-  line-height: 1.75;
-  color: #333;
+/* Documentos legales: secciones numeradas y contacto. */
+.legal-page {
+  width: min(100% - 3rem, 900px);
+  margin: 4rem auto 5rem;
+  padding: 3rem 2.5rem 2.5rem;
+  border-radius: 1.5rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
 }
-.terminos-container h1,
-.politica-container h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  color: #1f1f1f;
-  margin-bottom: 28px;
+.legal-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-line);
 }
-.terminos-container h2,
-.politica-container h2 {
-  color: #2d7a5f;
-  font-size: 1.35rem;
-  font-weight: 800;
-  margin: 28px 0 10px;
+.legal-page__header h1 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-terracotta);
 }
-.terminos-container ul,
-.politica-container ul {
-  padding-left: 22px;
+.legal-page__header > strong {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
 }
-.terminos-container li,
-.politica-container li {
-  margin-bottom: 8px;
+.legal-sections {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: legal-section;
 }
-body.dark-mode .terminos-container,
-body.dark-mode .politica-container {
-  color: rgba(245, 240, 232, 0.84);
+.legal-section {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 1.9rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--color-line);
+  counter-increment: legal-section;
 }
-body.dark-mode .terminos-container h1,
-body.dark-mode .politica-container h1 {
-  color: #f5f0e8;
+.legal-section::before {
+  content: counter(legal-section, decimal-leading-zero);
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-sage-light);
+  color: var(--color-forest);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
-body.dark-mode .terminos-container h2,
-body.dark-mode .politica-container h2 {
-  color: #9ed9c4;
+.legal-section h2 {
+  margin: 0.2rem 0 1.2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+body.page .legal-section__content :is(p, li) {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--color-ink) 72%, var(--color-paper));
+}
+.legal-section__content p + p {
+  margin-top: 1rem;
+}
+.legal-section__content ul {
+  padding-left: 1.2rem;
+  list-style: disc;
+  margin-top: 1.25rem;
+}
+.legal-section__content ul li + li {
+  margin-top: 0.8rem;
+}
+.legal-section__content ul li::marker {
+  color: var(--color-terracotta);
+}
+.legal-contact {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+  padding: 1.4rem 1.5rem;
+  border-radius: 1.2rem;
+  background: var(--color-sage-light);
+  color: var(--color-ink);
+  transition: filter 180ms ease;
+}
+.legal-contact:hover {
+  color: var(--color-ink);
+  filter: brightness(0.96);
+}
+.legal-contact svg {
+  flex-shrink: 0;
+  width: 24px;
+  color: var(--color-forest);
+}
+.legal-contact span {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+body.page .legal-contact small {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--color-ink) 64%, var(--color-paper));
+}
+.legal-contact strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .legal-page {
+    width: calc(100% - 2rem);
+    padding: 1.75rem 1.25rem;
+    margin-block: 2rem 3rem;
+  }
+  .legal-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding-bottom: 1.5rem;
+  }
+  .legal-section {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 2rem;
+  }
+  .legal-section::before {
+    width: 36px;
+    height: 36px;
+  }
+  .legal-contact {
+    gap: 0.8rem;
+    padding: 1.2rem 1rem;
+  }
 }

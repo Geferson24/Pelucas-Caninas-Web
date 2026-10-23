@@ -1,13 +1,8 @@
-// ============================================================
-// FUNCIONALIDADES DOM - PELUCAS CANINAS
-// Este archivo controla: carrito, modo oscuro, buscador,
-// formulario, galería, animaciones, contadores, loader y botones.
-// ============================================================
+// Carrito, modo oscuro, filtros, formularios, reservas y animaciones del sitio.
 
 // Claves usadas para guardar datos en el navegador.
 // localStorage mantiene la información incluso después de cerrar la página.
 const STORAGE_CART = "pelucasCarrito";
-const STORAGE_THEME = "pelucasTema";
 
 // Funciones auxiliares para seleccionar elementos del HTML.
 // qs devuelve el primer elemento que coincida con el selector.
@@ -255,27 +250,11 @@ function updateWhatsappCartLink() {
 
 // Configura el modo oscuro y recuerda la preferencia del usuario.
 function setupDarkMode() {
-  if (localStorage.getItem(STORAGE_THEME) === "oscuro") {
-    document.body.classList.add("dark-mode");
-  }
-
-  qsa("#darkModeToggle").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-      const oscuro = document.body.classList.contains("dark-mode");
-      localStorage.setItem(STORAGE_THEME, oscuro ? "oscuro" : "claro");
-      btn.innerHTML = oscuro
-        ? '<i class="fa-solid fa-sun"></i>'
-        : '<i class="fa-solid fa-moon"></i>';
-    });
+  window.PelucasTheme.apply();
+  qsa("#darkModeToggle").forEach((button) => {
+    button.addEventListener("click", () => window.PelucasTheme.toggle());
   });
-
-  const oscuro = document.body.classList.contains("dark-mode");
-  qsa("#darkModeToggle").forEach((btn) => {
-    btn.innerHTML = oscuro
-      ? '<i class="fa-solid fa-sun"></i>'
-      : '<i class="fa-solid fa-moon"></i>';
-  });
+  window.PelucasTheme.ready();
 }
 
 // Filtra las tarjetas de productos por texto y por una o varias categorías.
@@ -292,6 +271,7 @@ function syncProductFilterButtons() {
     const active =
       filter === "all" ? showAll : activeProductFilters.has(filter);
     button.classList.toggle("active", active);
+    button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", active ? "true" : "false");
   });
 
@@ -321,6 +301,9 @@ function applyProductFilters() {
   });
 
   if (empty) empty.classList.toggle("activo", visibles === 0);
+  const count = qs("#productResultCount");
+  if (count)
+    count.textContent = `${visibles} ${visibles === 1 ? "producto" : "productos"}`;
 }
 
 function setupProductSearch() {
@@ -356,89 +339,22 @@ function setupProductSearch() {
   applyProductFilters();
 }
 
-function setupMobileFiltersDrawer() {
-  const panel = qs("#panelFiltros");
-  const overlay = qs("#filtrosOverlay");
-  const openBtn = qs("#mobileFiltersToggle");
-  const closeBtn = qs("#mobileFiltersClose");
-  const clearBtn = qs("#clearMobileFilters");
-  const input = qs("#buscadorProductos");
-
-  if (!panel || !overlay || !openBtn) return;
-
-  const syncExpandedState = (abierto) => {
-    openBtn.setAttribute("aria-expanded", abierto ? "true" : "false");
-    panel.setAttribute("aria-hidden", abierto ? "false" : "true");
-    overlay.setAttribute("aria-hidden", abierto ? "false" : "true");
-  };
-
-  const openDrawer = () => {
-    if (window.innerWidth > 940) return;
-    document.body.classList.add("filtros-abiertos");
-    syncExpandedState(true);
-  };
-
-  const closeDrawer = () => {
-    document.body.classList.remove("filtros-abiertos");
-    syncExpandedState(false);
-  };
-
-  openBtn.addEventListener("click", openDrawer);
-  closeBtn?.addEventListener("click", closeDrawer);
-  overlay.addEventListener("click", closeDrawer);
-
-  clearBtn?.addEventListener("click", () => {
-    activeProductFilters.clear();
-    if (input) input.value = "";
-    syncProductFilterButtons();
-    applyProductFilters();
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 940) closeDrawer();
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeDrawer();
-  });
-}
-
-// Obtiene los datos del producto desde una tarjeta del catálogo o una página de detalle.
+// Obtiene los datos de la tarjeta del catálogo para el carrito.
 function getProductDataFromButton(button) {
   const card = button.closest(".tarjeta");
-  if (card) {
-    return {
-      nombre: card.dataset.nombre,
-      precio: Number(card.dataset.precio),
-      img: card.dataset.img,
-    };
-  }
-
-  const detail = button.closest(".producto-grande");
-  if (!detail) return null;
-
-  const nombre =
-    detail.dataset.nombre ||
-    qs(".producto-info h1", detail)?.textContent.trim();
-  const precioTexto =
-    detail.dataset.precio ||
-    qs(".producto-info h2", detail)
-      ?.textContent.replace(/[^0-9.,]/g, "")
-      .replace(",", ".");
-  const img =
-    detail.dataset.img || qs(".producto-img img", detail)?.getAttribute("src");
-
-  const precio = Number(precioTexto);
-  if (!nombre || !Number.isFinite(precio) || !img) return null;
-
-  return { nombre, precio, img };
+  if (!card) return null;
+  return {
+    nombre: card.dataset.nombre,
+    precio: Number(card.dataset.precio),
+    img: card.dataset.img,
+  };
 }
 
 // Escucha todos los clics relacionados con el carrito.
 // Usa delegación de eventos para manejar botones creados dinámicamente.
 function setupCartEvents() {
   document.addEventListener("click", (e) => {
-    const addBtn = e.target.closest(".btn-add-cart, .btn-add-detail");
+    const addBtn = e.target.closest(".btn-add-cart");
     if (addBtn) {
       e.preventDefault();
       e.stopPropagation();
@@ -478,31 +394,6 @@ function setupCartEvents() {
   });
 }
 
-// Agrega automáticamente un botón "Agregar al carrito"
-// en las páginas individuales de producto.
-function injectDetailAddButton() {
-  const detail = qs(".producto-grande");
-  if (!detail || qs(".btn-add-cart", detail) || qs(".btn-add-detail", detail))
-    return;
-
-  const title = qs(".producto-info h1")?.textContent.trim();
-  const priceText = qs(".producto-info h2")
-    ?.textContent.replace("S/", "")
-    .trim();
-  const img = qs(".producto-img img")?.getAttribute("src");
-  const botones = qs(".producto-info .botones");
-  if (!title || !priceText || !img || !botones) return;
-
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "btn-add-detail";
-  btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Agregar al carrito';
-  btn.addEventListener("click", () => {
-    addToCart({ nombre: title, precio: Number(priceText), img });
-  });
-
-  botones.prepend(btn);
-}
 
 // Valida el formulario del libro de reclamaciones antes de enviarlo.
 function setupFormValidation() {
@@ -585,21 +476,6 @@ function clearErrors(form) {
   qsa(".mensaje-error", form).forEach((el) => el.remove());
 }
 
-// Crea el botón flotante de WhatsApp si todavía no existe.
-function createFloatingWhatsapp() {
-  if (qs(".whatsapp-flotante")) return;
-
-  const link = document.createElement("a");
-  link.href =
-    "https://wa.me/51937317249?text=Hola,%20quiero%20información%20sobre%20Pelucas%20Caninas.";
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.className = "whatsapp-flotante";
-  link.setAttribute("aria-label", "Escríbenos por WhatsApp");
-  link.innerHTML = '<i class="fab fa-whatsapp"></i>';
-  document.body.appendChild(link);
-}
-
 // Muestra una notificación temporal en pantalla.
 function showToast(message) {
   let toast = qs("#toast");
@@ -623,286 +499,7 @@ function showToast(message) {
   showToast.timer = setTimeout(() => toast.classList.remove("activo"), 2600);
 }
 
-// Convierte las imágenes del carrusel en una galería ampliable.
-// Permite cambiar de imagen con flechas, teclado y cerrar con Escape.
-function setupGalleryModal() {
-  const allImages = qsa(".galeria-track img");
-  if (allImages.length === 0) return;
 
-  // El carrusel repite imágenes para el movimiento continuo; aquí conservamos solo una vez cada foto.
-  const images = allImages.filter(
-    (img, index, array) =>
-      array.findIndex(
-        (item) => item.getAttribute("src") === img.getAttribute("src"),
-      ) === index,
-  );
-  let currentIndex = 0;
-
-  const modal = document.createElement("div");
-  modal.className = "galeria-modal";
-  modal.setAttribute("role", "dialog");
-  modal.setAttribute("aria-modal", "true");
-  modal.innerHTML = `
-    <button type="button" class="galeria-modal-cerrar" aria-label="Cerrar imagen">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <button type="button" class="galeria-modal-flecha anterior" aria-label="Foto anterior">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <figure class="galeria-modal-contenido">
-      <img src="" alt="Mascota ampliada">
-      <figcaption></figcaption>
-    </figure>
-    <button type="button" class="galeria-modal-flecha siguiente" aria-label="Foto siguiente">
-      <i class="fa-solid fa-chevron-right"></i>
-    </button>`;
-  document.body.appendChild(modal);
-
-  const modalImg = qs("img", modal);
-  const caption = qs("figcaption", modal);
-
-  const showImage = (index) => {
-    currentIndex = (index + images.length) % images.length;
-    const selected = images[currentIndex];
-    modalImg.src = selected.src;
-    modalImg.alt = selected.alt || "Mascota ampliada";
-    caption.textContent = selected.alt || "";
-  };
-
-  allImages.forEach((img) => {
-    img.style.cursor = "zoom-in";
-    img.addEventListener("click", () => {
-      const uniqueIndex = images.findIndex(
-        (item) => item.getAttribute("src") === img.getAttribute("src"),
-      );
-      showImage(uniqueIndex);
-      modal.classList.add("activo");
-      document.body.classList.add("modal-abierto");
-    });
-  });
-
-  qs(".anterior", modal).addEventListener("click", (event) => {
-    event.stopPropagation();
-    showImage(currentIndex - 1);
-  });
-
-  qs(".siguiente", modal).addEventListener("click", (event) => {
-    event.stopPropagation();
-    showImage(currentIndex + 1);
-  });
-
-  const closeModal = () => {
-    modal.classList.remove("activo");
-    document.body.classList.remove("modal-abierto");
-  };
-
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal || event.target.closest(".galeria-modal-cerrar"))
-      closeModal();
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (!modal.classList.contains("activo")) return;
-    if (event.key === "Escape") closeModal();
-    if (event.key === "ArrowLeft") showImage(currentIndex - 1);
-    if (event.key === "ArrowRight") showImage(currentIndex + 1);
-  });
-}
-
-// Convierte los productos relacionados en un carrusel con flechas.
-// Oculta la barra de desplazamiento y avanza una tarjeta por clic.
-function setupRelatedProductsAutoScroll() {
-  qsa(".contenedor-productos").forEach((contenedor) => {
-    if (contenedor.closest(".productos-relacionados-carrusel")) return;
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "productos-relacionados-carrusel";
-    contenedor.parentNode.insertBefore(wrapper, contenedor);
-    wrapper.appendChild(contenedor);
-
-    const prev = document.createElement("button");
-    prev.type = "button";
-    prev.className = "relacionados-control anterior";
-    prev.setAttribute("aria-label", "Productos anteriores");
-    prev.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-
-    const next = document.createElement("button");
-    next.type = "button";
-    next.className = "relacionados-control siguiente";
-    next.setAttribute("aria-label", "Productos siguientes");
-    next.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-
-    wrapper.appendChild(prev);
-    wrapper.appendChild(next);
-
-    const getStep = () => {
-      const card = qs(".card-producto", contenedor);
-      if (!card) return Math.max(260, contenedor.clientWidth * 0.8);
-      const gap = parseFloat(getComputedStyle(contenedor).gap) || 0;
-      return card.getBoundingClientRect().width + gap;
-    };
-
-    const updateControls = () => {
-      const hayDesplazamiento =
-        contenedor.scrollWidth > contenedor.clientWidth + 2;
-      prev.hidden = !hayDesplazamiento;
-      next.hidden = !hayDesplazamiento;
-    };
-
-    prev.addEventListener("click", () => {
-      const max = contenedor.scrollWidth - contenedor.clientWidth;
-      if (contenedor.scrollLeft <= 2) {
-        contenedor.scrollTo({ left: max, behavior: "smooth" });
-      } else {
-        contenedor.scrollBy({ left: -getStep(), behavior: "smooth" });
-      }
-    });
-
-    next.addEventListener("click", () => {
-      const max = contenedor.scrollWidth - contenedor.clientWidth;
-      if (contenedor.scrollLeft >= max - 2) {
-        contenedor.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        contenedor.scrollBy({ left: getStep(), behavior: "smooth" });
-      }
-    });
-
-    contenedor.addEventListener("scroll", updateControls, { passive: true });
-    window.addEventListener("resize", updateControls);
-    requestAnimationFrame(updateControls);
-  });
-}
-
-// Aplica animaciones cuando los elementos entran o salen de la pantalla.
-function setupScrollReveal() {
-  const selectors = [
-    ".galeria .titulo-seccion",
-    ".galeria .descripcion-seccion",
-    ".galeria-carrusel",
-    ".recomendaciones .titulo-seccion",
-    ".recomendaciones .descripcion-seccion",
-    ".card-reco",
-    ".contacto-info",
-    ".contacto-mapa",
-    ".servicio-card",
-    ".otro-card",
-    ".tarjeta",
-    ".producto-grande",
-    ".nosotros-encabezado",
-    ".info-card",
-    ".valores-encabezado",
-    ".valor-card",
-    ".nosotros-compromiso",
-    ".formulario-libro",
-    ".footer-contenedor",
-  ];
-
-  const elements = qsa(selectors.join(",")).filter(
-    (element) => !element.classList.contains("reveal"),
-  );
-  elements.forEach((element, index) => {
-    element.classList.add("reveal");
-    element.style.setProperty(
-      "--reveal-delay",
-      `${Math.min(index % 4, 3) * 70}ms`,
-    );
-  });
-
-  if (!("IntersectionObserver" in window)) {
-    elements.forEach((element) => element.classList.add("visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        // Se añade y retira para que la animación funcione al bajar y al volver a subir.
-        entry.target.classList.toggle("visible", entry.isIntersecting);
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -35px 0px" },
-  );
-
-  elements.forEach((element) => observer.observe(element));
-}
-
-// Anima los contadores numéricos del hero desde 0 hasta su objetivo.
-function setupHeroCounters() {
-  const counters = qsa(".contador");
-  if (counters.length === 0) return;
-
-  counters.forEach((counter) => {
-    const target = Number(counter.dataset.target || 0);
-    const prefix = counter.dataset.prefix || "";
-    const suffix = counter.dataset.suffix || "";
-    const duration = 1700;
-    const startTime = performance.now();
-
-    const update = (now) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const value = Math.round(target * eased);
-      counter.textContent = `${prefix}${value.toLocaleString("es-PE")}${suffix}`;
-      if (progress < 1) requestAnimationFrame(update);
-    };
-
-    requestAnimationFrame(update);
-  });
-}
-
-// Crea el botón "Volver arriba" y lo muestra después de hacer scroll.
-function createBackToTopButton() {
-  if (qs("#volverArriba")) return;
-  const button = document.createElement("button");
-  button.type = "button";
-  button.id = "volverArriba";
-  button.className = "volver-arriba";
-  button.setAttribute("aria-label", "Volver arriba");
-  button.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
-  document.body.appendChild(button);
-
-  const toggle = () => button.classList.toggle("visible", window.scrollY > 450);
-  window.addEventListener("scroll", toggle, { passive: true });
-  button.addEventListener("click", () =>
-    window.scrollTo({ top: 0, behavior: "smooth" }),
-  );
-  toggle();
-}
-
-// Crea el loader de entrada. Se muestra una sola vez por sesión.
-function createPageLoader() {
-  if (qs("#pageLoader")) return;
-
-  // El loader se muestra una sola vez durante la sesión de navegación.
-  // Al cambiar entre las páginas del sitio, sessionStorage conserva esta marca.
-  const LOADER_SESSION_KEY = "pelucasLoaderMostrado";
-  if (sessionStorage.getItem(LOADER_SESSION_KEY) === "si") return;
-  sessionStorage.setItem(LOADER_SESSION_KEY, "si");
-
-  const loader = document.createElement("div");
-  loader.id = "pageLoader";
-  loader.className = "page-loader";
-  loader.innerHTML = `
-    <div class="page-loader-contenido">
-      <img src="/img/Imgloader.svg" alt="Cargando Pelucas Caninas">
-      <p>Preparando todo para tu mascota...</p>
-    </div>`;
-  document.body.prepend(loader);
-
-  const hide = () => {
-    loader.classList.add("oculto");
-    setTimeout(() => loader.remove(), 550);
-  };
-
-  if (document.readyState === "complete") {
-    setTimeout(hide, 500);
-  } else {
-    window.addEventListener("load", () => setTimeout(hide, 500), {
-      once: true,
-    });
-    setTimeout(hide, 3500);
-  }
-}
 
 function createReservationModal() {
   if (qs("#formReserva")) return;
@@ -927,7 +524,7 @@ function createReservationModal() {
           <form id="formReserva">
             <div class="mb-3"><label class="form-label" for="reservaNombre">Tu nombre</label><input class="form-control" id="reservaNombre" required type="text"></div>
             <div class="mb-3"><label class="form-label" for="reservaMascota">Nombre de tu mascota</label><input class="form-control" id="reservaMascota" required type="text"></div>
-            <div class="mb-3"><label class="form-label" for="reservaServicio">Servicio</label><select class="form-select" id="reservaServicio" required><option disabled selected value="">Selecciona un servicio</option><option>Baño básico</option><option>Baño premium</option><option>Baño y corte</option><option>Corte de raza</option></select></div>
+            <div class="mb-3"><label class="form-label" for="reservaServicio">Servicio</label><select class="form-select" id="reservaServicio" required><option disabled selected value="">Selecciona un servicio</option></select></div>
             <div class="row g-3"><div class="col-sm-6"><label class="form-label" for="reservaFecha">Fecha preferida</label><input class="form-control" id="reservaFecha" required type="date"></div><div class="col-sm-6"><label class="form-label" for="reservaTelefono">Teléfono</label><input class="form-control" id="reservaTelefono" placeholder="999 999 999" required type="tel"></div></div>
           </form>
         </div>
@@ -935,6 +532,14 @@ function createReservationModal() {
       </div>
     </div>`;
   document.body.append(modal);
+  const opciones = qs("#serviciosReservaOpciones");
+  const selector = qs("#reservaServicio", modal);
+  if (opciones) selector.append(opciones.content.cloneNode(true));
+  if (selector.options.length === 1) {
+    selector.options[0].textContent = "No hay servicios disponibles";
+    selector.disabled = true;
+    qs('button[form="formReserva"]', modal).disabled = true;
+  }
 }
 
 function setupReservationButtons() {
@@ -1001,23 +606,14 @@ function setupContactFormValidation() {
 // antes de ejecutar todas las funciones del sitio.
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
-  createPageLoader();
   createCartPanel();
-  setupGalleryModal();
-  setupRelatedProductsAutoScroll();
   setupDarkMode();
   setupProductSearch();
-  setupMobileFiltersDrawer();
   setupCartEvents();
-  injectDetailAddButton();
   setupFormValidation();
   setupContactFormValidation();
   createReservationModal();
   setupReservationButtons();
   setupReservationModal();
-  createFloatingWhatsapp();
-  createBackToTopButton();
-  setupScrollReveal();
-  setupHeroCounters();
   updateCartCount();
 });
