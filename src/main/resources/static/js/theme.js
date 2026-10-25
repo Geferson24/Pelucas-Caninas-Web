@@ -43,4 +43,11 @@
     },
   };
   apply(dark);
+  document.addEventListener("DOMContentLoaded", () => {
+    apply();
+    document.querySelectorAll("#darkModeToggle").forEach((button) => {
+      button.addEventListener("click", () => window.PelucasTheme.toggle());
+    });
+    window.PelucasTheme.ready();
+  }, { once: true });
 })();

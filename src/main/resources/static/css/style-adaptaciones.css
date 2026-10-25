@@ -527,7 +527,7 @@ body.page[data-theme="dark"] .site-header {
   background: var(--page-background);
 }
 
-body.page :is(p, li, label, input, select, textarea) {
+body.page:not(.admin-shell) :is(p, li, label, input, select, textarea) {
   font-size: 1.05rem;
 }
 
@@ -566,7 +566,7 @@ body.page
   font-size: 1rem;
 }
 
-body.page
+body.page:not(.admin-shell)
   :is(
     small,
     .eyebrow,

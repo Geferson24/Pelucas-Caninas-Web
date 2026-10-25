@@ -180,6 +180,15 @@ diseño anterior se retiraron; se usa `null` cuando la página no necesita CSS p
 
 ## Estructura
 
+El administrador usa el diseño de Figma: cabecera con el logo y «Administrador»,
+tarjetas con los conteos de MySQL y una tabla con los tres productos de mayor ID
+(los últimos registrados), incluidos los inactivos. Las acciones del resumen
+abren los formularios existentes; al eliminar un producto se solicita confirmación
+y se vuelve a su lista. Categorías, productos y servicios comparten cabecera,
+navegación, formularios y pie del panel. `style-admin.css` contiene su diseño
+adaptable y reutiliza los colores y las fuentes del sitio; `theme.js` conserva
+el tema claro u oscuro entre todas las páginas.
+
 `entity` contiene diez entidades JPA: usuario, cliente, mascota, categoria_producto,
 producto, servicio, cita, pedido, detalle_pedido y reclamo. Cada una incluye las
 validaciones de sus datos y los mapeos de sus claves foráneas. Los identificadores

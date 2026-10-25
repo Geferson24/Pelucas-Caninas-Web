@@ -10,6 +10,9 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
     List<ProductoEntity> findAllByOrderByIdAsc();
 
     @EntityGraph(attributePaths = "categoria")
+    List<ProductoEntity> findTop3ByOrderByIdDesc();
+
+    @EntityGraph(attributePaths = "categoria")
     List<ProductoEntity> findByEstadoOrderByIdAsc(String estado);
 
     boolean existsByCategoriaId(Integer idCategoria);

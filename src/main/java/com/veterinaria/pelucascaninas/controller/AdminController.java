@@ -22,6 +22,7 @@ public class AdminController {
         model.addAttribute("totalCategorias", categorias.contar());
         model.addAttribute("totalProductos", productos.contar());
         model.addAttribute("totalServicios", servicios.contar());
+        model.addAttribute("productosRecientes", productos.listarRecientes());
         return "admin/index";
     }
 }

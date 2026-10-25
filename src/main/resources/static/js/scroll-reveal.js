@@ -16,7 +16,8 @@ function setupScrollReveal() {
     ".login__visual", ".login__content > *",
     ".legal-page__header", ".legal-section", ".legal-contact",
     ".error-page__visual", ".error-page__copy",
-    ".admin-nav", ".admin-heading", ".admin-card", ".admin-table-wrap", ".admin-form > *",
+    ".admin-intro", ".admin-note", ".admin-nav", ".admin-heading", ".admin-card",
+    ".admin-recent", ".admin-guide", ".admin-table-wrap", ".admin-form > *", ".admin-footer",
     ".footer__brand", ".footer-column", ".footer__bottom",
   ];
   const elements = [];

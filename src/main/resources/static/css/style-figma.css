@@ -27,9 +27,7 @@ h1,
 h2,
 h3,
 h4,
-h5,
 p,
-figure,
 ul {
   margin: 0;
 }
@@ -1885,10 +1883,6 @@ h1 em {
   text-transform: uppercase;
 }
 
-.pet-carousel__footer > span:last-child {
-  text-align: right;
-}
-
 .pet-carousel__dots {
   display: flex;
   align-items: center;
@@ -1998,9 +1992,6 @@ h1 em {
     justify-self: end;
   }
 
-  .pet-carousel__footer > span:last-child {
-    display: none;
-  }
 }
 
 .products {
@@ -2593,10 +2584,6 @@ h1 em {
   cursor: pointer;
 }
 
-.login-password svg {
-  width: 19px;
-}
-
 .login-field > input:focus,
 .login-password:focus-within {
   border-color: var(--color-terracotta);
@@ -2650,20 +2637,6 @@ h1 em {
   background: var(--color-sage-light);
   color: color-mix(in srgb, var(--color-ink) 62%, transparent);
   font-size: 0.64rem;
-}
-
-.login-demo > svg {
-  width: 18px;
-  flex: 0 0 auto;
-  color: var(--color-terracotta);
-}
-
-.login-demo > span {
-  display: grid;
-}
-
-.login-demo strong {
-  color: var(--color-ink);
 }
 
 .login__content .login__register {
@@ -3728,22 +3701,6 @@ h1 em {
   gap: 0.8rem;
 }
 
-.footer-logo > span {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #fffdf8;
-  color: #173d2b;
-  transform: rotate(-6deg);
-}
-
-.footer-logo svg {
-  width: 26px;
-  fill: currentColor;
-}
-
 .footer-logo strong {
   font-family: var(--font-display);
   font-size: 1.65rem;
@@ -3838,8 +3795,7 @@ h1 em {
   overflow-wrap: anywhere;
 }
 
-.footer-contact small,
-.claims-book small {
+.footer-contact small {
   margin-bottom: 0.15rem;
   color: rgba(255, 253, 248, 0.45);
   font-size: 0.58rem;
@@ -3856,21 +3812,6 @@ h1 em {
   border: 1px solid rgba(255, 253, 248, 0.16);
   border-radius: 1rem;
   background: rgba(255, 253, 248, 0.06);
-}
-
-.claims-book > svg:first-child {
-  width: 24px;
-  color: #adc0a5;
-}
-
-.claims-book > svg:last-child {
-  width: 16px;
-}
-
-.claims-book span {
-  display: grid;
-  color: #fffdf8;
-  font-weight: 700;
 }
 
 .footer__bottom {

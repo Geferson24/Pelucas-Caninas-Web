@@ -3,9 +3,9 @@
   <head
     th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}"
   ></head>
-  <body>
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <main class="admin-page">
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}"></div>
+    <main class="admin-page" id="contenido-admin">
       <div th:replace="~{admin/fragments :: navegacion}"></div>
       <header class="admin-heading">
         <div>
@@ -156,6 +156,6 @@
         </div>
       </form>
     </main>
-    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:replace="~{admin/fragments :: pie}"></div>
   </body>
 </html>

@@ -249,14 +249,6 @@ function updateWhatsappCartLink() {
 }
 
 // Configura el modo oscuro y recuerda la preferencia del usuario.
-function setupDarkMode() {
-  window.PelucasTheme.apply();
-  qsa("#darkModeToggle").forEach((button) => {
-    button.addEventListener("click", () => window.PelucasTheme.toggle());
-  });
-  window.PelucasTheme.ready();
-}
-
 // Filtra las tarjetas de productos por texto y por una o varias categorías.
 // Un conjunto vacío equivale a mostrar todas las categorías.
 const activeProductFilters = new Set();
@@ -607,7 +599,6 @@ function setupContactFormValidation() {
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
   createCartPanel();
-  setupDarkMode();
   setupProductSearch();
   setupCartEvents();
   setupFormValidation();

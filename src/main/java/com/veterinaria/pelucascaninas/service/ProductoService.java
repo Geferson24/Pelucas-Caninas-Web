@@ -26,6 +26,10 @@ public class ProductoService {
         return repository.count();
     }
 
+    public List<ProductoEntity> listarRecientes() {
+        return repository.findTop3ByOrderByIdDesc();
+    }
+
     private ProductoEntity buscar(Integer id) {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

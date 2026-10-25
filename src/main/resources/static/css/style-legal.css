@@ -69,9 +69,6 @@ body.page .legal-section__content :is(p, li) {
   line-height: 1.8;
   color: color-mix(in srgb, var(--color-ink) 72%, var(--color-paper));
 }
-.legal-section__content p + p {
-  margin-top: 1rem;
-}
 .legal-section__content ul {
   padding-left: 1.2rem;
   list-style: disc;

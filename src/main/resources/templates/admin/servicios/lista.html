@@ -3,9 +3,9 @@
   <head
     th:replace="~{fragments/head :: head('Administración - Servicios', '/css/style-admin.css')}"
   ></head>
-  <body>
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <main class="admin-page">
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}"></div>
+    <main class="admin-page" id="contenido-admin">
       <div th:replace="~{admin/fragments :: navegacion}"></div>
       <header class="admin-heading">
         <div>
@@ -17,7 +17,7 @@
           >+ Nuevo servicio</a>
       </header>
       <div th:replace="~{admin/fragments :: mensajes}"></div>
-      <div class="admin-table-wrap">
+      <div class="admin-table-wrap" tabindex="0" role="region" aria-label="Tabla de registros">
         <table class="admin-table">
           <caption class="visually-hidden">
             Lista de servicios
@@ -93,7 +93,6 @@
         </table>
       </div>
     </main>
-    <div th:replace="~{fragments/footer :: footer}"></div>
-    <script th:src="@{/js/admin.js}"></script>
+    <div th:replace="~{admin/fragments :: pie}"></div>
   </body>
 </html>

@@ -45,7 +45,13 @@ class SitioWebTest {
     void rutasCompartenFragmentosYRecursos(String path) throws Exception {
         var response = get(path);
         assertThat(response.statusCode()).isEqualTo(200);
-        assertThat(response.body()).contains("navbarPelucas", "footer-nuevo", "/css/style-figma.css", "/js/app.js");
+        assertThat(response.body()).contains("/css/style-figma.css", "/js/theme.js", "/js/scroll-reveal.js");
+        if (path.startsWith("/admin")) {
+            assertThat(response.body()).contains("admin-header", "admin-footer", "Administrador", "/js/admin.js");
+            assertThat(response.body()).doesNotContain("navbarPelucas", "cartToggle", "footer-nuevo");
+        } else {
+            assertThat(response.body()).contains("navbarPelucas", "footer-nuevo", "/js/app.js");
+        }
         assertThat(response.body()).doesNotContain("th:replace", "th:each", "/vendor/", "../../static", "@{");
     }
 

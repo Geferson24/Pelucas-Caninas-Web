@@ -147,6 +147,29 @@ class CrudAdminTest {
     }
 
     @Test
+    void panelMuestraLosUltimosProductosInclusoSiEstanInactivos() throws Exception {
+        var nombre = unique();
+        Integer productoId = null;
+        var totalAnterior = productos.count();
+        try {
+            assertThat(post("/admin/productos", producto(nombre, 1, "INACTIVO")).statusCode()).isEqualTo(302);
+            productoId = jdbc.queryForObject("SELECT id_producto FROM producto WHERE nombre=?", Integer.class, nombre);
+            var html = get("/admin").body();
+            assertThat(html).contains(nombre, "Inactivo", "Productos recientes", "Aseo");
+            var enlaces = java.util.regex.Pattern.compile("/admin/productos/(\\d+)/editar")
+                    .matcher(html).results().map(m -> Integer.valueOf(m.group(1))).toList();
+            assertThat(enlaces).hasSize(3).isSortedAccordingTo(java.util.Comparator.reverseOrder());
+            assertThat(enlaces.getFirst()).isEqualTo(productoId);
+            var conteos = java.util.regex.Pattern.compile("class=\"admin-count\"[^>]*>(\\d+)<")
+                    .matcher(html).results().map(m -> Long.valueOf(m.group(1))).toList();
+            assertThat(conteos.getFirst()).isEqualTo(totalAnterior + 1);
+            assertThat(get("/productos").body()).doesNotContain(nombre);
+        } finally {
+            if (productoId != null) productos.deleteById(productoId);
+        }
+    }
+
+    @Test
     void registrosInexistentesYEliminacionPorGet() throws Exception {
         assertThat(get("/admin/productos/999999/editar").statusCode()).isEqualTo(404);
         assertThat(get("/admin/categorias/999999/editar").statusCode()).isEqualTo(404);

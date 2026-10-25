@@ -1,40 +1,48 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <body>
+    <th:block th:fragment="cabecera">
+      <script>window.PelucasTheme.apply();</script>
+      <header class="admin-header">
+        <div class="admin-header__inner">
+          <a class="brand" th:href="@{/admin}" aria-label="Pelucas Caninas, administración">
+            <img class="brand__logo" th:src="@{/img/Pelucas Caninas.png}" alt="Logo Pelucas Caninas" width="76" height="64">
+            <span class="brand__copy"><strong>Pelucas Caninas</strong><small>Estética canina</small></span>
+          </a>
+          <a class="admin-header__title" th:href="@{/admin}">Administrador</a>
+          <div class="admin-header__actions">
+            <button th:replace="~{fragments/navbar :: tema}"></button>
+            <a class="admin-button admin-secondary" th:href="@{/}">Ver sitio web ↗</a>
+            <span class="admin-avatar" aria-hidden="true">A</span>
+          </div>
+        </div>
+      </header>
+      <script>window.PelucasTheme.apply();</script>
+    </th:block>
     <nav class="admin-nav" aria-label="Administración" th:fragment="navegacion">
-      <a
-        th:href="@{/admin}"
-        th:attr="aria-current=${seccionAdmin == 'panel' ? 'page' : null}"
-        ><i class="fa-solid fa-table-columns" aria-hidden="true"></i> Panel</a>
-      <a
-        th:href="@{/admin/categorias}"
-        th:attr="aria-current=${seccionAdmin == 'categorias' ? 'page' : null}"
-        >Categorías</a>
-      <a
-        th:href="@{/admin/productos}"
-        th:attr="aria-current=${seccionAdmin == 'productos' ? 'page' : null}"
-        >Productos</a>
-      <a
-        th:href="@{/admin/servicios}"
-        th:attr="aria-current=${seccionAdmin == 'servicios' ? 'page' : null}"
-        >Servicios</a>
-      <a th:href="@{/productos}"
-        >Ver catálogo
-        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      <a th:href="@{/admin}" th:attr="aria-current=${seccionAdmin == 'panel' ? 'page' : null}">Resumen</a>
+      <a th:href="@{/admin/productos}" th:attr="aria-current=${seccionAdmin == 'productos' ? 'page' : null}">Productos</a>
+      <a th:href="@{/admin/categorias}" th:attr="aria-current=${seccionAdmin == 'categorias' ? 'page' : null}">Categorías</a>
+      <a th:href="@{/admin/servicios}" th:attr="aria-current=${seccionAdmin == 'servicios' ? 'page' : null}">Servicios</a>
     </nav>
+    <div class="admin-actions" th:fragment="accionesProducto(producto)">
+      <a class="admin-action-link" th:href="@{/admin/productos/{id}/editar(id=${producto.id})}" th:attr="aria-label=|Editar ${producto.nombre}|">Editar</a>
+      <span aria-hidden="true">·</span>
+      <form method="post" th:action="@{/admin/productos/{id}/eliminar(id=${producto.id})}" data-confirm="¿Eliminar este producto? Esta acción no se puede deshacer.">
+        <button class="admin-action-link admin-action-delete" type="submit" th:attr="aria-label=|Eliminar ${producto.nombre}|">Eliminar</button>
+      </form>
+    </div>
     <th:block th:fragment="mensajes">
-      <p
-        class="admin-message admin-success"
-        role="status"
-        th:if="${exito}"
-        th:text="${exito}"
-      ></p>
-      <p
-        class="admin-message admin-error"
-        role="alert"
-        th:if="${error}"
-        th:text="${error}"
-      ></p>
+      <p class="admin-message admin-success" role="status" th:if="${exito}" th:text="${exito}"></p>
+      <p class="admin-message admin-error" role="alert" th:if="${error}" th:text="${error}"></p>
+    </th:block>
+    <th:block th:fragment="pie">
+      <footer class="admin-footer">
+        <p>Pelucas Caninas · Belleza, cuidado y bienestar.</p>
+        <a th:href="@{/admin}">Panel administrativo</a>
+      </footer>
+      <script th:src="@{/js/admin.js}"></script>
+      <script th:src="@{/js/scroll-reveal.js}"></script>
     </th:block>
   </body>
 </html>
