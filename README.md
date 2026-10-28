@@ -108,9 +108,12 @@ si el wrapper no tiene permiso de ejecución, primero ejecuta `chmod +x mvnw`.
 - `/login`: formulario de inicio de sesión; la autenticación queda para el cuarto avance.
 - `/admin`: acceso al panel; prueba crear una categoría y después un producto asociado.
 - `/admin/servicios`: gestión de planes y cuidados adicionales.
+- `/admin/usuarios`, `/admin/clientes`, `/admin/mascotas`, `/admin/citas`: cuentas, familias, mascotas y agenda.
+- `/admin/pedidos`, `/admin/detalles-pedido`, `/admin/reclamos`: pedidos, sus productos y solicitudes de clientes.
 
 Las consultas y reservas continúan mediante WhatsApp. El libro de reclamaciones
-solo valida el formulario de ejemplo; todavía no registra reclamos en MySQL.
+público solo valida el formulario de ejemplo. Los reclamos sí se pueden registrar,
+consultar, editar y eliminar desde `/admin/reclamos`.
 
 ## Problemas frecuentes
 
@@ -148,7 +151,8 @@ cambios locales en conflicto, consérvalos y resuélvelos con tu grupo antes de 
 
 El panel todavía es de acceso directo: los roles de la BD y el formulario de login
 no autentican ni restringen rutas. Spring Security se incorporará en el cuarto
-avance. La tabla usuario queda preparada en MySQL sin CRUD de cuentas en este paso.
+avance. Los usuarios ya tienen mantenimiento de cuentas desde el administrador;
+el formulario público de login todavía no autentica.
 La galería conserva las imágenes del sitio en memoria.
 Las antiguas direcciones con `.html` y `/detalle-producto?id=...` se han retirado;
 se utilizan las rutas actuales, por ejemplo `/productos` y `/servicios`.
@@ -197,12 +201,66 @@ detalle de pedido es de solo lectura y MySQL lo calcula al insertar o actualizar
 
 `repository` accede a MySQL con Spring Data JPA. `service` implementa consultas y
 operaciones transaccionales. `dto` contiene los formularios validados. `controller`
-gestiona las rutas Thymeleaf. Estas cuatro capas y los CRUD HTML están implementados
-para categorías, productos y servicios; las otras siete tablas tienen por ahora
-su entidad. Los mapeos nuevos no activan el inicio de sesión ni el registro de
-citas, pedidos o reclamos desde la web; Spring Security sigue pendiente para el
-cuarto avance.
+gestiona las rutas Thymeleaf. Estas cuatro capas y las páginas HTML de listado y formulario están implementadas
+para las diez tablas. Los mantenimientos usan `@Controller`, formularios DTO
+validados y Thymeleaf. Los identificadores, fechas de registro y valores calculados
+no se pueden sobrescribir enviando campos adicionales. Spring Security y el área
+personal del cliente siguen pendientes para el cuarto avance.
 `model/Producto` es la vista de lectura utilizada por el catálogo público.
+
+## Mantenimientos del administrador
+
+Las diez tablas tienen entidad, repositorio, servicio, controlador y páginas
+Thymeleaf. Todos los registros se muestran en el administrador, incluidos los
+inactivos; el catálogo público conserva sus filtros de visibilidad.
+
+| Módulo | Ruta | Relaciones principales |
+| --- | --- | --- |
+| Usuarios | `/admin/usuarios` | Cuenta opcional de un cliente |
+| Clientes | `/admin/clientes` | Usuario opcional, único por cliente |
+| Mascotas | `/admin/mascotas` | Cliente responsable |
+| Citas | `/admin/citas` | Mascota y servicio |
+| Pedidos | `/admin/pedidos` | Cliente |
+| Detalles de pedidos | `/admin/detalles-pedido` | Pedido y producto |
+| Reclamos | `/admin/reclamos` | Cliente opcional y datos del reclamante |
+| Categorías | `/admin/categorias` | Categoría de productos |
+| Productos | `/admin/productos` | Categoría |
+| Servicios | `/admin/servicios` | Servicio de una cita |
+
+Para una demostración: registra un cliente, su mascota y una cita. Después crea
+un pedido para ese cliente y usa **Ver detalles → Añadir un producto**. Las cuentas
+de usuario son opcionales para los clientes presenciales. No se cambia el esquema
+ni es necesario importar otra vez el SQL si la base ya está instalada.
+
+Los selectores de relaciones usan registros existentes y el servidor vuelve a
+comprobarlos al guardar. Una cuenta solo puede vincularse a un cliente. Las claves
+foráneas impiden eliminar un usuario vinculado, un cliente con dependientes, una
+mascota con citas o un pedido con detalles; la página muestra el motivo.
+
+Cada producto aparece una sola vez por pedido. MySQL genera el subtotal a partir
+de cantidad × precio unitario; Java recalcula el total al insertar, cambiar,
+mover o eliminar detalles. Mover un detalle actualiza ambos pedidos dentro de
+una transacción. Los importes que exceden la precisión de MySQL se rechazan.
+El total no se introduce manualmente y el stock del catálogo sigue siendo de
+mantenimiento manual; este avance no procesa pagos ni movimientos de almacén.
+
+Las fechas de nacimiento no pueden ser futuras. Pedidos y reclamos admiten
+fechas pasadas o actuales; las citas admiten fechas futuras e históricas para su
+mantenimiento. Las fechas de registro se asignan automáticamente.
+
+### Contraseñas y cuarto avance
+
+El administrador introduce una contraseña nueva, nunca un hash. Al editar, el
+campo vacío conserva la contraseña anterior; nunca se muestra el hash ni se
+reintroduce la contraseña enviada cuando hay errores. Una cuenta sin contraseña
+solo puede guardarse desactivada. El hash usa PBKDF2-HMAC-SHA256 con una sal
+aleatoria de 16 bytes y 600 000 iteraciones, mediante las APIs de Java, siguiendo
+la [referencia de OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
+Su formato es `pbkdf2_sha256$600000$salBase64$hashBase64`.
+
+Esto almacena las credenciales, pero no inicia sesiones ni restringe las rutas.
+En el cuarto avance, la configuración de autenticación debe admitir este formato
+o migrarlo al encoder elegido. No se agregó Spring Security en este avance.
 
 ## Pruebas
 

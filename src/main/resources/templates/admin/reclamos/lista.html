@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head('Administración - Reclamos', '/css/style-admin.css')}">
+  </head>
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}">
+    </div>
+    <main class="admin-page" id="contenido-admin">
+      <div th:replace="~{admin/fragments :: navegacion}">
+      </div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Gestión del negocio</p>
+          <h1>Reclamos</h1>
+          <p>Consulta, registra y actualiza la información de reclamos.</p>
+        </div>
+        <a class="admin-button" th:href="@{/admin/reclamos/nuevo}">+ Nuevo reclamo</a>
+      </header>
+      <div th:replace="~{admin/fragments :: mensajes}">
+      </div>
+      <div class="admin-table-wrap" role="region" tabindex="0" aria-label="Lista de reclamos">
+        <table class="admin-table">
+          <caption class="visually-hidden">Lista de reclamos</caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Cliente</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Documento</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Solicitud</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${#lists.isEmpty(registros)}">
+              <td class="admin-empty" colspan="12">Todavía no hay registros. Usa el botón de nuevo registro para comenzar.</td>
+            </tr>
+            <tr th:each="registro : ${registros}">
+              <td th:text="${registro.id}">
+              </td>
+              <td th:text="${registro.cliente != null ? registro.cliente.nombres : 'No registrado'}">
+              </td>
+              <td th:text="${registro.nombres}">
+              </td>
+              <td th:text="${registro.documento}">
+              </td>
+              <td th:text="${registro.correo}">
+              </td>
+              <td th:text="${registro.telefono}">
+              </td>
+              <td th:text="${#temporals.format(registro.fecha, 'dd/MM/yyyy HH:mm:ss')}">
+              </td>
+              <td th:text="${registro.tipo}">
+              </td>
+              <td th:text="${registro.descripcion}">
+              </td>
+              <td th:text="${registro.solicitud}">
+              </td>
+              <td th:text="${registro.estado}">
+              </td>
+              <td>
+                <div class="admin-actions">
+                  <a class="admin-action-link" th:href="@{/admin/reclamos/{id}/editar(id=${registro.id})}" th:attr="aria-label=|Editar registro ${registro.id}|">Editar</a>
+                  <form method="post" th:action="@{/admin/reclamos/{id}/eliminar(id=${registro.id})}" data-confirm="¿Eliminar este registro? Los registros asociados pueden impedir la eliminación.">
+                    <button class="admin-action-link admin-action-delete" type="submit" th:attr="aria-label=|Eliminar registro ${registro.id}|">Eliminar</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <div th:replace="~{admin/fragments :: pie}">
+    </div>
+  </body>
+</html>

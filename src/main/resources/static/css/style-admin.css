@@ -180,6 +180,15 @@ body.admin-shell[data-theme="dark"] {
 .admin-error { background: var(--admin-error-bg); color: var(--admin-error); }
 .admin-footer { display: flex; justify-content: space-between; gap: 24px; width: min(100%, 1440px); margin: 0 auto; padding: 0 64px 64px; color: var(--admin-muted); font-size: 13px; line-height: 20px; }
 .admin-footer a { color: var(--admin-accent); }
+.admin-modules { margin-top: 32px; }
+.admin-modules > header { margin-bottom: 24px; }
+.admin-modules__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 20px; }
+.admin-module { display: grid; gap: 12px; padding: 24px; border: 1px solid var(--admin-border); border-radius: 24px; background: var(--admin-surface); }
+.admin-module h3 { margin: 0; color: var(--admin-text); font: 400 26px/1.2 var(--font-display); }
+.admin-module p { color: var(--admin-muted); font-size: 14px; line-height: 1.5; }
+.admin-module > span { color: var(--admin-accent); font-size: 14px; font-weight: 700; }
+.admin-module:hover { border-color: var(--admin-accent); }
+.admin-message ul { padding-left: 20px; margin-top: 8px; list-style: disc; }
 @media (max-width: 1180px) {
   .admin-header__inner { padding-inline: 32px; gap: 16px; }
   .admin-header__actions { gap: 12px; }

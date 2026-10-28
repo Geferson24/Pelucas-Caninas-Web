@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}">
+  </head>
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}">
+    </div>
+    <main class="admin-page" id="contenido-admin">
+      <div th:replace="~{admin/fragments :: navegacion}">
+      </div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Citas</p>
+          <h1 th:text="${tituloFormulario}">
+          </h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <p class="admin-message" th:if="${registro != null}">Registro #<span th:text="${registro.id}">
+        </span> · Creado el <span th:text="${#temporals.format(registro.fechaRegistro, 'dd/MM/yyyy HH:mm:ss')}">
+        </span>
+      </p>
+      <form class="admin-form" th:action="@{${accion}}" th:object="${formulario}" method="post">
+        <div class="admin-message admin-error" role="alert" th:if="${#fields.hasAnyErrors()}">
+          Revisa los campos indicados antes de guardar.
+          <ul>
+            <li th:each="error : ${#fields.allErrors()}" th:text="${error}">
+            </li>
+          </ul>
+        </div>
+        <div class="admin-field">
+          <label for="idMascota">Mascota *</label>
+          <select th:field="*{idMascota}" th:errorclass="admin-invalid" aria-describedby="idMascota-error" required>
+            <option value="">Selecciona un registro</option>
+            <option th:each="opcion : ${mascotas}" th:value="${opcion.id}" th:text="${opcion.nombre + ' · ' + opcion.cliente.nombres}">
+            </option>
+          </select>
+          <span id="idMascota-error" class="admin-field-error" th:errors="*{idMascota}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="idServicio">Servicio *</label>
+          <select th:field="*{idServicio}" th:errorclass="admin-invalid" aria-describedby="idServicio-error" required>
+            <option value="">Selecciona un registro</option>
+            <option th:each="opcion : ${servicios}" th:value="${opcion.id}" th:text="${opcion.nombre}">
+            </option>
+          </select>
+          <span id="idServicio-error" class="admin-field-error" th:errors="*{idServicio}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="fecha">Fecha y hora *</label>
+          <input type="datetime-local" th:field="*{fecha}" th:errorclass="admin-invalid" aria-describedby="fecha-error" step="1" required>
+          <span id="fecha-error" class="admin-field-error" th:errors="*{fecha}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="estado">Estado *</label>
+          <select th:field="*{estado}" th:errorclass="admin-invalid" aria-describedby="estado-error" required>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="CONFIRMADA">Confirmada</option>
+            <option value="EN_ATENCION">En atención</option>
+            <option value="COMPLETADA">Completada</option>
+            <option value="CANCELADA">Cancelada</option>
+          </select>
+          <span id="estado-error" class="admin-field-error" th:errors="*{estado}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="precioAcordado">Precio acordado (S/)</label>
+          <input type="number" th:field="*{precioAcordado}" th:errorclass="admin-invalid" aria-describedby="precioAcordado-error" min="0" step="0.01" max="99999999.99">
+          <span id="precioAcordado-error" class="admin-field-error" th:errors="*{precioAcordado}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="observaciones">Observaciones</label>
+          <textarea th:field="*{observaciones}" th:errorclass="admin-invalid" aria-describedby="observaciones-error" rows="4" maxlength="500">
+          </textarea>
+          <span id="observaciones-error" class="admin-field-error" th:errors="*{observaciones}">
+          </span>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Guardar cita</button>
+          <a class="admin-button admin-secondary" th:href="@{/admin/citas}">Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{admin/fragments :: pie}">
+    </div>
+  </body>
+</html>

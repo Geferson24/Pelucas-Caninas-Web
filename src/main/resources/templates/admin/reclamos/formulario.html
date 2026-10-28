@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}">
+  </head>
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}">
+    </div>
+    <main class="admin-page" id="contenido-admin">
+      <div th:replace="~{admin/fragments :: navegacion}">
+      </div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Reclamos</p>
+          <h1 th:text="${tituloFormulario}">
+          </h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <form class="admin-form" th:action="@{${accion}}" th:object="${formulario}" method="post">
+        <div class="admin-message admin-error" role="alert" th:if="${#fields.hasAnyErrors()}">
+          Revisa los campos indicados antes de guardar.
+          <ul>
+            <li th:each="error : ${#fields.allErrors()}" th:text="${error}">
+            </li>
+          </ul>
+        </div>
+        <div class="admin-field">
+          <label for="idCliente">Cliente (opcional)</label>
+          <select th:field="*{idCliente}" th:errorclass="admin-invalid" aria-describedby="idCliente-error">
+            <option value="">Sin vincular</option>
+            <option th:each="opcion : ${clientes}" th:value="${opcion.id}" th:text="${opcion.nombres + ' ' + (opcion.apellidos ?: '')}">
+            </option>
+          </select>
+          <span id="idCliente-error" class="admin-field-error" th:errors="*{idCliente}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="nombres">Nombre completo *</label>
+          <input type="text" th:field="*{nombres}" th:errorclass="admin-invalid" aria-describedby="nombres-error" maxlength="160" required>
+          <span id="nombres-error" class="admin-field-error" th:errors="*{nombres}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="documento">Documento de identidad *</label>
+          <input type="text" th:field="*{documento}" th:errorclass="admin-invalid" aria-describedby="documento-error" maxlength="20" required>
+          <span id="documento-error" class="admin-field-error" th:errors="*{documento}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="correo">Correo *</label>
+          <input type="email" th:field="*{correo}" th:errorclass="admin-invalid" aria-describedby="correo-error" maxlength="120" required>
+          <span id="correo-error" class="admin-field-error" th:errors="*{correo}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" th:field="*{telefono}" th:errorclass="admin-invalid" aria-describedby="telefono-error" maxlength="20">
+          <span id="telefono-error" class="admin-field-error" th:errors="*{telefono}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="fecha">Fecha de presentación *</label>
+          <input type="datetime-local" th:field="*{fecha}" th:errorclass="admin-invalid" aria-describedby="fecha-error" step="1" required>
+          <span id="fecha-error" class="admin-field-error" th:errors="*{fecha}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="tipo">Tipo *</label>
+          <select th:field="*{tipo}" th:errorclass="admin-invalid" aria-describedby="tipo-error" required>
+            <option value="RECLAMO">Reclamo</option>
+            <option value="QUEJA">Queja</option>
+          </select>
+          <span id="tipo-error" class="admin-field-error" th:errors="*{tipo}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="descripcion">Descripción *</label>
+          <textarea th:field="*{descripcion}" th:errorclass="admin-invalid" aria-describedby="descripcion-error" rows="4" maxlength="5000" required>
+          </textarea>
+          <span id="descripcion-error" class="admin-field-error" th:errors="*{descripcion}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="solicitud">Solución solicitada *</label>
+          <textarea th:field="*{solicitud}" th:errorclass="admin-invalid" aria-describedby="solicitud-error" rows="4" maxlength="5000" required>
+          </textarea>
+          <span id="solicitud-error" class="admin-field-error" th:errors="*{solicitud}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="estado">Estado *</label>
+          <select th:field="*{estado}" th:errorclass="admin-invalid" aria-describedby="estado-error" required>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="EN_PROCESO">En proceso</option>
+            <option value="ATENDIDO">Atendido</option>
+          </select>
+          <span id="estado-error" class="admin-field-error" th:errors="*{estado}">
+          </span>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Guardar reclamo</button>
+          <a class="admin-button admin-secondary" th:href="@{/admin/reclamos}">Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{admin/fragments :: pie}">
+    </div>
+  </body>
+</html>

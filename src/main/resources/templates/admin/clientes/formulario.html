@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}">
+  </head>
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}">
+    </div>
+    <main class="admin-page" id="contenido-admin">
+      <div th:replace="~{admin/fragments :: navegacion}">
+      </div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Clientes</p>
+          <h1 th:text="${tituloFormulario}">
+          </h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <p class="admin-message" th:if="${registro != null}">Registro #<span th:text="${registro.id}">
+        </span> · Creado el <span th:text="${#temporals.format(registro.fechaRegistro, 'dd/MM/yyyy HH:mm:ss')}">
+        </span>
+      </p>
+      <form class="admin-form" th:action="@{${accion}}" th:object="${formulario}" method="post">
+        <div class="admin-message admin-error" role="alert" th:if="${#fields.hasAnyErrors()}">
+          Revisa los campos indicados antes de guardar.
+          <ul>
+            <li th:each="error : ${#fields.allErrors()}" th:text="${error}">
+            </li>
+          </ul>
+        </div>
+        <div class="admin-field">
+          <label for="idUsuario">Cuenta de usuario</label>
+          <select th:field="*{idUsuario}" th:errorclass="admin-invalid" aria-describedby="idUsuario-error">
+            <option value="">Sin vincular</option>
+            <option th:each="opcion : ${usuarios}" th:value="${opcion.id}" th:text="${opcion.nombre + ' · ' + opcion.correo}">
+            </option>
+          </select>
+          <span id="idUsuario-error" class="admin-field-error" th:errors="*{idUsuario}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="nombres">Nombres *</label>
+          <input type="text" th:field="*{nombres}" th:errorclass="admin-invalid" aria-describedby="nombres-error" maxlength="80" required>
+          <span id="nombres-error" class="admin-field-error" th:errors="*{nombres}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="apellidos">Apellidos</label>
+          <input type="text" th:field="*{apellidos}" th:errorclass="admin-invalid" aria-describedby="apellidos-error" maxlength="80">
+          <span id="apellidos-error" class="admin-field-error" th:errors="*{apellidos}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="telefono">Teléfono *</label>
+          <input type="tel" th:field="*{telefono}" th:errorclass="admin-invalid" aria-describedby="telefono-error" maxlength="20" required>
+          <span id="telefono-error" class="admin-field-error" th:errors="*{telefono}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="correo">Correo</label>
+          <input type="email" th:field="*{correo}" th:errorclass="admin-invalid" aria-describedby="correo-error" maxlength="120">
+          <span id="correo-error" class="admin-field-error" th:errors="*{correo}">
+          </span>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Guardar cliente</button>
+          <a class="admin-button admin-secondary" th:href="@{/admin/clientes}">Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{admin/fragments :: pie}">
+    </div>
+  </body>
+</html>

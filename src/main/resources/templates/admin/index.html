@@ -1,74 +1,187 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragments/head :: head('Pelucas Caninas - Administración', '/css/style-admin.css')}"></head>
+  <head
+    th:replace="~{fragments/head :: head('Pelucas Caninas - Administración', '/css/style-admin.css')}"
+  ></head>
   <body class="page admin-shell">
     <div th:replace="~{admin/fragments :: cabecera}"></div>
     <main class="admin-page admin-overview" id="contenido-admin">
       <section class="admin-welcome" aria-labelledby="admin-title">
         <div class="admin-intro">
           <p class="admin-eyebrow">Un espacio para gestionar con cariño</p>
-          <h1 id="admin-title">Todo en orden.<em>Más tiempo para ellos.</em></h1>
-          <p>Administra los productos y cuidados que hacen felices a nuestros peludos.</p>
+          <h1 id="admin-title">
+            Todo en orden.<em>Más tiempo para ellos.</em>
+          </h1>
+          <p>
+            Administra los productos y cuidados que hacen felices a nuestros
+            peludos.
+          </p>
         </div>
-        <aside class="admin-note" aria-label="Tu espacio de gestión">
-          <p class="admin-eyebrow">Tu negocio, cerca de ti</p>
-          <h2>El mismo cuidado,<br>en cada detalle.</h2>
-          <p>Un solo lugar para mantener tu catálogo al día.</p>
-        </aside>
       </section>
       <div th:replace="~{admin/fragments :: navegacion}"></div>
       <section class="admin-dashboard" aria-label="Áreas de administración">
         <a class="admin-card" th:href="@{/admin/productos}">
-          <div class="admin-card__top"><span>01</span><span class="admin-count" th:text="${totalProductos}">0</span></div>
-          <div><h2>Productos</h2><p>Esenciales para su día a día.</p></div>
+          <div class="admin-card__top">
+            <span>01</span
+            ><span class="admin-count" th:text="${totalProductos}">0</span>
+          </div>
+          <div>
+            <h2>Productos</h2>
+            <p>Esenciales para su día a día.</p>
+          </div>
           <span class="admin-card__link">Gestionar productos ↗</span>
         </a>
         <a class="admin-card" th:href="@{/admin/categorias}">
-          <div class="admin-card__top"><span>02</span><span class="admin-count" th:text="${totalCategorias}">0</span></div>
-          <div><h2>Categorías</h2><p>Cada cosa, en su lugar.</p></div>
+          <div class="admin-card__top">
+            <span>02</span
+            ><span class="admin-count" th:text="${totalCategorias}">0</span>
+          </div>
+          <div>
+            <h2>Categorías</h2>
+            <p>Cada cosa, en su lugar.</p>
+          </div>
           <span class="admin-card__link">Organizar categorías ↗</span>
         </a>
         <a class="admin-card" th:href="@{/admin/servicios}">
-          <div class="admin-card__top"><span>03</span><span class="admin-count" th:text="${totalServicios}">0</span></div>
-          <div><h2>Servicios</h2><p>Cuidados hechos a su medida.</p></div>
+          <div class="admin-card__top">
+            <span>03</span
+            ><span class="admin-count" th:text="${totalServicios}">0</span>
+          </div>
+          <div>
+            <h2>Servicios</h2>
+            <p>Cuidados hechos a su medida.</p>
+          </div>
           <span class="admin-card__link">Gestionar servicios ↗</span>
         </a>
       </section>
       <div class="admin-workspace">
         <section class="admin-recent" aria-labelledby="recent-title">
           <header class="admin-section-heading">
-            <div><p class="admin-eyebrow">Tu catálogo</p><h2 id="recent-title">Productos recientes</h2></div>
-            <a class="admin-button" th:href="@{/admin/productos/nuevo}">+ Nuevo producto</a>
+            <div>
+              <p class="admin-eyebrow">Tu catálogo</p>
+              <h2 id="recent-title">Productos recientes</h2>
+            </div>
+            <a class="admin-button" th:href="@{/admin/productos/nuevo}"
+              >+ Nuevo producto</a
+            >
           </header>
-          <div class="admin-table-wrap" tabindex="0" role="region" aria-label="Productos recientes">
+          <div
+            class="admin-table-wrap"
+            tabindex="0"
+            role="region"
+            aria-label="Productos recientes"
+          >
             <table class="admin-table">
-              <caption class="visually-hidden">Los tres productos registrados más recientemente</caption>
-              <thead><tr><th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col">Precio</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr></thead>
+              <caption class="visually-hidden">
+                Los tres productos registrados más recientemente
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr th:if="${#lists.isEmpty(productosRecientes)}"><td colspan="5" class="admin-empty">Todavía no hay productos. Registra el primero para mostrarlo en el catálogo.</td></tr>
+                <tr th:if="${#lists.isEmpty(productosRecientes)}">
+                  <td colspan="5" class="admin-empty">
+                    Todavía no hay productos. Registra el primero para mostrarlo
+                    en el catálogo.
+                  </td>
+                </tr>
                 <tr th:each="producto : ${productosRecientes}">
                   <td th:text="${producto.nombre}"></td>
                   <td th:text="${producto.categoria.nombre}"></td>
-                  <td class="admin-price" th:text="|S/ ${producto.precio}|"></td>
-                  <td><span class="admin-badge" th:classappend="${producto.estado == 'INACTIVO'} ? 'admin-badge-muted'" th:text="${producto.estado == 'ACTIVO' ? 'Activo' : 'Inactivo'}"></span></td>
-                  <td><div th:replace="~{admin/fragments :: accionesProducto(${producto})}"></div></td>
+                  <td
+                    class="admin-price"
+                    th:text="|S/ ${producto.precio}|"
+                  ></td>
+                  <td>
+                    <span
+                      class="admin-badge"
+                      th:classappend="${producto.estado == 'INACTIVO'} ? 'admin-badge-muted'"
+                      th:text="${producto.estado == 'ACTIVO' ? 'Activo' : 'Inactivo'}"
+                    ></span>
+                  </td>
+                  <td>
+                    <div
+                      th:replace="~{admin/fragments :: accionesProducto(${producto})}"
+                    ></div>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <a class="admin-text-link" th:href="@{/admin/productos}">Ver todos los productos ↗</a>
+          <a class="admin-text-link" th:href="@{/admin/productos}"
+            >Ver todos los productos ↗</a
+          >
         </section>
-        <aside class="admin-guide" aria-labelledby="guide-title">
-          <p class="admin-eyebrow">Cada detalle cuenta</p>
-          <h2 id="guide-title">Mantén todo<br>a su mejor nivel.</h2>
-          <p>Actualiza precios, organiza categorías y revisa los servicios disponibles.</p>
-          <ol>
-            <li><a th:href="@{/admin/productos}"><span>01</span>Añade o edita tus productos</a></li>
-            <li><a th:href="@{/admin/servicios}"><span>02</span>Revisa el estado de tus servicios</a></li>
-            <li><a th:href="@{/}"><span>03</span>Comprueba los cambios en la web</a></li>
-          </ol>
-        </aside>
       </div>
+      <section class="admin-modules" aria-labelledby="modules-title">
+        <header class="admin-section-heading">
+          <div>
+            <p class="admin-eyebrow">Todo tu negocio</p>
+            <h2 id="modules-title">Más áreas de gestión</h2>
+          </div>
+        </header>
+        <div class="admin-modules__grid">
+          <a
+            class="admin-module"
+            href="/admin/usuarios"
+            th:href="@{/admin/usuarios}"
+            ><h3>Usuarios</h3>
+            <p>Administra las cuentas y sus roles.</p>
+            <span>Gestionar ↗</span></a
+          >
+          <a
+            class="admin-module"
+            href="/admin/clientes"
+            th:href="@{/admin/clientes}"
+            ><h3>Clientes</h3>
+            <p>Mantén sus datos de contacto al día.</p>
+            <span>Gestionar ↗</span></a
+          >
+          <a
+            class="admin-module"
+            href="/admin/mascotas"
+            th:href="@{/admin/mascotas}"
+            ><h3>Mascotas</h3>
+            <p>Conoce a cada uno de los peludos.</p>
+            <span>Gestionar ↗</span></a
+          >
+          <a class="admin-module" href="/admin/citas" th:href="@{/admin/citas}"
+            ><h3>Citas</h3>
+            <p>Organiza fechas, servicios y atención.</p>
+            <span>Gestionar ↗</span></a
+          >
+          <a
+            class="admin-module"
+            href="/admin/pedidos"
+            th:href="@{/admin/pedidos}"
+            ><h3>Pedidos</h3>
+            <p>Consulta las compras y sus estados.</p>
+            <span>Gestionar ↗</span></a
+          >
+          <a
+            class="admin-module"
+            href="/admin/detalles-pedido"
+            th:href="@{/admin/detalles-pedido}"
+            ><h3>Detalles de pedidos</h3>
+            <p>Gestiona productos, cantidades e importes.</p>
+            <span>Gestionar ↗</span></a
+          >
+          <a
+            class="admin-module"
+            href="/admin/reclamos"
+            th:href="@{/admin/reclamos}"
+            ><h3>Reclamos</h3>
+            <p>Registra y da seguimiento a las solicitudes.</p>
+            <span>Gestionar ↗</span></a
+          >
+        </div>
+      </section>
     </main>
     <div th:replace="~{admin/fragments :: pie}"></div>
   </body>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}">
+  </head>
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}">
+    </div>
+    <main class="admin-page" id="contenido-admin">
+      <div th:replace="~{admin/fragments :: navegacion}">
+      </div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Detalles de pedidos</p>
+          <h1 th:text="${tituloFormulario}">
+          </h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <p class="admin-message">El subtotal lo calcula MySQL a partir de cantidad × precio. El total del pedido se actualiza automáticamente.<span th:if="${registro != null}" th:text="| Subtotal actual: S/ ${registro.subtotal}|">
+        </span>
+      </p>
+      <form class="admin-form" th:action="@{${accion}}" th:object="${formulario}" method="post">
+        <div class="admin-message admin-error" role="alert" th:if="${#fields.hasAnyErrors()}">
+          Revisa los campos indicados antes de guardar.
+          <ul>
+            <li th:each="error : ${#fields.allErrors()}" th:text="${error}">
+            </li>
+          </ul>
+        </div>
+        <div class="admin-field">
+          <label for="idPedido">Pedido *</label>
+          <select th:field="*{idPedido}" th:errorclass="admin-invalid" aria-describedby="idPedido-error" required>
+            <option value="">Selecciona un registro</option>
+            <option th:each="opcion : ${pedidos}" th:value="${opcion.id}" th:text="${opcion.id + ' · ' + opcion.cliente.nombres}">
+            </option>
+          </select>
+          <span id="idPedido-error" class="admin-field-error" th:errors="*{idPedido}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="idProducto">Producto *</label>
+          <select th:field="*{idProducto}" th:errorclass="admin-invalid" aria-describedby="idProducto-error" required>
+            <option value="">Selecciona un registro</option>
+            <option th:each="opcion : ${productos}" th:value="${opcion.id}" th:text="${opcion.nombre}">
+            </option>
+          </select>
+          <span id="idProducto-error" class="admin-field-error" th:errors="*{idProducto}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="cantidad">Cantidad *</label>
+          <input type="number" th:field="*{cantidad}" th:errorclass="admin-invalid" aria-describedby="cantidad-error" min="1" step="1" max="2147483647" required>
+          <span id="cantidad-error" class="admin-field-error" th:errors="*{cantidad}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="precioUnitario">Precio unitario (S/) *</label>
+          <input type="number" th:field="*{precioUnitario}" th:errorclass="admin-invalid" aria-describedby="precioUnitario-error" min="0" step="0.01" max="99999999.99" required>
+          <span id="precioUnitario-error" class="admin-field-error" th:errors="*{precioUnitario}">
+          </span>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Guardar detalle</button>
+          <a class="admin-button admin-secondary" th:href="@{/admin/detalles-pedido}">Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{admin/fragments :: pie}">
+    </div>
+  </body>
+</html>

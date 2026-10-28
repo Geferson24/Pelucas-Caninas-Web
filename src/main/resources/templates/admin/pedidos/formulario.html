@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}">
+  </head>
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}">
+    </div>
+    <main class="admin-page" id="contenido-admin">
+      <div th:replace="~{admin/fragments :: navegacion}">
+      </div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Pedidos</p>
+          <h1 th:text="${tituloFormulario}">
+          </h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <p class="admin-message">Total: <strong th:text="${registro != null ? 'S/ ' + registro.total : 'S/ 0.00'}">
+        </strong>. Se calcula al registrar, editar o eliminar sus detalles.</p>
+      <form class="admin-form" th:action="@{${accion}}" th:object="${formulario}" method="post">
+        <div class="admin-message admin-error" role="alert" th:if="${#fields.hasAnyErrors()}">
+          Revisa los campos indicados antes de guardar.
+          <ul>
+            <li th:each="error : ${#fields.allErrors()}" th:text="${error}">
+            </li>
+          </ul>
+        </div>
+        <div class="admin-field">
+          <label for="idCliente">Cliente *</label>
+          <select th:field="*{idCliente}" th:errorclass="admin-invalid" aria-describedby="idCliente-error" required>
+            <option value="">Selecciona un registro</option>
+            <option th:each="opcion : ${clientes}" th:value="${opcion.id}" th:text="${opcion.nombres + ' ' + (opcion.apellidos ?: '')}">
+            </option>
+          </select>
+          <span id="idCliente-error" class="admin-field-error" th:errors="*{idCliente}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="fecha">Fecha *</label>
+          <input type="datetime-local" th:field="*{fecha}" th:errorclass="admin-invalid" aria-describedby="fecha-error" step="1" required>
+          <span id="fecha-error" class="admin-field-error" th:errors="*{fecha}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="estado">Estado *</label>
+          <select th:field="*{estado}" th:errorclass="admin-invalid" aria-describedby="estado-error" required>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="CONFIRMADO">Confirmado</option>
+            <option value="ENTREGADO">Entregado</option>
+            <option value="CANCELADO">Cancelado</option>
+          </select>
+          <span id="estado-error" class="admin-field-error" th:errors="*{estado}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="canal">Canal *</label>
+          <select th:field="*{canal}" th:errorclass="admin-invalid" aria-describedby="canal-error" required>
+            <option value="WEB">Web</option>
+            <option value="LOCAL">Local</option>
+            <option value="WHATSAPP">WhatsApp</option>
+          </select>
+          <span id="canal-error" class="admin-field-error" th:errors="*{canal}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="observaciones">Observaciones</label>
+          <textarea th:field="*{observaciones}" th:errorclass="admin-invalid" aria-describedby="observaciones-error" rows="4" maxlength="500">
+          </textarea>
+          <span id="observaciones-error" class="admin-field-error" th:errors="*{observaciones}">
+          </span>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Guardar pedido</button>
+          <a class="admin-button admin-secondary" th:href="@{/admin/pedidos}">Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{admin/fragments :: pie}">
+    </div>
+  </body>
+</html>

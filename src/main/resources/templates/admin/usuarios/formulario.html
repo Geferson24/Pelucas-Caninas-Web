@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: head(${tituloFormulario}, '/css/style-admin.css')}">
+  </head>
+  <body class="page admin-shell">
+    <div th:replace="~{admin/fragments :: cabecera}">
+    </div>
+    <main class="admin-page" id="contenido-admin">
+      <div th:replace="~{admin/fragments :: navegacion}">
+      </div>
+      <header class="admin-heading">
+        <div>
+          <p class="admin-eyebrow">Usuarios</p>
+          <h1 th:text="${tituloFormulario}">
+          </h1>
+          <p>Los campos con * son obligatorios.</p>
+        </div>
+      </header>
+      <p class="admin-message" th:if="${registro != null}">Registro #<span th:text="${registro.id}">
+        </span> · Creado el <span th:text="${#temporals.format(registro.fechaRegistro, 'dd/MM/yyyy HH:mm:ss')}">
+        </span>
+      </p>
+      <form class="admin-form" th:action="@{${accion}}" th:object="${formulario}" method="post">
+        <div class="admin-message admin-error" role="alert" th:if="${#fields.hasAnyErrors()}">
+          Revisa los campos indicados antes de guardar.
+          <ul>
+            <li th:each="error : ${#fields.allErrors()}" th:text="${error}">
+            </li>
+          </ul>
+        </div>
+        <div class="admin-field">
+          <label for="nombre">Nombre *</label>
+          <input type="text" th:field="*{nombre}" th:errorclass="admin-invalid" aria-describedby="nombre-error" maxlength="120" required>
+          <span id="nombre-error" class="admin-field-error" th:errors="*{nombre}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="correo">Correo *</label>
+          <input type="email" th:field="*{correo}" th:errorclass="admin-invalid" aria-describedby="correo-error" maxlength="120" required>
+          <span id="correo-error" class="admin-field-error" th:errors="*{correo}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" name="contrasena" maxlength="128" autocomplete="new-password" aria-describedby="contrasena-ayuda contrasena-error" th:classappend="${#fields.hasErrors('contrasena')} ? 'admin-invalid'">
+          <small id="contrasena-ayuda">Obligatoria para activar una cuenta sin contraseña. Al editar, déjala vacía para conservar la actual.</small>
+          <span id="contrasena-error" class="admin-field-error" th:errors="*{contrasena}">
+          </span>
+        </div>
+        <div class="admin-field">
+          <label for="rol">Rol *</label>
+          <select th:field="*{rol}" th:errorclass="admin-invalid" aria-describedby="rol-error" required>
+            <option value="CLIENTE">Cliente</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
+          <span id="rol-error" class="admin-field-error" th:errors="*{rol}">
+          </span>
+        </div>
+        <div>
+          <label class="admin-check">
+            <input type="checkbox" th:field="*{activo}" th:errorclass="admin-invalid" aria-describedby="activo-error">
+            Cuenta activa
+          </label>
+          <span id="activo-error" class="admin-field-error" th:errors="*{activo}">
+          </span>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button" type="submit">Guardar usuario</button>
+          <a class="admin-button admin-secondary" th:href="@{/admin/usuarios}">Cancelar</a>
+        </div>
+      </form>
+    </main>
+    <div th:replace="~{admin/fragments :: pie}">
+    </div>
+  </body>
+</html>

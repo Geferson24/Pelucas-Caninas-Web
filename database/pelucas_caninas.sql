@@ -12,7 +12,7 @@ USE pelucas_caninas;
 
 -- Un usuario tiene un solo rol. El administrador no necesita ser cliente.
 -- password_hash admite NULL únicamente mientras la cuenta esté desactivada.
--- Al implementar autenticación, generar el hash en Java con PasswordEncoder.
+-- El mantenimiento de usuarios genera el hash en Java; la autenticación queda para el cuarto avance.
 CREATE TABLE usuario (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(120) NOT NULL,

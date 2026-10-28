@@ -24,6 +24,13 @@
       <a th:href="@{/admin/productos}" th:attr="aria-current=${seccionAdmin == 'productos' ? 'page' : null}">Productos</a>
       <a th:href="@{/admin/categorias}" th:attr="aria-current=${seccionAdmin == 'categorias' ? 'page' : null}">Categorías</a>
       <a th:href="@{/admin/servicios}" th:attr="aria-current=${seccionAdmin == 'servicios' ? 'page' : null}">Servicios</a>
+      <a th:href="@{/admin/usuarios}" th:attr="aria-current=${seccionAdmin == 'usuarios' ? 'page' : null}">Usuarios</a>
+      <a th:href="@{/admin/clientes}" th:attr="aria-current=${seccionAdmin == 'clientes' ? 'page' : null}">Clientes</a>
+      <a th:href="@{/admin/mascotas}" th:attr="aria-current=${seccionAdmin == 'mascotas' ? 'page' : null}">Mascotas</a>
+      <a th:href="@{/admin/citas}" th:attr="aria-current=${seccionAdmin == 'citas' ? 'page' : null}">Citas</a>
+      <a th:href="@{/admin/pedidos}" th:attr="aria-current=${seccionAdmin == 'pedidos' ? 'page' : null}">Pedidos</a>
+      <a th:href="@{/admin/detalles-pedido}" th:attr="aria-current=${seccionAdmin == 'detalles-pedido' ? 'page' : null}">Detalles</a>
+      <a th:href="@{/admin/reclamos}" th:attr="aria-current=${seccionAdmin == 'reclamos' ? 'page' : null}">Reclamos</a>
     </nav>
     <div class="admin-actions" th:fragment="accionesProducto(producto)">
       <a class="admin-action-link" th:href="@{/admin/productos/{id}/editar(id=${producto.id})}" th:attr="aria-label=|Editar ${producto.nombre}|">Editar</a>
